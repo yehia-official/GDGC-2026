@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>HTML Pro - شرح عملي</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zain:wght@300;400;700;900&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ================================
+           HTML Pro - Interactive Guide
+           ================================ */
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0066cc;
+            --primary-light: #0080ff;
+            --accent: #00d084;
+            --accent-light: #33e0a0;
+            --bg: #0a0e27;
+            --bg-card: #1a1f3a;
+            --bg-alt: #0f1329;
+            --text: #e8e8e8;
+            --text-muted: #8b92a8;
+            --border: #2d3e5f;
+            --success: #00d084;
+            --danger: #ff4757;
+            --radius: 12px;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Zain', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            direction: rtl;
+        }
+
+        /* --- Navigation --- */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: background 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .nav-logo {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--primary-light);
+        }
+
+        .nav-logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #fff;
+            background: var(--accent);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-light), var(--accent));
+            z-index: 999;
+            width: 0;
+            transition: width 0.1s;
+        }
+
+        /* --- Hero --- */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 60px;
+            background: radial-gradient(ellipse at center, rgba(0, 102, 204, 0.15), transparent 70%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 14px 36px;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 208, 132, 0.3);
+        }
+
+        /* --- Sections --- */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-alt {
+            background: var(--bg-alt);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-number {
+            display: inline-block;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent);
+            background: rgba(0, 208, 132, 0.1);
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- Cards --- */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--accent);
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .card p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        /* --- Demo Boxes --- */
+        .demo-box {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .demo-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+            align-items: center;
+        }
+
+        .demo-btn {
+            padding: 8px 18px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .demo-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary-light);
+        }
+
+        .demo-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #000;
+        }
+
+        .demo-result {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 80px;
+        }
+
+        /* --- Code Editor Style --- */
+        textarea[id^="editor-"] {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            background: #1e1e1e !important;
+            color: #d4d4d4 !important;
+            border: 1px solid #3e3e42 !important;
+            border-radius: 8px !important;
+            padding: 16px !important;
+            font-size: 0.9rem !important;
+            line-height: 1.6 !important;
+            tab-size: 2;
+            -moz-tab-size: 2;
+            resize: none !important;
+            overflow: hidden !important;
+            min-height: auto !important;
+            max-height: none !important;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+            direction: rtl !important;
+            text-align: right !important;
+            unicode-bidi: plaintext;
+        }
+
+        textarea[id^="editor-"]:focus {
+            outline: none;
+            border-color: var(--accent) !important;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 208, 132, 0.2);
+        }
+
+        /* RTL Text Direction for Code */
+        textarea[id^="editor-"]::placeholder {
+            direction: rtl;
+            text-align: right;
+            color: #858585;
+        }
+
+        /* Override any LTR settings */
+        textarea[id^="editor-"] {
+            text-align: right !important;
+            padding-left: 8px !important;
+            padding-right: 16px !important;
+        }
+
+
+        /* Editor Header */
+        .editor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 0;
+            padding: 8px 12px;
+            background: #252526;
+            border-radius: 6px 6px 0 0;
+            border: 1px solid #3e3e42;
+            border-bottom: none;
+            direction: ltr;
+        }
+
+        .editor-dots {
+            display: flex;
+            gap: 6px;
+            order: 1;
+        }
+
+        .editor-filename {
+            order: 2;
+            font-size: 0.85rem;
+            color: #858585;
+            font-family: 'Fira Code', monospace;
+            margin-left: 0;
+            margin-right: auto;
+        }
+
+        .editor-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .editor-dot.red { background: #ff5f56; }
+        .editor-dot.yellow { background: #ffbd2e; }
+        .editor-dot.green { background: #27c93f; }
+
+
+        /* Code Editor Container */
+        .code-editor-container {
+            border: 1px solid #3e3e42;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #1e1e1e;
+            margin-bottom: 8px;
+        }
+
+        .code-editor-container textarea {
+            margin: 0;
+            border: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            display: block;
+            width: 100%;
+        }
+
+        /* Line Numbers */
+        .editor-with-numbers {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 12px;
+            padding: 16px;
+            background: #1e1e1e;
+            border-radius: 8px;
+            border: 1px solid #3e3e42;
+        }
+
+        .line-numbers {
+            color: #858585;
+            text-align: right;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            user-select: none;
+        }
+
+        .code-content {
+            font-family: 'Fira Code', monospace;
+            color: #d4d4d4;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        /* Syntax Highlighting Colors */
+        .syntax-tag { color: #569cd6; }      /* HTML tags */
+        .syntax-attr { color: #9cdcfe; }     /* Attributes */
+        .syntax-string { color: #ce9178; }   /* Strings */
+        .syntax-comment { color: #6a9955; }  /* Comments */
+        .syntax-keyword { color: #c586c0; }  /* Keywords */
+
+        .code-block code {
+            font-size: 0.85rem;
+            color: #c9d1d9;
+            white-space: pre;
+            direction: ltr;
+            text-align: left;
+            display: block;
+        }
+
+        .code-comment { color: #6a737d; }
+        .code-string { color: #a5d6ff; }
+        .code-value { color: #ffa657; }
+        .code-property { color: #79c0ff; }
+        .code-unit { color: #ffa657; }
+
+        /* --- Quiz --- */
+        .quiz-box {
+            background: var(--bg-card);
+            border: 2px solid var(--accent);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--primary-light));
+        }
+
+        .quiz-title {
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .quiz-question {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .quiz-q {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        .quiz-q code {
+            background: rgba(0, 128, 255, 0.15);
+            color: #79c0ff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            direction: ltr;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            padding: 12px 18px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            font-family: 'Zain', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-align: right;
+            transition: all 0.3s;
+        }
+
+        .quiz-option:hover:not(.answered) {
+            border-color: var(--accent);
+            background: rgba(0, 208, 132, 0.05);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--success) !important;
+            background: rgba(0, 208, 132, 0.15) !important;
+            color: var(--success);
+        }
+
+        .quiz-option.wrong {
+            border-color: var(--danger) !important;
+            background: rgba(255, 71, 87, 0.15) !important;
+            color: var(--danger);
+        }
+
+        .quiz-feedback {
+            margin-top: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            min-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .quiz-feedback.show {
+            min-height: 24px;
+            padding-top: 4px;
+        }
+
+        .quiz-feedback.correct {
+            color: var(--success);
+        }
+
+        .quiz-feedback.wrong {
+            color: var(--danger);
+        }
+
+        .quiz-score {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .quiz-score span {
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        .btn-check {
+            display: inline-block;
+            padding: 12px 32px;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-check:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 208, 132, 0.3);
+        }
+
+        /* --- Navigation Buttons --- */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 40px;
+            flex-direction: row-reverse;
+        }
+
+        .btn-nav {
+            padding: 12px 30px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text);
+            font-family: 'Zain', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 120px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* --- Content Sections --- */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* --- Progress Counter --- */
+        .progress-counter {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .progress-counter strong {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        /* --- Highlight --- */
+        .highlight {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .code-inline {
+            background: rgba(0, 128, 255, 0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: var(--primary-light);
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            direction: ltr;
+        }
+
+        /* Update Preview Button */
+        button[onclick*="updatePreview"] {
+            width: 100%;
+            padding: 10px 16px !important;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent)) !important;
+            color: #000 !important;
+            border: none !important;
+            border-radius: 6px !important;
+            font-weight: 700 !important;
+            cursor: pointer !important;
+            transition: all 0.3s !important;
+            margin-top: 8px;
+            font-family: 'Zain', sans-serif !important;
+            font-size: 0.95rem !important;
+        }
+
+        button[onclick*="updatePreview"]:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(0, 208, 132, 0.35) !important;
+        }
+
+        button[onclick*="updatePreview"]:active {
+            transform: translateY(0) !important;
+        }
+
+        .emoji-large {
+            font-size: 2.5em;
+            margin: 0 8px;
+        }
+
+        /* --- Celebration --- */
+        .celebration {
+            text-align: center;
+            padding: 60px 24px;
+            animation: bounce 0.6s ease;
+        }
+
+        .celebration h2 {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .celebration p {
+            font-size: 1.2em;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .emoji-celebration {
+            font-size: 4em;
+            margin: 30px 0;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* --- Footer --- */
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        /* Demo Grid Responsive */
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            div[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html {
+                font-size: 14px;
+            }
+
+            .main-nav {
+                height: 56px;
+            }
+
+            .nav-container {
+                height: 56px;
+                padding: 0 16px;
+            }
+
+            .nav-logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                gap: 4px;
+            }
+
+            .nav-link {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+
+            .hero {
+                min-height: 50vh;
+                padding: 100px 16px 40px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero-btn {
+                padding: 12px 28px;
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-header {
+                margin-bottom: 30px;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+            }
+
+            .card {
+                padding: 16px;
+                margin-bottom: 20px;
+            }
+
+            .card h3 {
+                font-size: 1.1rem;
+            }
+
+            /* Grid الـ 2 columns يصير 1 column */
+            div[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
+            }
+
+            textarea {
+                font-size: 0.75rem !important;
+                height: auto !important;
+                min-height: 150px !important;
+            }
+
+            .demo-result {
+                min-height: 120px;
+                padding: 15px;
+            }
+
+            .code-block {
+                padding: 12px;
+                font-size: 0.75rem;
+            }
+
+            .code-block code {
+                font-size: 0.75rem;
+            }
+
+            .nav-buttons {
+                flex-direction: row-reverse;
+                gap: 8px;
+                margin-top: 30px;
+            }
+
+            .btn-nav {
+                flex: 1;
+                min-width: auto;
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .quiz-box {
+                padding: 20px;
+            }
+
+            .quiz-title {
+                font-size: 1.1rem;
+            }
+
+            .quiz-q {
+                font-size: 0.95rem;
+            }
+
+            .quiz-option {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+
+            .btn-check {
+                padding: 10px 24px;
+                font-size: 0.95rem;
+            }
+
+            .progress-counter {
+                font-size: 0.9rem;
+            }
+
+            .emoji-large {
+                font-size: 2rem;
+            }
+
+            .footer {
+                padding: 30px 16px;
+                font-size: 0.9rem;
+            }
+
+            /* Celebration responsive */
+            .celebration {
+                padding: 40px 16px;
+            }
+
+            .celebration h2 {
+                font-size: 2rem;
+            }
+
+            .celebration p {
+                font-size: 1rem;
+            }
+
+            .emoji-celebration {
+                font-size: 3em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 13px;
+            }
+
+            .main-nav {
+                height: 52px;
+            }
+
+            .nav-container {
+                height: 52px;
+                padding: 0 12px;
+            }
+
+            .nav-logo {
+                font-size: 1rem;
+            }
+
+            .nav-link {
+                padding: 4px 8px;
+                font-size: 0.75rem;
+            }
+
+            .hero {
+                min-height: 45vh;
+                padding: 80px 12px 30px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+                margin-bottom: 12px;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+            }
+
+            .hero-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .section {
+                padding: 40px 0;
+            }
+
+            .section-header {
+                margin-bottom: 20px;
+            }
+
+            .section-number {
+                padding: 4px 12px;
+                font-size: 0.85rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.4rem;
+                margin-bottom: 8px;
+            }
+
+            .section-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .card {
+                padding: 12px;
+                margin-bottom: 16px;
+            }
+
+            .card h3 {
+                font-size: 1rem;
+                margin-bottom: 6px;
+            }
+
+            .card-desc {
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
+
+            .card p {
+                font-size: 0.9rem;
+                margin-bottom: 10px;
+            }
+
+            textarea {
+                font-size: 0.7rem !important;
+                min-height: 140px !important;
+                padding: 8px !important;
+            }
+
+            button {
+                font-size: 0.85rem !important;
+                padding: 8px 12px !important;
+            }
+
+            .demo-result {
+                min-height: 100px;
+                padding: 12px;
+            }
+
+            .code-block {
+                padding: 10px;
+                margin: 10px 0;
+                font-size: 0.7rem;
+            }
+
+            .code-block code {
+                font-size: 0.7rem;
+            }
+
+            .nav-buttons {
+                gap: 6px;
+                margin-top: 20px;
+            }
+
+            .btn-nav {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+
+            .quiz-box {
+                padding: 16px;
+                margin-top: 30px;
+            }
+
+            .quiz-title {
+                font-size: 1rem;
+                margin-bottom: 16px;
+            }
+
+            .quiz-question {
+                padding: 12px;
+                margin-bottom: 12px;
+            }
+
+            .quiz-q {
+                font-size: 0.9rem;
+                margin-bottom: 10px;
+            }
+
+            .quiz-option {
+                padding: 8px 10px;
+                font-size: 0.85rem;
+            }
+
+            .quiz-feedback {
+                margin-top: 8px;
+            }
+
+            .quiz-score {
+                margin-top: 12px;
+                font-size: 1rem;
+            }
+
+            .btn-check {
+                width: 100%;
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .progress-counter {
+                font-size: 0.85rem;
+                margin-bottom: 20px;
+            }
+
+            .progress-counter strong {
+                font-size: 1rem;
+            }
+
+            .emoji-large {
+                font-size: 1.8rem;
+                margin: 0 4px;
+            }
+
+            .highlight {
+                font-weight: 600;
+            }
+
+            .code-inline {
+                font-size: 0.85rem;
+                padding: 1px 4px;
+            }
+
+            .footer {
+                padding: 24px 12px;
+                font-size: 0.85rem;
+            }
+
+            .celebration {
+                padding: 30px 12px;
+            }
+
+            .celebration h2 {
+                font-size: 1.6rem;
+                margin-bottom: 12px;
+            }
+
+            .celebration p {
+                font-size: 0.95rem;
+                margin-bottom: 12px;
+            }
+
+            .emoji-celebration {
+                font-size: 2.5em;
+                margin: 20px 0;
+            }
+
+            /* Flexbox adjustments for mobile */
+            .demo-controls {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .demo-controls label {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            input[type="range"] {
+                width: 100% !important;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.2rem;
+            }
+
+            textarea {
+                min-height: 120px !important;
+            }
+        }
+
+        /* --- Scrollbar --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">HTML <span>Pro</span></div>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link active">الرئيسية</a></li>
+                <li><a href="#" class="nav-link">الأقسام</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <h1>🚀 HTML Pro</h1>
+            <p>شرح عملي وتفاعلي لأهم مفاهيم HTML اللي هتخليك Pro 💪</p>
+            <a href="#content" class="hero-btn">يلا نبدأ ⬇</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section id="content" class="section">
+        <div class="container">
+            <div class="progress-counter">
+                <strong id="current-section">القسم 1</strong> من <strong>5 أقسام</strong>
+            </div>
+
+            <!-- Section 1: HTML Basics -->
+            <div class="content-section active" id="section-1">
+                <div class="section-header">
+                    <span class="section-number">01</span>
+                    <h2>أساسيات HTML</h2>
+                    <p class="section-subtitle">المقدمة الكاملة لأساس الويب</p>
+                </div>
+
+                <div class="card">
+                    <h3>🏗️ ما هي HTML؟</h3>
+                    <p class="card-desc">لغة ترميز تُستخدم لبناء هيكل صفحات الويب</p>
+                    <p>
+                        <span class="emoji-large">📝</span>
+                        HTML = <span class="highlight">HyperText Markup Language</span>
+                    </p>
+                    <p>
+                        فكر فيها كـ <span class="highlight">هيكل عظمي للموقع</span> — 
+                        بتحدد مكان الأشياء وتنظيمها. 
+                        CSS بعدها بتخليها جميلة! 💄
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>🏷️ العناصر والـ Tags</h3>
+                    <p class="card-desc">معظم العناصر محتاجة opening و closing tag</p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">✏️ جرّب بنفسك:</h4>
+                            <div class="code-editor-container">
+                                <div class="editor-header">
+                                    <div class="editor-dots">
+                                        <div class="editor-dot red"></div>
+                                        <div class="editor-dot yellow"></div>
+                                        <div class="editor-dot green"></div>
+                                    </div>
+                                    <span class="editor-filename">index.html</span>
+                                </div>
+                                <div class="code-editor-container">
+                                <div class="editor-header">
+                                    <div class="editor-dots">
+                                        <div class="editor-dot red"></div>
+                                        <div class="editor-dot yellow"></div>
+                                        <div class="editor-dot green"></div>
+                                    </div>
+                                    <span class="editor-filename">index.html</span>
+                                </div>
+                                <textarea id="editor-section1" dir="rtl" spellcheck="false">&lt;h1&gt;عنوان رئيسي&lt;/h1&gt;
+&lt;p&gt;فقرة نصية&lt;/p&gt;
+&lt;div&gt;حاوية&lt;/div&gt;
+&lt;img src="photo.jpg"&gt;
+&lt;input type="text"&gt;
+&lt;br&gt;</textarea></textarea>
+                            </div>
+                            </div>
+                            <button onclick="updatePreview('section1')" style="width: 100%; padding: 8px; background: linear-gradient(135deg, var(--primary-light), var(--accent)); color: #000; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s; margin-top: 8px;">🔄 حدّث النتيجة</button>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">👁️ النتيجة الحية:</h4>
+                            <div class="demo-result" id="preview-section1">
+                                <h1 style="margin: 0 0 10px; font-size: 1.5rem;">عنوان رئيسي</h1>
+                                <p style="margin: 0 0 10px;">فقرة نصية</p>
+                                <div style="background: rgba(0, 208, 132, 0.1); padding: 10px; border-radius: 6px; border: 1px solid var(--accent); margin-bottom: 10px;">
+                                    حاوية
+                                </div>
+                                <p style="margin: 0 0 10px; opacity: 0.7;">📷 صورة</p>
+                                <input type="text" placeholder="أدخل نصاً..." style="padding: 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-card); color: var(--text); width: 100%;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 20px; padding: 12px; background: rgba(0, 208, 132, 0.1); border-right: 3px solid var(--accent); border-radius: 6px;">
+                        <span class="emoji-large">💡</span>
+                        <strong>نصيحة:</strong> جرّب تعدّل على الكود وشوف إزاي النتيجة بتتغير!
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>📚 هيكل صفحة HTML الكاملة</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">✏️ جرّب بنفسك:</h4>
+                            <div class="code-editor-container">
+                                <div class="editor-header">
+                                    <div class="editor-dots">
+                                        <div class="editor-dot red"></div>
+                                        <div class="editor-dot yellow"></div>
+                                        <div class="editor-dot green"></div>
+                                    </div>
+                                    <span class="editor-filename">structure.html</span>
+                                </div>
+                                <textarea id="editor-structure" dir="rtl" spellcheck="false">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;صفحتي الأولى&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;مرحباً بك!&lt;/h1&gt;
+    &lt;p&gt;هذا موقعي الجديد&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</textarea></textarea>
+                            </div>
+                            <button onclick="updatePreview('structure')" style="width: 100%; padding: 8px; margin-top: 8px; background: linear-gradient(135deg, var(--primary-light), var(--accent)); color: #000; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">🔄 حدّث النتيجة</button>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">👁️ النتيجة الحية:</h4>
+                            <div class="demo-result" id="preview-structure" style="display: flex; flex-direction: column; gap: 10px;">
+                                <div style="background: rgba(0, 80, 200, 0.2); padding: 10px; border-left: 3px solid var(--primary-light); border-radius: 4px;">
+                                    <span style="color: var(--primary-light); font-weight: 600;">📄 Head</span>
+                                    <p style="margin: 5px 0 0; font-size: 0.85rem; opacity: 0.8;">عنوان الصفحة: "صفحتي الأولى"</p>
+                                </div>
+                                <div style="background: rgba(0, 208, 132, 0.2); padding: 10px; border-left: 3px solid var(--accent); border-radius: 4px;">
+                                    <span style="color: var(--accent); font-weight: 600;">👁️ Body</span>
+                                    <h2 style="margin: 5px 0 5px; font-size: 1.1rem;">مرحباً بك!</h2>
+                                    <p style="margin: 0; font-size: 0.9rem;">هذا موقعي الجديد</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 20px; padding: 12px; background: rgba(0, 208, 132, 0.1); border-right: 3px solid var(--accent); border-radius: 6px;">
+                        <span class="emoji-large">💡</span>
+                        <strong>نصيحة:</strong> غيّر العنوان والنص وشوف إزاي بتتغير النتيجة!
+                    </p>
+                </div>
+
+                <!-- Quiz 1 -->
+                <div class="quiz-box">
+                    <h3 class="quiz-title">🧠 اختبر نفسك</h3>
+
+                    <div class="quiz-question" id="quiz-1-1">
+                        <div class="quiz-q">1️⃣ ما هي وظيفة الـ <code>&lt;head&gt;</code>؟</div>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-answer="1">معلومات الصفحة والروابط</button>
+                            <button class="quiz-option" data-answer="0">المحتوى المرئي للمستخدم</button>
+                            <button class="quiz-option" data-answer="0">الأزرار والنماذج</button>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="quiz-1-2">
+                        <div class="quiz-q">2️⃣ أي عنصر هو Void Element؟</div>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-answer="0"><code>&lt;p&gt;&lt;/p&gt;</code></button>
+                            <button class="quiz-option" data-answer="1"><code>&lt;img&gt;</code></button>
+                            <button class="quiz-option" data-answer="0"><code>&lt;div&gt;&lt;/div&gt;</code></button>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button class="btn-check" onclick="checkSection(1)">تحقق من الإجابات ✓</button>
+                    <div class="quiz-score" id="score-1" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- Section 2: IDs & Classes -->
+            <div class="content-section" id="section-2">
+                <div class="section-header">
+                    <span class="section-number">02</span>
+                    <h2>IDs والـ Classes</h2>
+                    <p class="section-subtitle">كيف نحدد ونجمع العناصر</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎟️ الفرق بين ID و Class</h3>
+                    <p class="card-desc">كلاهما بيساعد في التحكم بالعناصر</p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">✏️ جرّب بنفسك:</h4>
+                            <div class="code-editor-container">
+                                <div class="editor-header">
+                                    <div class="editor-dots">
+                                        <div class="editor-dot red"></div>
+                                        <div class="editor-dot yellow"></div>
+                                        <div class="editor-dot green"></div>
+                                    </div>
+                                    <span class="editor-filename">ids-classes.html</span>
+                                </div>
+                                <textarea id="editor-section2" dir="rtl" spellcheck="false">&lt;h1 id="main"&gt;
+  العنوان الرئيسي
+&lt;/h1&gt;
+
+&lt;p class="desc"&gt;
+  فقرة وصفية 1
+&lt;/p&gt;
+&lt;p class="desc"&gt;
+  فقرة وصفية 2
+&lt;/p&gt;</textarea></textarea>
+                            </div>
+                            <button onclick="updatePreview('section2')" style="width: 100%; padding: 8px; margin-top: 8px; background: linear-gradient(135deg, var(--primary-light), var(--accent)); color: #000; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">🔄 حدّث النتيجة</button>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">👁️ النتيجة الحية:</h4>
+                            <div class="demo-result" id="preview-section2">
+                                <h3 id="main" style="margin: 0 0 10px; color: var(--primary-light); font-size: 1.3rem;">العنوان الرئيسي</h3>
+                                <p style="margin: 0 0 10px; padding: 8px; background: rgba(0, 208, 132, 0.1); border-radius: 6px; border-right: 3px solid var(--accent);">فقرة وصفية 1</p>
+                                <p style="margin: 0; padding: 8px; background: rgba(0, 208, 132, 0.1); border-radius: 6px; border-right: 3px solid var(--accent);">فقرة وصفية 2</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 20px; padding: 12px; background: rgba(0, 208, 132, 0.1); border-right: 3px solid var(--accent); border-radius: 6px;">
+                        <span class="emoji-large">💡</span>
+                        <strong>نصيحة:</strong> جرّب تضيف <code style="color: var(--primary-light);">class="desc"</code> على عناصر تانية أو غيّر الـ id!
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 اختيار الـ Selectors</h3>
+                    <div class="code-block">
+                        <code><span class="code-comment">/* اختيار بـ ID */</span>
+#main-title { <span class="code-property">color</span>: <span class="code-value">blue</span>; }
+
+<span class="code-comment">/* اختيار بـ Class */</span>
+.description { <span class="code-property">font-size</span>: <span class="code-value">1.1<span class="code-unit">rem</span></span>; }
+
+<span class="code-comment">/* اختيار بنوع العنصر */</span>
+p { <span class="code-property">line-height</span>: <span class="code-value">1.8</span>; }</code>
+                    </div>
+                </div>
+
+                <!-- Quiz 2 -->
+                <div class="quiz-box">
+                    <h3 class="quiz-title">🧠 اختبر نفسك</h3>
+
+                    <div class="quiz-question" id="quiz-2-1">
+                        <div class="quiz-q">1️⃣ كم ID ممكن يكون في العنصر الواحد؟</div>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-answer="1">واحد فقط</button>
+                            <button class="quiz-option" data-answer="0">أكتر من واحد</button>
+                            <button class="quiz-option" data-answer="0">لا يحتاج ID أصلاً</button>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="quiz-2-2">
+                        <div class="quiz-q">2️⃣ كم Class ممكن يكون في العنصر الواحد؟</div>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-answer="0">واحد فقط</button>
+                            <button class="quiz-option" data-answer="1">أكتر من واحد</button>
+                            <button class="quiz-option" data-answer="0">لا يحتاج Classes أصلاً</button>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button class="btn-check" onclick="checkSection(2)">تحقق من الإجابات ✓</button>
+                    <div class="quiz-score" id="score-2" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- Section 3: Forms -->
+            <div class="content-section" id="section-3">
+                <div class="section-header">
+                    <span class="section-number">03</span>
+                    <h2>النماذج (Forms)</h2>
+                    <p class="section-subtitle">جمع البيانات من المستخدم</p>
+                </div>
+
+                <div class="card">
+                    <h3>📝 عناصر النموذج</h3>
+                    <p class="card-desc">كيفية بناء نموذج يجمع بيانات المستخدم</p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">✏️ جرّب بنفسك:</h4>
+                            <div class="code-editor-container">
+                                <div class="editor-header">
+                                    <div class="editor-dots">
+                                        <div class="editor-dot red"></div>
+                                        <div class="editor-dot yellow"></div>
+                                        <div class="editor-dot green"></div>
+                                    </div>
+                                    <span class="editor-filename">forms.html</span>
+                                </div>
+                                <textarea id="editor-section3" dir="rtl" spellcheck="false">&lt;form&gt;
+  &lt;input 
+    type="text"
+    placeholder="اسم المستخدم"
+  &gt;
+  &lt;input 
+    type="email"
+    placeholder="البريد الإلكتروني"
+  &gt;
+  &lt;button type="button"&gt;
+    إرسال
+  &lt;/button&gt;
+&lt;/form&gt;</textarea></textarea>
+                            </div>
+                            <button onclick="updatePreview('section3')" style="width: 100%; padding: 8px; margin-top: 8px; background: linear-gradient(135deg, var(--primary-light), var(--accent)); color: #000; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">🔄 حدّث النتيجة</button>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">👁️ النتيجة الحية:</h4>
+                            <div class="demo-result" id="preview-section3" style="display: flex; flex-direction: column; gap: 10px;">
+                                <input type="text" placeholder="اسم المستخدم" style="padding: 8px 12px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text); border-radius: 6px;">
+                                <input type="email" placeholder="البريد الإلكتروني" style="padding: 8px 12px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text); border-radius: 6px;">
+                                <button type="button" style="padding: 8px 16px; background: linear-gradient(135deg, var(--primary-light), var(--accent)); color: #000; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">إرسال</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 20px; padding: 12px; background: rgba(0, 208, 132, 0.1); border-right: 3px solid var(--accent); border-radius: 6px;">
+                        <span class="emoji-large">💡</span>
+                        <strong>نصيحة:</strong> غيّر <code style="color: var(--primary-light);">type="text"</code> إلى <code style="color: var(--primary-light);">type="password"</code> أو <code style="color: var(--primary-light);">type="number"</code> وشوف الفرق!
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>⌨️ أنواع Input</h3>
+                    <p class="card-desc">أنواع مختلفة حسب البيانات المراد جمعها</p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">✏️ جرّب بنفسك:</h4>
+                            <div class="code-editor-container">
+                                <div class="editor-header">
+                                    <div class="editor-dots">
+                                        <div class="editor-dot red"></div>
+                                        <div class="editor-dot yellow"></div>
+                                        <div class="editor-dot green"></div>
+                                    </div>
+                                    <span class="editor-filename">input-types.html</span>
+                                </div>
+                                <textarea id="editor-inputs" dir="rtl" spellcheck="false">&lt;input type="text" placeholder="نص عادي" style="padding:8px; border:1px solid #2d3e5f; background:#1a1f3a; color:#e8e8e8; border-radius:6px; width:100%; margin-bottom:10px;"&gt;
+
+&lt;input type="email" placeholder="بريد إلكتروني" style="padding:8px; border:1px solid #2d3e5f; background:#1a1f3a; color:#e8e8e8; border-radius:6px; width:100%; margin-bottom:10px;"&gt;
+
+&lt;input type="password" placeholder="كلمة سر" style="padding:8px; border:1px solid #2d3e5f; background:#1a1f3a; color:#e8e8e8; border-radius:6px; width:100%; margin-bottom:10px;"&gt;
+
+&lt;input type="date" style="padding:8px; border:1px solid #2d3e5f; background:#1a1f3a; color:#e8e8e8; border-radius:6px; width:100%;"&gt;</textarea></textarea>
+                            </div>
+                            <button onclick="updatePreview('inputs')" style="width: 100%; padding: 8px; margin-top: 8px; background: linear-gradient(135deg, var(--primary-light), var(--accent)); color: #000; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">🔄 حدّث النتيجة</button>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">👁️ النتيجة الحية:</h4>
+                            <div class="demo-result" id="preview-inputs" style="display: flex; flex-direction: column; gap: 10px;">
+                                <input type="text" placeholder="نص عادي" style="padding: 6px 10px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text); border-radius: 4px; font-size: 0.9rem;">
+                                <input type="email" placeholder="بريد إلكتروني" style="padding: 6px 10px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text); border-radius: 4px; font-size: 0.9rem;">
+                                <input type="password" placeholder="كلمة سر" style="padding: 6px 10px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text); border-radius: 4px; font-size: 0.9rem;">
+                                <input type="date" style="padding: 6px 10px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text); border-radius: 4px; font-size: 0.9rem;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 20px; padding: 12px; background: rgba(0, 208, 132, 0.1); border-right: 3px solid var(--accent); border-radius: 6px;">
+                        <span class="emoji-large">💡</span>
+                        <strong>نصيحة:</strong> جرّب تضيف <code style="color: var(--primary-light);">type="number"</code> أو <code style="color: var(--primary-light);">type="range"</code> أو <code style="color: var(--primary-light);">type="checkbox"</code>!
+                    </p>
+                </div>
+
+                <!-- Quiz 3 -->
+                <div class="quiz-box">
+                    <h3 class="quiz-title">🧠 اختبر نفسك</h3>
+
+                    <div class="quiz-question" id="quiz-3-1">
+                        <div class="quiz-q">1️⃣ أي input type للبريد الإلكتروني؟</div>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-answer="0"><code>type="mail"</code></button>
+                            <button class="quiz-option" data-answer="1"><code>type="email"</code></button>
+                            <button class="quiz-option" data-answer="0"><code>type="text"</code></button>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="quiz-3-2">
+                        <div class="quiz-q">2️⃣ الفرق بين GET و POST؟</div>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-answer="1">GET تعرض البيانات في URL، POST تخفيها</button>
+                            <button class="quiz-option" data-answer="0">GET تخفي والـ POST تعرض</button>
+                            <button class="quiz-option" data-answer="0">مفيش فرق</button>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button class="btn-check" onclick="checkSection(3)">تحقق من الإجابات ✓</button>
+                    <div class="quiz-score" id="score-3" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- Section 4: Tables & Semantic -->
+            <div class="content-section" id="section-4">
+                <div class="section-header">
+                    <span class="section-number">04</span>
+                    <h2>الجداول والـ Semantic HTML</h2>
+                    <p class="section-subtitle">تنظيم البيانات واستخدام العناصر بمعنى</p>
+                </div>
+
+                <div class="card">
+                    <h3>📊 الجداول</h3>
+                    <p class="card-desc">عرض البيانات في صفوف وأعمدة</p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">✏️ جرّب بنفسك:</h4>
+                            <div class="code-editor-container">
+                                <div class="editor-header">
+                                    <div class="editor-dots">
+                                        <div class="editor-dot red"></div>
+                                        <div class="editor-dot yellow"></div>
+                                        <div class="editor-dot green"></div>
+                                    </div>
+                                    <span class="editor-filename">table.html</span>
+                                </div>
+                                <textarea id="editor-table" dir="rtl" spellcheck="false">&lt;table style="width:100%; border-collapse:collapse;"&gt;
+  &lt;thead&gt;
+    &lt;tr style="background:rgba(0,208,132,0.2);"&gt;
+      &lt;th style="padding:8px; border:1px solid #2d3e5f;"&gt;الاسم&lt;/th&gt;
+      &lt;th style="padding:8px; border:1px solid #2d3e5f;"&gt;السن&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style="padding:8px; border:1px solid #2d3e5f;"&gt;أحمد&lt;/td&gt;
+      &lt;td style="padding:8px; border:1px solid #2d3e5f;"&gt;25&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style="background:rgba(255,255,255,0.02);"&gt;
+      &lt;td style="padding:8px; border:1px solid #2d3e5f;"&gt;فاطمة&lt;/td&gt;
+      &lt;td style="padding:8px; border:1px solid #2d3e5f;"&gt;23&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</textarea></textarea>
+                            </div>
+                            <button onclick="updatePreview('table')" style="width: 100%; padding: 8px; margin-top: 8px; background: linear-gradient(135deg, var(--primary-light), var(--accent)); color: #000; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">🔄 حدّث النتيجة</button>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">👁️ النتيجة الحية:</h4>
+                            <div class="demo-result" id="preview-table" style="overflow-x: auto;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <thead>
+                                        <tr style="background: rgba(0, 208, 132, 0.2);">
+                                            <th style="padding: 8px; border: 1px solid var(--border); text-align: right;">الاسم</th>
+                                            <th style="padding: 8px; border: 1px solid var(--border); text-align: right;">السن</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 8px; border: 1px solid var(--border);">أحمد</td>
+                                            <td style="padding: 8px; border: 1px solid var(--border);">25</td>
+                                        </tr>
+                                        <tr style="background: rgba(255, 255, 255, 0.02);">
+                                            <td style="padding: 8px; border: 1px solid var(--border);">فاطمة</td>
+                                            <td style="padding: 8px; border: 1px solid var(--border);">23</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 20px; padding: 12px; background: rgba(0, 208, 132, 0.1); border-right: 3px solid var(--accent); border-radius: 6px;">
+                        <span class="emoji-large">💡</span>
+                        <strong>نصيحة:</strong> جرّب تضيف صف جديد <code style="color: var(--primary-light);">&lt;tr&gt;...&lt;/tr&gt;</code> أو غيّر الأسماء!
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>🏷️ Semantic HTML</h3>
+                    <p class="card-desc">عناصر لها معنى واضح</p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">✏️ جرّب بنفسك:</h4>
+                            <div class="code-editor-container">
+                                <div class="editor-header">
+                                    <div class="editor-dots">
+                                        <div class="editor-dot red"></div>
+                                        <div class="editor-dot yellow"></div>
+                                        <div class="editor-dot green"></div>
+                                    </div>
+                                    <span class="editor-filename">semantic.html</span>
+                                </div>
+                                <textarea id="editor-semantic" dir="rtl" spellcheck="false">&lt;header style="background:rgba(0,102,204,0.2); padding:10px;"&gt;
+  📄 Header - رأس الصفحة
+&lt;/header&gt;
+
+&lt;nav style="background:rgba(0,80,200,0.2); padding:8px; margin:5px 0;"&gt;
+  🗺️ Nav - التنقل
+&lt;/nav&gt;
+
+&lt;article style="background:rgba(0,208,132,0.2); padding:10px; margin:5px 0;"&gt;
+  📝 Article - المحتوى الرئيسي
+&lt;/article&gt;
+
+&lt;footer style="background:rgba(100,150,200,0.2); padding:8px;"&gt;
+  👇 Footer - التذييل
+&lt;/footer&gt;</textarea></textarea>
+                            </div>
+                            <button onclick="updatePreview('semantic')" style="width: 100%; padding: 8px; margin-top: 8px; background: linear-gradient(135deg, var(--primary-light), var(--accent)); color: #000; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">🔄 حدّث النتيجة</button>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">👁️ النتيجة الحية:</h4>
+                            <div class="demo-result" id="preview-semantic" style="display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem;">
+                                <div style="background: rgba(0, 102, 204, 0.2); padding: 10px; border-radius: 6px; text-align: center;">📄 Header - رأس الصفحة</div>
+                                <div style="background: rgba(0, 80, 200, 0.2); padding: 8px; border-radius: 6px; text-align: center;">🗺️ Nav - التنقل</div>
+                                <div style="background: rgba(0, 208, 132, 0.2); padding: 10px; border-radius: 6px; text-align: center;">📝 Article - المحتوى الرئيسي</div>
+                                <div style="background: rgba(100, 150, 200, 0.2); padding: 8px; border-radius: 6px; text-align: center;">👇 Footer - التذييل</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 20px; padding: 12px; background: rgba(0, 208, 132, 0.1); border-right: 3px solid var(--accent); border-radius: 6px;">
+                        <span class="emoji-large">💡</span>
+                        <strong>نصيحة:</strong> جرّب تضيف <code style="color: var(--primary-light);">&lt;section&gt;</code> أو <code style="color: var(--primary-light);">&lt;aside&gt;</code> وشوف الفرق!
+                    </p>
+                </div>
+
+                <!-- Quiz 4 -->
+                <div class="quiz-box">
+                    <h3 class="quiz-title">🧠 اختبر نفسك</h3>
+
+                    <div class="quiz-question" id="quiz-4-1">
+                        <div class="quiz-q">1️⃣ أي عنصر يستخدم لرؤوس الأعمدة؟</div>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-answer="0"><code>&lt;td&gt;</code></button>
+                            <button class="quiz-option" data-answer="1"><code>&lt;th&gt;</code></button>
+                            <button class="quiz-option" data-answer="0"><code>&lt;header&gt;</code></button>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="quiz-4-2">
+                        <div class="quiz-q">2️⃣ أي عنصر لروابط التنقل؟</div>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-answer="0"><code>&lt;menu&gt;</code></button>
+                            <button class="quiz-option" data-answer="1"><code>&lt;nav&gt;</code></button>
+                            <button class="quiz-option" data-answer="0"><code>&lt;a&gt;</code></button>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button class="btn-check" onclick="checkSection(4)">تحقق من الإجابات ✓</button>
+                    <div class="quiz-score" id="score-4" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- Section 5: Accessibility -->
+            <div class="content-section" id="section-5">
+                <div class="section-header">
+                    <span class="section-number">05</span>
+                    <h2>Accessibility (A11y)</h2>
+                    <p class="section-subtitle">اجعل موقعك صالح للجميع</p>
+                </div>
+
+                <div class="card">
+                    <h3>♿ إمكانية الوصول</h3>
+                    <p class="card-desc">ضمان استخدام الموقع من الجميع</p>
+                    <p>
+                        التأكد من أن الجميع يستطيعون استخدام موقعك، 
+                        حتى الأشخاص ذوو الإعاقات!
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>🔑 أهم عناصر الـ Accessibility</h3>
+                    <p style="margin-bottom: 15px;"><span class="highlight">1. الـ alt attribute للصور:</span></p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">✏️ جرّب بنفسك:</h4>
+                            <div class="code-editor-container">
+                                <div class="editor-header">
+                                    <div class="editor-dots">
+                                        <div class="editor-dot red"></div>
+                                        <div class="editor-dot yellow"></div>
+                                        <div class="editor-dot green"></div>
+                                    </div>
+                                    <span class="editor-filename">accessibility.html</span>
+                                </div>
+                                <textarea id="editor-alt" dir="rtl" spellcheck="false">&lt;img 
+  src="dog.jpg"
+  alt="كلب أسود جميل يجلس"
+  style="width:100%; border-radius:6px;"
+&gt;</textarea></textarea>
+                            </div>
+                            <button onclick="updatePreview('alt')" style="width: 100%; padding: 8px; margin-top: 8px; background: linear-gradient(135deg, var(--primary-light), var(--accent)); color: #000; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">🔄 حدّث النتيجة</button>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">👁️ النتيجة الحية:</h4>
+                            <div class="demo-result" id="preview-alt">
+                                <p style="font-size: 4rem; margin: 0; text-align: center;">🐕</p>
+                                <p style="margin-top: 8px; text-align: center; font-size: 0.85rem; opacity: 0.8;">كلب أسود جميل يجلس (alt text)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="margin-bottom: 15px;"><span class="highlight">2. الـ label للـ inputs:</span></p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">✏️ جرّب بنفسك:</h4>
+                            <div class="code-editor-container">
+                                <div class="editor-header">
+                                    <div class="editor-dots">
+                                        <div class="editor-dot red"></div>
+                                        <div class="editor-dot yellow"></div>
+                                        <div class="editor-dot green"></div>
+                                    </div>
+                                    <span class="editor-filename">form-label.html</span>
+                                </div>
+                                <textarea id="editor-label" dir="rtl" spellcheck="false">&lt;label style="color:#00d084; font-weight:600; display:block; margin-bottom:8px;"&gt;
+  البريد الإلكتروني
+&lt;/label&gt;
+&lt;input 
+  id="email"
+  type="email"
+  placeholder="example@email.com"
+  style="padding:8px 12px; border:1px solid #2d3e5f; background:#1a1f3a; color:#e8e8e8; border-radius:6px; width:100%;"
+&gt;</textarea></textarea>
+                            </div>
+                            <button onclick="updatePreview('label')" style="width: 100%; padding: 8px; margin-top: 8px; background: linear-gradient(135deg, var(--primary-light), var(--accent)); color: #000; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">🔄 حدّث النتيجة</button>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">👁️ النتيجة الحية:</h4>
+                            <div class="demo-result" id="preview-label" style="display: flex; flex-direction: column; gap: 10px;">
+                                <label style="color: var(--accent); font-weight: 600; cursor: pointer;">البريد الإلكتروني</label>
+                                <input type="email" placeholder="example@email.com" style="padding: 8px 12px; border: 1px solid var(--accent); background: var(--bg-card); color: var(--text); border-radius: 6px;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="margin-bottom: 15px;"><span class="highlight">3. ARIA attributes:</span></p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">✏️ جرّب بنفسك:</h4>
+                            <div class="code-editor-container">
+                                <div class="editor-header">
+                                    <div class="editor-dots">
+                                        <div class="editor-dot red"></div>
+                                        <div class="editor-dot yellow"></div>
+                                        <div class="editor-dot green"></div>
+                                    </div>
+                                    <span class="editor-filename">aria.html</span>
+                                </div>
+                                <textarea id="editor-aria" dir="rtl" spellcheck="false">&lt;button 
+  aria-label="إغلاق القائمة"
+  style="width:50px; height:50px; border-radius:50%; border:2px solid #00d084; background:rgba(0,208,132,0.1); color:#00d084; font-size:1.5rem; cursor:pointer; display:flex; align-items:center; justify-content:center;"
+&gt;
+  ✕
+&lt;/button&gt;</textarea></textarea>
+                            </div>
+                            <button onclick="updatePreview('aria')" style="width: 100%; padding: 8px; margin-top: 8px; background: linear-gradient(135deg, var(--primary-light), var(--accent)); color: #000; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">🔄 حدّث النتيجة</button>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--accent); margin-bottom: 12px;">👁️ النتيجة الحية:</h4>
+                            <div class="demo-result" id="preview-aria" style="display: flex; justify-content: center;">
+                                <button aria-label="إغلاق" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--accent); background: rgba(0, 208, 132, 0.1); color: var(--accent); font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz 5 -->
+                <div class="quiz-box">
+                    <h3 class="quiz-title">🧠 اختبر نفسك</h3>
+
+                    <div class="quiz-question" id="quiz-5-1">
+                        <div class="quiz-q">1️⃣ لماذا الـ alt text مهم؟</div>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-answer="0">عشان يخلي الصورة أجمل</button>
+                            <button class="quiz-option" data-answer="1">لأن ضعاف النظر يحتاجونه</button>
+                            <button class="quiz-option" data-answer="0">عشان بيخلي الموقع أسرع</button>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="quiz-5-2">
+                        <div class="quiz-q">2️⃣ أي عنصر يربط النص مع الـ input؟</div>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-answer="0"><code>&lt;span&gt;</code></button>
+                            <button class="quiz-option" data-answer="1"><code>&lt;label&gt;</code></button>
+                            <button class="quiz-option" data-answer="0"><code>&lt;p&gt;</code></button>
+                        </div>
+                        <div class="quiz-feedback"></div>
+                    </div>
+
+                    <button class="btn-check" onclick="checkSection(5)">تحقق من الإجابات ✓</button>
+                    <div class="quiz-score" id="score-5" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- Celebration Section -->
+            <div class="content-section" id="section-final">
+                <div class="celebration">
+                    <h2>🎉 ألف مبروك!</h2>
+                    <p>لقد أنهيت دليل HTML كاملاً!</p>
+                    <div class="emoji-celebration">🚀 🏆 💯</div>
+                    <p style="font-size: 1.2em; margin-top: 30px;">
+                        الآن ابدأ في بناء مشاريع حقيقية من الصفر!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <button class="btn-nav" id="prev-btn" onclick="previousSection()" style="display:none;">
+                    ← السابق
+                </button>
+                <button class="btn-nav" id="next-btn" onclick="nextSection()">
+                    التالي →
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2026 HTML Pro | تعلم البرمجة بطريقة عملية ومتقدمة 💚</p>
+    </footer>
+
+    <script>
+        let currentSection = 1;
+        const totalSections = 5;
+        const answers = {};
+
+        function updatePreview(section) {
+            const editorId = `editor-${section}`;
+            const previewId = `preview-${section}`;
+            
+            const editor = document.getElementById(editorId);
+            const preview = document.getElementById(previewId);
+            
+            if (editor && preview) {
+                try {
+                    preview.innerHTML = editor.value;
+                } catch (e) {
+                    preview.innerHTML = '<p style="color: var(--danger);">❌ خطأ في الـ HTML</p>';
+                }
+            }
+        }
+
+        function checkSection(sectionNum) {
+            const quizQuestions = document.querySelectorAll(`#section-${sectionNum} .quiz-question`);
+            let correct = 0;
+            let total = 0;
+
+            quizQuestions.forEach((question, index) => {
+                const selectedBtn = question.querySelector('.quiz-option.selected');
+                const feedback = question.querySelector('.quiz-feedback');
+                const questionIndex = index + 1;
+                const dataAttribute = `${sectionNum}-${questionIndex}`;
+
+                if (selectedBtn) {
+                    const isCorrect = selectedBtn.getAttribute('data-answer') === '1';
+                    total++;
+
+                    question.querySelectorAll('.quiz-option').forEach(btn => {
+                        btn.classList.add('answered');
+                        if (btn.getAttribute('data-answer') === '1') {
+                            btn.classList.add('correct');
+                        }
+                        if (btn === selectedBtn && !isCorrect) {
+                            btn.classList.add('wrong');
+                        }
+                    });
+
+                    feedback.classList.add('show');
+                    if (isCorrect) {
+                        feedback.classList.add('correct');
+                        feedback.textContent = '✓ صحيح! ممتاز! 🎉';
+                        correct++;
+                    } else {
+                        feedback.classList.add('wrong');
+                        feedback.textContent = '✗ غير صحيح، حاول مرة أخرى';
+                    }
+                }
+            });
+
+            if (total > 0) {
+                const scoreEl = document.getElementById(`score-${sectionNum}`);
+                scoreEl.style.display = 'block';
+                scoreEl.innerHTML = `النتيجة: <span>${correct}/${total}</span>`;
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('quiz-option') && !e.target.classList.contains('answered')) {
+                const question = e.target.parentElement.parentElement;
+                question.querySelectorAll('.quiz-option').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+                e.target.classList.add('selected');
+            }
+        });
+
+        // Auto-update preview on textarea input
+        document.addEventListener('DOMContentLoaded', () => {
+            // Auto-resize textareas
+            function autoResizeTextarea(textarea) {
+                textarea.style.height = 'auto';
+                const newHeight = Math.max(textarea.scrollHeight, 120);
+                textarea.style.height = newHeight + 'px';
+            }
+
+            // Apply to all editors
+            document.querySelectorAll('textarea[id^="editor-"]').forEach(editor => {
+                // Initial resize
+                setTimeout(() => autoResizeTextarea(editor), 100);
+
+                // Resize on input
+                editor.addEventListener('input', () => {
+                    autoResizeTextarea(editor);
+                    const section = editor.id.replace('editor-', '');
+                    updatePreview(section);
+                });
+
+                // Resize on paste
+                editor.addEventListener('paste', () => {
+                    setTimeout(() => {
+                        autoResizeTextarea(editor);
+                        const section = editor.id.replace('editor-', '');
+                        updatePreview(section);
+                    }, 10);
+                });
+
+                // Resize on focus
+                editor.addEventListener('focus', () => {
+                    autoResizeTextarea(editor);
+                });
+            });
+            document.querySelectorAll('textarea[id^="editor-"]').forEach(editor => {
+                editor.addEventListener('input', (e) => {
+                    const section = e.target.id.replace('editor-', '');
+                    updatePreview(section);
+                });
+
+                editor.addEventListener('paste', () => {
+                    setTimeout(() => {
+                        const section = editor.id.replace('editor-', '');
+                        updatePreview(section);
+                    }, 10);
+                });
+            });
+
+            // Card animation on scroll
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                cardObserver.observe(card);
+            });
+
+            // Tab key support in textareas
+            document.addEventListener('keydown', (e) => {
+                document.querySelectorAll('textarea').forEach(ta => {
+                    if (e.key === 'Tab' && document.activeElement === ta) {
+                        e.preventDefault();
+                        const start = ta.selectionStart;
+                        const end = ta.selectionEnd;
+                        ta.value = ta.value.substring(0, start) + '\t' + ta.value.substring(end);
+                        ta.selectionStart = ta.selectionEnd = start + 1;
+                        
+                        const section = ta.id.replace('editor-', '');
+                        updatePreview(section);
+                    }
+                });
+            });
+        });
+
+        function showSection(num) {
+            document.querySelectorAll('.content-section').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            if (num <= totalSections) {
+                document.getElementById(`section-${num}`).classList.add('active');
+            } else {
+                document.getElementById('section-final').classList.add('active');
+            }
+
+            const progress = (num / (totalSections + 1)) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            document.getElementById('current-section').textContent = 
+                num <= totalSections ? `القسم ${num}` : 'انتهاء';
+
+            document.getElementById('prev-btn').style.display = num > 1 ? 'block' : 'none';
+            document.getElementById('next-btn').textContent = 
+                num === totalSections ? 'انتهى! 🎊' : 'التالي →';
+
+            window.scrollTo(0, 0);
+        }
+
+        function nextSection() {
+            if (currentSection <= totalSections) {
+                currentSection++;
+                showSection(currentSection);
+            }
+        }
+
+        function previousSection() {
+            if (currentSection > 1) {
+                currentSection--;
+                showSection(currentSection);
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = scrollPercent + '%';
+        });
+
+        showSection(1);
+    </script>
+</body>
+</html>
