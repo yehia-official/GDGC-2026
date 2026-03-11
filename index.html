@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Web Design Pro - الدليل الشامل</title>
+    <title>Responsive Web Design Pro - Complete Guide</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Zain:wght@300;400;700;900&family=Fira+Code:wght@400;500;600;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Fira+Code:wght@400;500;600;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,9 +15,9 @@
     <!-- Navigation -->
     <nav class="main-nav">
         <div class="nav-container">
-            <div class="nav-logo"> Responsive Design </div>
+            <div class="nav-logo">🎨 Responsive Design</div>
             <ul class="nav-links">
-                <li><a href="#section1" class="nav-link">basics</a></li>
+                <li><a href="#section1" class="nav-link">Basics</a></li>
                 <li><a href="#section2" class="nav-link">Media Queries</a></li>
                 <li><a href="#section3" class="nav-link">Breakpoints</a></li>
                 <li><a href="#section4" class="nav-link">Mobile First</a></li>
@@ -28,10 +28,11 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1> Responsive Web Design</h1>
+            <h1>Master Responsive Web Design</h1>
+            <p class="hero-subtitle">The complete guide to building websites that adapt beautifully to all devices and screen sizes 📱💻</p>
             <div class="hero-buttons">
-                <button class="btn-primary" onclick="document.getElementById('section1').scrollIntoView({behavior: 'smooth'})">ابدأ التعلم الآن</button>
-                <button class="btn-secondary" onclick="document.getElementById('section2').scrollIntoView({behavior: 'smooth'})">استكشف المزيد</button>
+                <button class="btn-primary" onclick="document.getElementById('section1').scrollIntoView({behavior: 'smooth'})">Start Learning Now</button>
+                <button class="btn-secondary" onclick="document.getElementById('section2').scrollIntoView({behavior: 'smooth'})">Explore More</button>
             </div>
         </div>
     </section>
@@ -40,15 +41,15 @@
     <section class="section" id="section1">
         <div class="container">
             <div class="section-header">
-                <div class="section-number">الدرس 1</div>
-                <h2>الأساسيات</h2>
-                <p class="section-subtitle">تعرف على مبادئ التصميم المتجاوب الأساسية</p>
+                <div class="section-number">Lesson 1</div>
+                <h2>The Basics</h2>
+                <p class="section-subtitle">Learn the fundamental principles of responsive design</p>
             </div>
 
             <!-- Fluid Grids -->
             <div class="card">
-                <h3>🔲 Fluid Grids - الشبكات المرنة</h3>
-                <p class="card-desc">استخدام الوحدات النسبية (%) بدلاً من البكسل الثابت (px) لجعل التصميم مرناً وقابلاً للتكيف</p>
+                <h3>🔲 Fluid Grids - Flexible Layouts</h3>
+                <p class="card-desc">Use relative units (%) instead of fixed pixels (px) to create flexible and scalable layouts</p>
                 
                 <div class="code-editor-wrapper">
                     <div class="editor-header">
@@ -59,7 +60,7 @@
                         </div>
                         <span class="editor-filename">style.css</span>
                     </div>
-                    <textarea dir="ltr" spellcheck="false">.container {
+                    <textarea spellcheck="false">.container {
   width: 100%;
   max-width: 1200px;
   padding: 0 5%;
@@ -73,7 +74,7 @@
 }</textarea>
                 </div>
 
-                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">معاينة الأجهزة المختلفة:</h4>
+                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">Device Preview:</h4>
                 <div class="devices-grid">
                     <div class="device-wrapper">
                         <div class="device mobile">
@@ -111,14 +112,14 @@
                 </div>
 
                 <div class="tip-box">
-                    <strong>💡 نصيحة ذهبية:</strong> استخدم النسب المئوية (%) للعروض والـ padding بدلاً من البكسل الثابت لجعل التصميم قابلاً للتوسع على جميع الأجهزة
+                    <strong>💡 Pro Tip:</strong> Use percentages (%) for widths and padding instead of fixed pixels to make your design scalable across all devices
                 </div>
             </div>
 
             <!-- Flexible Images -->
             <div class="card">
-                <h3>🖼️ Flexible Images - الصور المرنة</h3>
-                <p class="card-desc">جعل الصور تتكيف تلقائياً مع حجم الحاوية التي تحتويها بدون overflow أو تشويه</p>
+                <h3>🖼️ Flexible Images - Responsive Media</h3>
+                <p class="card-desc">Make images automatically adapt to their container size without overflow or distortion</p>
                 
                 <div class="code-editor-wrapper">
                     <div class="editor-header">
@@ -129,7 +130,7 @@
                         </div>
                         <span class="editor-filename">style.css</span>
                     </div>
-                    <textarea dir="ltr" spellcheck="false">img {
+                    <textarea spellcheck="false">img {
   max-width: 100%;
   height: auto;
   display: block;
@@ -140,7 +141,7 @@
 }</textarea>
                 </div>
 
-                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">معاينة الأجهزة المختلفة:</h4>
+                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">Device Preview:</h4>
                 <div class="devices-grid">
                     <div class="device-wrapper">
                         <div class="device mobile">
@@ -181,35 +182,35 @@
                 </div>
 
                 <div class="tip-box">
-                    <strong>💡 نصيحة ذهبية:</strong> استخدم <code style="color: var(--accent);">max-width: 100%</code> و <code style="color: var(--accent);">height: auto</code> لجميع الصور لضمان توافقيتها مع جميع الأجهزة
+                    <strong>💡 Pro Tip:</strong> Use <code style="color: var(--accent);">max-width: 100%</code> and <code style="color: var(--accent);">height: auto</code> for all images to ensure compatibility across all devices
                 </div>
             </div>
 
             <!-- Quiz 1 -->
             <div class="quiz-box">
-                <h3 class="quiz-title">🧠 اختبر نفسك - الأساسيات</h3>
+                <h3 class="quiz-title">🧠 Test Yourself - Basics</h3>
 
                 <div class="quiz-question">
-                    <div class="quiz-q">1️⃣ ما الفرق الأساسي بين Fluid Grid و Fixed Grid؟</div>
+                    <div class="quiz-q">1️⃣ What's the main difference between Fluid and Fixed Grid?</div>
                     <div class="quiz-options">
-                        <button class="quiz-option" data-answer="1">Fluid تستخدم % ، Fixed تستخدم px</button>
-                        <button class="quiz-option" data-answer="0">لا يوجد فرق جوهري</button>
-                        <button class="quiz-option" data-answer="0">Fixed أفضل من Fluid</button>
+                        <button class="quiz-option" data-answer="1">Fluid uses %, Fixed uses px</button>
+                        <button class="quiz-option" data-answer="0">There's no real difference</button>
+                        <button class="quiz-option" data-answer="0">Fixed is better than Fluid</button>
                     </div>
                     <div class="quiz-feedback"></div>
                 </div>
 
                 <div class="quiz-question">
-                    <div class="quiz-q">2️⃣ كيف نجعل الصور مرنة ومتجاوبة؟</div>
+                    <div class="quiz-q">2️⃣ How do you make images responsive?</div>
                     <div class="quiz-options">
-                        <button class="quiz-option" data-answer="1">max-width: 100% و height: auto</button>
-                        <button class="quiz-option" data-answer="0">width: 100% و height: 100%</button>
-                        <button class="quiz-option" data-answer="0">بدون أي CSS إضافي</button>
+                        <button class="quiz-option" data-answer="1">max-width: 100% and height: auto</button>
+                        <button class="quiz-option" data-answer="0">width: 100% and height: 100%</button>
+                        <button class="quiz-option" data-answer="0">No additional CSS needed</button>
                     </div>
                     <div class="quiz-feedback"></div>
                 </div>
 
-                <button class="btn-check" onclick="checkSection(1)">تحقق من الإجابات ✓</button>
+                <button class="btn-check" onclick="checkSection(1)">Check Answers ✓</button>
                 <div class="quiz-score" id="score-1" style="display:none;"></div>
             </div>
         </div>
@@ -219,15 +220,15 @@
     <section class="section" id="section2">
         <div class="container">
             <div class="section-header">
-                <div class="section-number">الدرس 2</div>
+                <div class="section-number">Lesson 2</div>
                 <h2>Media Queries</h2>
-                <p class="section-subtitle">تطبيق أنماط مختلفة بناءً على خصائص الجهاز والشاشة</p>
+                <p class="section-subtitle">Apply different styles based on device characteristics and screen size</p>
             </div>
 
             <!-- Viewport Width -->
             <div class="card">
-                <h3>📏 Media Queries - عرض الشاشة</h3>
-                <p class="card-desc">تغيير الأنماط تلقائياً عندما يصل عرض الشاشة إلى نقطة معينة باستخدام min-width و max-width</p>
+                <h3>📏 Media Queries - Screen Width</h3>
+                <p class="card-desc">Automatically change styles when the screen reaches a specific width using min-width and max-width</p>
                 
                 <div class="code-editor-wrapper">
                     <div class="editor-header">
@@ -238,7 +239,7 @@
                         </div>
                         <span class="editor-filename">style.css</span>
                     </div>
-                    <textarea dir="ltr" spellcheck="false">.box {
+                    <textarea spellcheck="false">.box {
   padding: 20px;
   background: lightyellow;
   border-radius: 8px;
@@ -257,14 +258,14 @@
 }</textarea>
                 </div>
 
-                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">معاينة الأجهزة المختلفة:</h4>
+                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">Device Preview:</h4>
                 <div class="devices-grid">
                     <div class="device-wrapper">
                         <div class="device mobile">
                             <div class="device-screen">
                                 <div class="demo-content" style="padding: 20px; text-align: center;">
                                     <div style="padding: 20px; background: lightyellow; border-radius: 8px; color: #000; font-weight: 700;">
-                                        📱 Mobile<br><span style="font-size: 0.8rem;">أصفر</span>
+                                        📱 Mobile<br><span style="font-size: 0.8rem;">Yellow</span>
                                     </div>
                                 </div>
                             </div>
@@ -276,7 +277,7 @@
                             <div class="device-screen">
                                 <div class="demo-content" style="padding: 20px; text-align: center;">
                                     <div style="padding: 20px; background: lightblue; border-radius: 8px; color: #000; font-weight: 700;">
-                                        📱 Tablet<br><span style="font-size: 0.8rem;">أزرق</span>
+                                        📱 Tablet<br><span style="font-size: 0.8rem;">Blue</span>
                                     </div>
                                 </div>
                             </div>
@@ -288,7 +289,7 @@
                             <div class="device-screen">
                                 <div class="demo-content" style="padding: 20px; text-align: center;">
                                     <div style="padding: 20px; background: lightgreen; border-radius: 8px; color: #000; font-weight: 700;">
-                                        💻 Desktop<br><span style="font-size: 0.8rem;">أخضر</span>
+                                        💻 Desktop<br><span style="font-size: 0.8rem;">Green</span>
                                     </div>
                                 </div>
                             </div>
@@ -298,14 +299,14 @@
                 </div>
 
                 <div class="tip-box">
-                    <strong>💡 نصيحة ذهبية:</strong> استخدم <code style="color: var(--accent);">min-width</code> مع Mobile First approach للبدء من أصغر حجم والتوسع تدريجياً
+                    <strong>💡 Pro Tip:</strong> Use <code style="color: var(--accent);">min-width</code> with Mobile First approach to start from the smallest size and expand progressively
                 </div>
             </div>
 
             <!-- Orientation -->
             <div class="card">
-                <h3>🔄 Orientation - اتجاه الجهاز</h3>
-                <p class="card-desc">تطبيق أنماط مختلفة عندما يكون الجهاز في وضع البورتريه (عمودي) أو اللاندسكيب (أفقي)</p>
+                <h3>🔄 Orientation - Device Orientation</h3>
+                <p class="card-desc">Apply different styles when the device is in Portrait (vertical) or Landscape (horizontal) mode</p>
                 
                 <div class="code-editor-wrapper">
                     <div class="editor-header">
@@ -316,7 +317,7 @@
                         </div>
                         <span class="editor-filename">style.css</span>
                     </div>
-                    <textarea dir="ltr" spellcheck="false">.content {
+                    <textarea spellcheck="false">.content {
   background: lightyellow;
   padding: 20px;
 }
@@ -329,14 +330,14 @@
                 </div>
 
                 <div class="tip-box" style="margin-top: 24px;">
-                    <strong>💡 نصيحة ذهبية:</strong> استخدم orientation خاصة للهواتف الذكية لتحسين تجربة المستخدم في الوضعيات المختلفة
+                    <strong>💡 Pro Tip:</strong> Use orientation media query especially for smartphones to improve user experience in different orientations
                 </div>
             </div>
 
             <!-- Hover Support -->
             <div class="card">
-                <h3>🖱️ Hover - الأجهزة التي تدعم Hover</h3>
-                <p class="card-desc">تطبيق تأثيرات hover فقط على الأجهزة التي تدعمها (أجهزة سطح المكتب بالأساس)</p>
+                <h3>🖱️ Hover - Hover-capable Devices</h3>
+                <p class="card-desc">Apply hover effects only on devices that support them (mainly desktop devices)</p>
                 
                 <div class="code-editor-wrapper">
                     <div class="editor-header">
@@ -347,7 +348,7 @@
                         </div>
                         <span class="editor-filename">style.css</span>
                     </div>
-                    <textarea dir="ltr" spellcheck="false">button {
+                    <textarea spellcheck="false">button {
   padding: 10px 20px;
   background: lightgray;
   cursor: pointer;
@@ -362,22 +363,22 @@
 }</textarea>
                 </div>
 
-                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">جرّب المعاينة:</h4>
+                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">Try the Preview:</h4>
                 <div style="text-align: center;">
                     <button style="padding: 14px 28px; background: linear-gradient(135deg, rgba(255, 193, 7, 0.3), rgba(255, 193, 7, 0.1)); color: var(--text); border: 2px solid var(--warning); cursor: pointer; transition: all 0.3s; font-weight: 700; border-radius: 8px;" onmouseover="this.style.background='rgba(255, 193, 7, 0.5)'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='rgba(255, 193, 7, 0.3)'; this.style.transform='scale(1)'">
-                        🖱️ جرّب hover هنا (Desktop فقط)
+                        🖱️ Try hovering here (Desktop only)
                     </button>
                 </div>
 
                 <div class="tip-box" style="margin-top: 24px;">
-                    <strong>💡 نصيحة ذهبية:</strong> استخدم media query <code style="color: var(--accent);">(hover: hover)</code> لتجنب مشاكل الـ touch devices
+                    <strong>💡 Pro Tip:</strong> Use <code style="color: var(--accent);">(hover: hover)</code> media query to avoid issues on touch devices
                 </div>
             </div>
 
             <!-- Logical Operators -->
             <div class="card">
                 <h3>🔗 Logical Operators - AND</h3>
-                <p class="card-desc">دمج عدة شروط في media query واحد باستخدام AND للحصول على تحكم أكثر دقة</p>
+                <p class="card-desc">Combine multiple conditions in a single media query using AND for more precise control</p>
                 
                 <div class="code-editor-wrapper">
                     <div class="editor-header">
@@ -388,7 +389,7 @@
                         </div>
                         <span class="editor-filename">style.css</span>
                     </div>
-                    <textarea dir="ltr" spellcheck="false">.item {
+                    <textarea spellcheck="false">.item {
   background: lightyellow;
   padding: 16px;
 }
@@ -402,16 +403,16 @@
                 </div>
 
                 <div class="tip-box" style="margin-top: 24px;">
-                    <strong>💡 نصيحة ذهبية:</strong> استخدم <code style="color: var(--accent);">and</code> للجمع بين عدة شروط وتطبيق أنماط أكثر تخصصاً
+                    <strong>💡 Pro Tip:</strong> Use <code style="color: var(--accent);">and</code> to combine multiple conditions for more specialized styling
                 </div>
             </div>
 
             <!-- Quiz 2 -->
             <div class="quiz-box">
-                <h3 class="quiz-title">🧠 اختبر نفسك - Media Queries</h3>
+                <h3 class="quiz-title">🧠 Test Yourself - Media Queries</h3>
 
                 <div class="quiz-question">
-                    <div class="quiz-q">1️⃣ كيف نكتب media query صحيح لـ min-width؟</div>
+                    <div class="quiz-q">1️⃣ How do you write a correct min-width media query?</div>
                     <div class="quiz-options">
                         <button class="quiz-option" data-answer="1">@media (min-width: 768px) { ... }</button>
                         <button class="quiz-option" data-answer="0">@media min-width: 768px { ... }</button>
@@ -421,7 +422,7 @@
                 </div>
 
                 <div class="quiz-question">
-                    <div class="quiz-q">2️⃣ كيف نتحقق من وضع Landscape Orientation؟</div>
+                    <div class="quiz-q">2️⃣ How do you check for Landscape Orientation?</div>
                     <div class="quiz-options">
                         <button class="quiz-option" data-answer="1">@media (orientation: landscape)</button>
                         <button class="quiz-option" data-answer="0">@media landscape-mode</button>
@@ -430,7 +431,7 @@
                     <div class="quiz-feedback"></div>
                 </div>
 
-                <button class="btn-check" onclick="checkSection(2)">تحقق من الإجابات ✓</button>
+                <button class="btn-check" onclick="checkSection(2)">Check Answers ✓</button>
                 <div class="quiz-score" id="score-2" style="display:none;"></div>
             </div>
         </div>
@@ -440,15 +441,15 @@
     <section class="section" id="section3">
         <div class="container">
             <div class="section-header">
-                <div class="section-number">الدرس 3</div>
-                <h2>Media Breakpoints</h2>
-                <p class="section-subtitle">نقاط تغيير التصميم حسب أحجام الشاشات المختلفة</p>
+                <div class="section-number">Lesson 3</div>
+                <h2>Breakpoints</h2>
+                <p class="section-subtitle">Standard breakpoints for different screen sizes</p>
             </div>
 
             <!-- Breakpoints Card -->
             <div class="card">
-                <h3>📊 Breakpoints القياسية</h3>
-                <p class="card-desc">استخدام نقاط محددة لتغيير التصميم بدلاً من محاولة تغطية كل حجم شاشة على حدة</p>
+                <h3>📊 Standard Breakpoints</h3>
+                <p class="card-desc">Use specific breakpoints instead of trying to cover every possible screen size</p>
                 
                 <div class="code-editor-wrapper">
                     <div class="editor-header">
@@ -459,7 +460,7 @@
                         </div>
                         <span class="editor-filename">style.css</span>
                     </div>
-                    <textarea dir="ltr" spellcheck="false">/* Mobile First */
+                    <textarea spellcheck="false">/* Mobile First */
 .container {
   font-size: 14px;
   padding: 10px;
@@ -482,7 +483,7 @@
 }</textarea>
                 </div>
 
-                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">معاينة الأجهزة المختلفة:</h4>
+                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">Device Preview:</h4>
                 <div class="devices-grid">
                     <div class="device-wrapper">
                         <div class="device mobile">
@@ -526,17 +527,17 @@
                 </div>
 
                 <div class="tip-box">
-                    <strong>💡 المعايير الموصى بها:</strong><br>
-                    📱 <strong>Mobile (Smartphones):</strong> حتى 640px<br>
-                    📱 <strong>Tablet:</strong> من 641px إلى 1024px<br>
-                    💻 <strong>Desktop:</strong> من 1025px وما فوق
+                    <strong>💡 Recommended Standards:</strong><br>
+                    📱 <strong>Mobile (Smartphones):</strong> Up to 640px<br>
+                    📱 <strong>Tablet:</strong> 641px to 1024px<br>
+                    💻 <strong>Desktop:</strong> 1025px and above
                 </div>
             </div>
 
             <!-- Grid Layout -->
             <div class="card">
-                <h3>🔲 Grid Layout - الأعمدة المتجاوبة</h3>
-                <p class="card-desc">تغيير عدد الأعمدة تلقائياً حسب حجم الشاشة من عمود واحد إلى ثلاثة أعمدة</p>
+                <h3>🔲 Grid Layout - Responsive Columns</h3>
+                <p class="card-desc">Automatically change the number of columns from 1 to 3 based on screen size</p>
                 
                 <div class="code-editor-wrapper">
                     <div class="editor-header">
@@ -547,7 +548,7 @@
                         </div>
                         <span class="editor-filename">style.css</span>
                     </div>
-                    <textarea dir="ltr" spellcheck="false">.grid {
+                    <textarea spellcheck="false">.grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 15px;
@@ -566,7 +567,7 @@
 }</textarea>
                 </div>
 
-                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">معاينة الأجهزة المختلفة:</h4>
+                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">Device Preview:</h4>
                 <div class="devices-grid">
                     <div class="device-wrapper">
                         <div class="device mobile">
@@ -607,34 +608,34 @@
                 </div>
 
                 <div class="tip-box">
-                    <strong>💡 نصيحة ذهبية:</strong> استخدم CSS Grid بدلاً من Float للتخطيطات المعقدة والمتجاوبة
+                    <strong>💡 Pro Tip:</strong> Use CSS Grid instead of Float for complex and responsive layouts
                 </div>
             </div>
 
             <!-- Quiz 3 -->
             <div class="quiz-box">
-                <h3 class="quiz-title">🧠 اختبر نفسك - Breakpoints</h3>
+                <h3 class="quiz-title">🧠 Test Yourself - Breakpoints</h3>
 
                 <div class="quiz-question">
-                    <div class="quiz-q">1️⃣ ما هو الـ breakpoint للأجهزة اللوحية (Tablet)؟</div>
+                    <div class="quiz-q">1️⃣ What's the breakpoint for Tablet devices?</div>
                     <div class="quiz-options">
-                        <button class="quiz-option" data-answer="0">حتى 640px</button>
-                        <button class="quiz-option" data-answer="1">من 641px إلى 1024px</button>
-                        <button class="quiz-option" data-answer="0">من 1025px وما فوق</button>
+                        <button class="quiz-option" data-answer="0">Up to 640px</button>
+                        <button class="quiz-option" data-answer="1">641px to 1024px</button>
+                        <button class="quiz-option" data-answer="0">1025px and above</button>
                     </div>
                     <div class="quiz-feedback"></div>
                 </div>
 
                 <div class="quiz-question">
-                    <div class="quiz-q">2️⃣ هل يجب تغطية كل حجم شاشة ممكن؟</div>
+                    <div class="quiz-q">2️⃣ Should you cover every possible screen size?</div>
                     <div class="quiz-options">
-                        <button class="quiz-option" data-answer="0">نعم، يجب تغطية كل الأحجام</button>
-                        <button class="quiz-option" data-answer="1">لا، نستخدم الـ breakpoints الرئيسية فقط</button>
+                        <button class="quiz-option" data-answer="0">Yes, cover all sizes</button>
+                        <button class="quiz-option" data-answer="1">No, use major breakpoints only</button>
                     </div>
                     <div class="quiz-feedback"></div>
                 </div>
 
-                <button class="btn-check" onclick="checkSection(3)">تحقق من الإجابات ✓</button>
+                <button class="btn-check" onclick="checkSection(3)">Check Answers ✓</button>
                 <div class="quiz-score" id="score-3" style="display:none;"></div>
             </div>
         </div>
@@ -644,15 +645,15 @@
     <section class="section" id="section4">
         <div class="container">
             <div class="section-header">
-                <div class="section-number">الدرس 4</div>
+                <div class="section-number">Lesson 4</div>
                 <h2>Mobile First Approach</h2>
-                <p class="section-subtitle">البدء بالهاتف أولاً ثم التوسع التدريجي للشاشات الأكبر</p>
+                <p class="section-subtitle">Start with mobile design then progressively enhance for larger screens</p>
             </div>
 
             <!-- Mobile First Card -->
             <div class="card">
                 <h3>📱 Mobile First Philosophy</h3>
-                <p class="card-desc">تصميم الهاتف أولاً مع أنماط أساسية بسيطة ثم إضافة التحسينات تدريجياً للأجهزة الأكبر</p>
+                <p class="card-desc">Design for mobile first with simple base styles, then add enhancements progressively for larger devices</p>
                 
                 <div class="code-editor-wrapper">
                     <div class="editor-header">
@@ -663,14 +664,14 @@
                         </div>
                         <span class="editor-filename">style.css</span>
                     </div>
-                    <textarea dir="ltr" spellcheck="false">/* الأساس: تصميم الهاتف */
+                    <textarea spellcheck="false">/* Base: Mobile design */
 .container {
   width: 100%;
   padding: 10px;
   background: lightblue;
 }
 
-/* إضافة تحسينات للـ Tablet */
+/* Add enhancements for Tablet */
 @media (min-width: 768px) {
   .container {
     width: 750px;
@@ -679,7 +680,7 @@
   }
 }
 
-/* المزيد من التحسينات للـ Desktop */
+/* More enhancements for Desktop */
 @media (min-width: 1024px) {
   .container {
     width: 960px;
@@ -688,7 +689,7 @@
 }</textarea>
                 </div>
 
-                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">معاينة الأجهزة المختلفة:</h4>
+                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">Device Preview:</h4>
                 <div class="devices-grid">
                     <div class="device-wrapper">
                         <div class="device mobile">
@@ -726,64 +727,64 @@
                 </div>
 
                 <div class="tip-box">
-                    <strong>💡 فوائد Mobile First:</strong><br>
-                    ✅ تجربة مستخدم أفضل على الهواتف<br>
-                    ✅ كود أنظف وأسهل للفهم<br>
-                    ✅ أداء أفضل (أقل CSS محمل على الهواتف)<br>
-                    ✅ منهجية تطوير منطقية وواضحة
+                    <strong>💡 Benefits of Mobile First:</strong><br>
+                    ✅ Better mobile user experience<br>
+                    ✅ Cleaner and more maintainable code<br>
+                    ✅ Better performance (less CSS on mobile)<br>
+                    ✅ Logical and clear development approach
                 </div>
             </div>
 
             <!-- Best Practices -->
             <div class="card">
-                <h3>🎯 أفضل الممارسات</h3>
-                <p class="card-desc">نصائح وتقنيات احترافية لبناء مواقع responsive بشكل صحيح</p>
+                <h3>🎯 Best Practices</h3>
+                <p class="card-desc">Professional tips and techniques for building responsive websites correctly</p>
                 
                 <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                     <div style="padding: 16px; background: rgba(0, 102, 204, 0.1); border-radius: 8px; border-left: 4px solid var(--primary-light);">
-                        <strong style="color: var(--primary-light);">✅ استخدم Viewport Meta Tag</strong>
+                        <strong style="color: var(--primary-light);">✅ Use Viewport Meta Tag</strong>
                         <p style="font-size: 0.9rem; margin-top: 8px; color: var(--text-muted);"><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></p>
                     </div>
                     <div style="padding: 16px; background: rgba(0, 208, 132, 0.1); border-radius: 8px; border-left: 4px solid var(--accent);">
-                        <strong style="color: var(--accent);">✅ استخدم Mobile First</strong>
-                        <p style="font-size: 0.9rem; margin-top: 8px; color: var(--text-muted);">ابدأ بأصغر حجم ثم أضف media queries</p>
+                        <strong style="color: var(--accent);">✅ Start Mobile First</strong>
+                        <p style="font-size: 0.9rem; margin-top: 8px; color: var(--text-muted);">Start with smallest size then add media queries</p>
                     </div>
                     <div style="padding: 16px; background: rgba(255, 71, 87, 0.1); border-radius: 8px; border-left: 4px solid var(--danger);">
-                        <strong style="color: var(--danger);">✅ تجنب Fixed Width</strong>
-                        <p style="font-size: 0.9rem; margin-top: 8px; color: var(--text-muted);">استخدم % و max-width بدلاً من px الثابت</p>
+                        <strong style="color: var(--danger);">✅ Avoid Fixed Width</strong>
+                        <p style="font-size: 0.9rem; margin-top: 8px; color: var(--text-muted);">Use % and max-width instead of fixed px</p>
                     </div>
                     <div style="padding: 16px; background: rgba(255, 193, 7, 0.1); border-radius: 8px; border-left: 4px solid var(--warning);">
-                        <strong style="color: var(--warning);">✅ اختبر على أجهزة حقيقية</strong>
-                        <p style="font-size: 0.9rem; margin-top: 8px; color: var(--text-muted);">لا تعتمد فقط على browser DevTools</p>
+                        <strong style="color: var(--warning);">✅ Test on Real Devices</strong>
+                        <p style="font-size: 0.9rem; margin-top: 8px; color: var(--text-muted);">Don't rely only on browser DevTools</p>
                     </div>
                 </div>
             </div>
 
             <!-- Quiz 4 -->
             <div class="quiz-box">
-                <h3 class="quiz-title">🧠 اختبر نفسك - Mobile First</h3>
+                <h3 class="quiz-title">🧠 Test Yourself - Mobile First</h3>
 
                 <div class="quiz-question">
-                    <div class="quiz-q">1️⃣ ما هي فلسفة Mobile First؟</div>
+                    <div class="quiz-q">1️⃣ What is the Mobile First philosophy?</div>
                     <div class="quiz-options">
-                        <button class="quiz-option" data-answer="1">البدء بتصميم الهاتف أولاً ثم التوسع</button>
-                        <button class="quiz-option" data-answer="0">البدء بتصميم سطح المكتب</button>
-                        <button class="quiz-option" data-answer="0">تصميم جميع الأجهزة معاً</button>
+                        <button class="quiz-option" data-answer="1">Start with mobile design then expand</button>
+                        <button class="quiz-option" data-answer="0">Start with desktop design</button>
+                        <button class="quiz-option" data-answer="0">Design all devices together</button>
                     </div>
                     <div class="quiz-feedback"></div>
                 </div>
 
                 <div class="quiz-question">
-                    <div class="quiz-q">2️⃣ في Mobile First، ما نوع media queries الذي نستخدم؟</div>
+                    <div class="quiz-q">2️⃣ Which media queries do we use in Mobile First?</div>
                     <div class="quiz-options">
-                        <button class="quiz-option" data-answer="1">min-width للتوسع التدريجي</button>
-                        <button class="quiz-option" data-answer="0">max-width فقط</button>
-                        <button class="quiz-option" data-answer="0">كلاهما بنفس الدرجة</button>
+                        <button class="quiz-option" data-answer="1">min-width for progressive enhancement</button>
+                        <button class="quiz-option" data-answer="0">max-width only</button>
+                        <button class="quiz-option" data-answer="0">Both equally</button>
                     </div>
                     <div class="quiz-feedback"></div>
                 </div>
 
-                <button class="btn-check" onclick="checkSection(4)">تحقق من الإجابات ✓</button>
+                <button class="btn-check" onclick="checkSection(4)">Check Answers ✓</button>
                 <div class="quiz-score" id="score-4" style="display:none;"></div>
             </div>
         </div>
@@ -792,9 +793,10 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <p style="font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 8px;">Responsive Web Design </p>
+            <p style="font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 8px;">🎨 Responsive Web Design Pro</p>
+            <p>A comprehensive guide to help you master responsive web design</p>
             <div class="footer-links">
-                <a href="#section1" class="footer-link">basics</a>
+                <a href="#section1" class="footer-link">Basics</a>
                 <a href="#section2" class="footer-link">Media Queries</a>
                 <a href="#section3" class="footer-link">Breakpoints</a>
                 <a href="#section4" class="footer-link">Mobile First</a>
