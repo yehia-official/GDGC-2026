@@ -1,809 +1,2129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Web Design Pro</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Fira+Code:wght@400;500;600;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HTML Masterclass — Structure, Tags & Elements</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════
+   ROOT & THEME
+══════════════════════════════════════════════ */
+:root {
+  --bg:        #07080f;
+  --bg2:       #0d0f1c;
+  --bg3:       #131525;
+  --orange:    #f97316;
+  --orange-dim:#7a3908;
+  --cyan:      #22d3ee;
+  --cyan-dim:  #0e4f5c;
+  --green:     #4ade80;
+  --red:       #f87171;
+  --text:      #e2e8f0;
+  --muted:     #64748b;
+  --glass:     rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.08);
+  --mono: 'Space Mono', monospace;
+  --sans: 'Outfit', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Grid background */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(249,115,22,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(249,115,22,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ══════════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════════ */
+header {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(7,8,15,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 0 2rem;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.header-logo {
+  display: flex; align-items: center; gap: .75rem;
+}
+
+.logo-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--orange), #fb923c);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: .7rem;
+  font-weight: 700;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(249,115,22,0.4);
+}
+
+.header-title {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -.01em;
+}
+
+.header-title span { color: var(--orange); }
+
+.progress-bar-wrap {
+  width: 140px; height: 4px;
+  background: var(--glass-border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--orange), var(--cyan));
+  border-radius: 99px;
+  transition: width .4s ease;
+}
+
+/* ══════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 8rem 2rem 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--orange);
+  background: rgba(249,115,22,0.08);
+  border: 1px solid rgba(249,115,22,0.25);
+  border-radius: 99px;
+  padding: .35rem .9rem;
+  margin-bottom: 2rem;
+  letter-spacing: .08em;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--orange);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(249,115,22,.4); }
+  50%      { opacity: .7; box-shadow: 0 0 0 6px rgba(249,115,22,0); }
+}
+
+.hero h1 {
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -.04em;
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 .line2 { color: var(--orange); }
+
+.hero p {
+  max-width: 560px;
+  color: var(--muted);
+  font-size: 1.1rem;
+  margin-bottom: 3rem;
+}
+
+.hero-stats {
+  display: flex; gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.stat {
+  text-align: center;
+}
+.stat-num {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--orange);
+  font-family: var(--mono);
+}
+.stat-label {
+  font-size: .75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--orange);
+  color: #fff;
+  font-weight: 700;
+  font-size: .95rem;
+  padding: .85rem 2rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all .2s;
+  text-decoration: none;
+  box-shadow: 0 0 30px rgba(249,115,22,0.35);
+}
+.btn-primary:hover {
+  background: #fb923c;
+  transform: translateY(-2px);
+  box-shadow: 0 0 45px rgba(249,115,22,0.5);
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem; left: 50%; transform: translateX(-50%);
+  font-size: .75rem; color: var(--muted);
+  display: flex; flex-direction: column; align-items: center; gap: .5rem;
+  animation: float 3s ease-in-out infinite;
+}
+.scroll-arrow { font-size: 1.2rem; }
+
+@keyframes float {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(-8px); }
+}
+
+/* ══════════════════════════════════════════════
+   MAIN / MODULES
+══════════════════════════════════════════════ */
+main {
+  position: relative; z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 8rem;
+}
+
+/* Module wrapper */
+.module {
+  margin-bottom: 6rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.module.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Module header */
+.module-tag {
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--cyan);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+}
+.module-title {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  margin-bottom: .75rem;
+}
+.module-title .accent { color: var(--orange); }
+.module-desc {
+  color: var(--muted);
+  max-width: 640px;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+  margin: 2rem 0;
+}
+
+/* ══════════════════════════════════════════════
+   GLASS CARD
+══════════════════════════════════════════════ */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.75rem;
+  backdrop-filter: blur(10px);
+}
+
+/* ══════════════════════════════════════════════
+   CONCEPT BLOCKS
+══════════════════════════════════════════════ */
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.concept-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: border-color .2s, transform .2s;
+}
+.concept-card:hover {
+  border-color: rgba(249,115,22,0.3);
+  transform: translateY(-2px);
+}
+.concept-card-icon { font-size: 1.8rem; margin-bottom: .5rem; }
+.concept-card h4 { font-size: .95rem; font-weight: 700; margin-bottom: .4rem; }
+.concept-card p  { font-size: .85rem; color: var(--muted); }
+
+/* Code block */
+.code-block {
+  background: #0a0b15;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 1.25rem 0;
+}
+.code-block-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .6rem 1rem;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--glass-border);
+}
+.code-dots { display: flex; gap: .4rem; }
+.code-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+}
+.code-dot.red   { background: #ff5f57; }
+.code-dot.yellow{ background: #febc2e; }
+.code-dot.green { background: #28c840; }
+.code-lang {
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--muted);
+}
+.code-block pre {
+  padding: 1.2rem 1.5rem;
+  font-family: var(--mono);
+  font-size: .82rem;
+  line-height: 1.8;
+  overflow-x: auto;
+  color: #a5b4fc;
+}
+.code-block pre .tag  { color: var(--cyan); }
+.code-block pre .attr { color: var(--orange); }
+.code-block pre .val  { color: var(--green); }
+.code-block pre .com  { color: var(--muted); font-style: italic; }
+.code-block pre .txt  { color: #e2e8f0; }
+
+/* Info callout */
+.callout {
+  display: flex; gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  margin: 1.25rem 0;
+  font-size: .9rem;
+}
+.callout.info  { background: rgba(34,211,238,0.07); border: 1px solid rgba(34,211,238,0.2); }
+.callout.tip   { background: rgba(249,115,22,0.07); border: 1px solid rgba(249,115,22,0.2); }
+.callout.warn  { background: rgba(248,113,113,0.07); border: 1px solid rgba(248,113,113,0.2); }
+.callout-icon  { font-size: 1.2rem; flex-shrink: 0; }
+.callout-body  { }
+.callout-body strong { display: block; margin-bottom: .25rem; font-size: .85rem; text-transform: uppercase; letter-spacing: .05em; }
+
+/* ══════════════════════════════════════════════
+   INTERACTIVE SANDBOX
+══════════════════════════════════════════════ */
+.sandbox-wrap {
+  border: 1px solid rgba(249,115,22,0.25);
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 2rem 0;
+  background: var(--bg2);
+}
+.sandbox-header {
+  padding: .75rem 1.25rem;
+  background: rgba(249,115,22,0.08);
+  border-bottom: 1px solid rgba(249,115,22,0.15);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.sandbox-label {
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--orange);
+  letter-spacing: .08em;
+  display: flex; align-items: center; gap: .5rem;
+}
+.sandbox-label::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--orange);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+.sandbox-body { padding: 1.5rem; }
+
+/* Editor + Preview side by side */
+.editor-preview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 620px) {
+  .editor-preview { grid-template-columns: 1fr; }
+}
+
+.editor-pane, .preview-pane {
+  display: flex; flex-direction: column; gap: .5rem;
+}
+.pane-label {
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--muted);
+  letter-spacing: .06em;
+}
+
+.code-editor {
+  width: 100%;
+  height: 220px;
+  background: #07080f;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  color: #a5b4fc;
+  font-family: var(--mono);
+  font-size: .8rem;
+  line-height: 1.8;
+  padding: 1rem;
+  resize: vertical;
+  outline: none;
+  transition: border-color .2s;
+}
+.code-editor:focus { border-color: rgba(249,115,22,0.4); }
+
+.preview-frame {
+  width: 100%;
+  height: 220px;
+  background: #fff;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Visual sandbox (non-code) */
+.visual-sandbox {
+  background: var(--bg3);
+  border: 1px dashed var(--glass-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  min-height: 120px;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+
+.control-row {
+  display: flex; flex-wrap: wrap; gap: .75rem; align-items: center;
+}
+
+.ctrl-btn {
+  padding: .5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: .78rem;
+  cursor: pointer;
+  transition: all .15s;
+}
+.ctrl-btn:hover { border-color: var(--orange); color: var(--orange); }
+.ctrl-btn.active { background: rgba(249,115,22,0.15); border-color: var(--orange); color: var(--orange); }
+
+.output-display {
+  background: #0a0b15;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  font-family: var(--mono);
+  font-size: .85rem;
+  min-height: 60px;
+  color: #a5b4fc;
+  transition: all .3s;
+}
+
+/* Tag anatomy diagram */
+.tag-anatomy {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  padding: 2rem 1rem;
+  gap: 0;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+}
+.tag-part {
+  display: flex; flex-direction: column; align-items: center;
+  gap: .35rem;
+}
+.tag-text {
+  font-family: var(--mono);
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: .4rem .6rem;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.tag-text.bracket { color: var(--cyan); background: rgba(34,211,238,0.08); }
+.tag-text.tagname  { color: var(--orange); background: rgba(249,115,22,0.08); }
+.tag-text.content  { color: var(--green); background: rgba(74,222,128,0.08); }
+.tag-text.slash    { color: #f472b6; background: rgba(244,114,182,0.08); }
+.tag-label {
+  font-size: .7rem;
+  color: var(--muted);
+  font-family: var(--mono);
+  letter-spacing: .04em;
+}
+.tag-connector {
+  width: 1px; height: 24px;
+  background: var(--glass-border);
+  margin: 0 auto .25rem;
+}
+
+/* ══════════════════════════════════════════════
+   QUIZ
+══════════════════════════════════════════════ */
+.quiz-wrap {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.75rem;
+  margin-top: 2rem;
+}
+.quiz-header {
+  display: flex; align-items: center; gap: .75rem;
+  margin-bottom: 1.5rem;
+}
+.quiz-icon {
+  width: 36px; height: 36px;
+  background: rgba(34,211,238,0.1);
+  border: 1px solid rgba(34,211,238,0.3);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.quiz-title { font-weight: 700; font-size: 1rem; }
+.quiz-sub   { font-size: .8rem; color: var(--muted); }
+
+.question-block { margin-bottom: 1.5rem; }
+.question-text  {
+  font-size: .95rem;
+  font-weight: 600;
+  margin-bottom: .75rem;
+}
+.question-num {
+  font-family: var(--mono);
+  font-size: .78rem;
+  color: var(--orange);
+  margin-bottom: .3rem;
+}
+
+.options { display: flex; flex-direction: column; gap: .5rem; }
+
+.option {
+  display: flex; align-items: center; gap: .75rem;
+  padding: .75rem 1rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all .2s;
+  font-size: .9rem;
+  user-select: none;
+  background: rgba(255,255,255,0.02);
+}
+.option:hover:not(.disabled) {
+  border-color: rgba(249,115,22,0.4);
+  background: rgba(249,115,22,0.05);
+}
+.option.correct {
+  border-color: var(--green) !important;
+  background: rgba(74,222,128,0.1) !important;
+  color: var(--green);
+}
+.option.wrong {
+  border-color: var(--red) !important;
+  background: rgba(248,113,113,0.1) !important;
+  color: var(--red);
+  animation: shake .4s ease;
+}
+.option.disabled { cursor: default; }
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%  { transform: translateX(-8px); }
+  40%  { transform: translateX(8px); }
+  60%  { transform: translateX(-5px); }
+  80%  { transform: translateX(5px); }
+}
+
+.option-letter {
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.06);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: .75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: background .2s;
+}
+.option.correct .option-letter { background: rgba(74,222,128,0.2); }
+.option.wrong   .option-letter { background: rgba(248,113,113,0.2); }
+
+.feedback-msg {
+  margin-top: .6rem;
+  font-size: .85rem;
+  padding: .6rem .9rem;
+  border-radius: 8px;
+  display: none;
+}
+.feedback-msg.show { display: block; }
+.feedback-msg.correct { background: rgba(74,222,128,0.1); color: var(--green); border: 1px solid rgba(74,222,128,0.2); }
+.feedback-msg.wrong   { background: rgba(248,113,113,0.1); color: var(--red);   border: 1px solid rgba(248,113,113,0.2); }
+
+.quiz-reset {
+  margin-top: 1rem;
+  padding: .55rem 1.25rem;
+  border-radius: 8px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--muted);
+  font-size: .82rem;
+  cursor: pointer;
+  transition: all .2s;
+  display: none;
+}
+.quiz-reset:hover { border-color: var(--orange); color: var(--orange); }
+.quiz-reset.show  { display: inline-flex; }
+
+/* ══════════════════════════════════════════════
+   DOM TREE VISUALIZER
+══════════════════════════════════════════════ */
+.tree-display {
+  background: #0a0b15;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  font-family: var(--mono);
+  font-size: .82rem;
+  line-height: 2;
+}
+.tree-node {
+  display: flex; align-items: flex-start; gap: .4rem;
+  margin: .1rem 0;
+}
+.tree-branch { color: var(--muted); user-select: none; }
+.tree-tag    { color: var(--cyan); }
+.tree-text   { color: var(--green); font-style: italic; }
+.tree-attr   { color: var(--orange); }
+.tree-indent { margin-left: 1.4rem; }
+
+/* ══════════════════════════════════════════════
+   ELEMENT EXPLORER (Module 3)
+══════════════════════════════════════════════ */
+.element-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: .6rem;
+}
+.element-chip {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: .6rem .8rem;
+  cursor: pointer;
+  transition: all .2s;
+  text-align: center;
+}
+.element-chip:hover, .element-chip.active {
+  border-color: var(--orange);
+  background: rgba(249,115,22,0.08);
+}
+.element-chip code {
+  font-family: var(--mono);
+  font-size: .8rem;
+  color: var(--cyan);
+  display: block;
+  margin-bottom: .25rem;
+}
+.element-chip span { font-size: .72rem; color: var(--muted); }
+
+.element-detail {
+  margin-top: 1rem;
+  padding: 1.25rem;
+  background: var(--bg3);
+  border: 1px solid rgba(249,115,22,0.2);
+  border-radius: 12px;
+  display: none;
+  animation: fadeIn .25s ease;
+}
+.element-detail.show { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.element-detail h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: .4rem;
+  color: var(--orange);
+}
+.element-detail p { font-size: .88rem; color: var(--muted); margin-bottom: .75rem; }
+.element-detail .example {
+  font-family: var(--mono);
+  font-size: .8rem;
+  background: #07080f;
+  padding: .75rem 1rem;
+  border-radius: 8px;
+  color: #a5b4fc;
+}
+
+/* ══════════════════════════════════════════════
+   ATTRIBUTE BUILDER (Module 6)
+══════════════════════════════════════════════ */
+.attr-builder {
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.attr-row {
+  display: flex; align-items: center; gap: .75rem; flex-wrap: wrap;
+}
+.attr-row label {
+  font-size: .82rem;
+  color: var(--muted);
+  width: 80px;
+  flex-shrink: 0;
+}
+.attr-input {
+  flex: 1;
+  min-width: 140px;
+  background: #07080f;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: .82rem;
+  padding: .5rem .75rem;
+  outline: none;
+  transition: border-color .2s;
+}
+.attr-input:focus { border-color: rgba(249,115,22,0.4); }
+
+.attr-output {
+  background: #0a0b15;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  font-family: var(--mono);
+  font-size: .85rem;
+  color: #a5b4fc;
+  word-break: break-all;
+}
+
+/* ══════════════════════════════════════════════
+   PROGRESS MODULE NAV
+══════════════════════════════════════════════ */
+.module-nav {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: .5rem;
+  z-index: 90;
+}
+@media (max-width: 1100px) { .module-nav { display: none; } }
+
+.nav-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--glass-border);
+  cursor: pointer;
+  transition: all .2s;
+  border: 1px solid transparent;
+  position: relative;
+}
+.nav-dot::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 16px; top: 50%;
+  transform: translateY(-50%);
+  background: var(--bg2);
+  border: 1px solid var(--glass-border);
+  border-radius: 6px;
+  padding: .25rem .6rem;
+  font-size: .72rem;
+  white-space: nowrap;
+  color: var(--text);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+}
+.nav-dot:hover::after { opacity: 1; }
+.nav-dot.active { background: var(--orange); box-shadow: 0 0 8px rgba(249,115,22,0.5); }
+.nav-dot.done   { background: var(--cyan); }
+
+/* ══════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════ */
+footer {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 3rem 2rem;
+  border-top: 1px solid var(--glass-border);
+  color: var(--muted);
+  font-size: .85rem;
+}
+footer strong { color: var(--orange); }
+
+/* ══════════════════════════════════════════════
+   UTILITIES
+══════════════════════════════════════════════ */
+.badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: .7rem;
+  padding: .2rem .6rem;
+  border-radius: 99px;
+  background: rgba(249,115,22,0.1);
+  border: 1px solid rgba(249,115,22,0.25);
+  color: var(--orange);
+  margin-right: .4rem;
+}
+.badge.cyan {
+  background: rgba(34,211,238,0.1);
+  border-color: rgba(34,211,238,0.25);
+  color: var(--cyan);
+}
+
+/* Highlight text */
+.hl { color: var(--orange); }
+.hl-c { color: var(--cyan); }
+
+/* Section number */
+.section-number {
+  font-family: var(--mono);
+  font-size: 5rem;
+  font-weight: 900;
+  color: rgba(255,255,255,0.03);
+  position: absolute;
+  right: 0; top: -1rem;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hero-stats { gap: 1.5rem; }
+  .stat-num   { font-size: 1.4rem; }
+  .hero h1    { font-size: 2.4rem; }
+  .module-title { font-size: 1.7rem; }
+}
+</style>
 </head>
 <body>
-    <div id="progressBar"></div>
 
-    <!-- Navigation -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="nav-logo">Responsive Design</div>
-            <ul class="nav-links">
-                <li><a href="#section1" class="nav-link">Basics</a></li>
-                <li><a href="#section2" class="nav-link">Media Queries</a></li>
-                <li><a href="#section3" class="nav-link">Breakpoints</a></li>
-                <li><a href="#section4" class="nav-link">Mobile First</a></li>
-            </ul>
+<!-- ════════════ HEADER ════════════ -->
+<header>
+  <div class="header-logo">
+    <div class="logo-icon">&lt;/&gt;</div>
+    <div class="header-title">HTML <span>Masterclass</span></div>
+  </div>
+  <div class="progress-bar-wrap" title="Course Progress">
+    <div class="progress-bar-fill" id="progressFill"></div>
+  </div>
+</header>
+
+<!-- ════════════ MODULE NAV DOTS ════════════ -->
+<nav class="module-nav" id="moduleNav">
+  <div class="nav-dot" data-label="Intro" data-target="mod-intro"></div>
+  <div class="nav-dot" data-label="Structure" data-target="mod-structure"></div>
+  <div class="nav-dot" data-label="Tags & Elements" data-target="mod-tags"></div>
+  <div class="nav-dot" data-label="Text Elements" data-target="mod-text"></div>
+  <div class="nav-dot" data-label="Lists" data-target="mod-lists"></div>
+  <div class="nav-dot" data-label="Links & Images" data-target="mod-links"></div>
+  <div class="nav-dot" data-label="Attributes" data-target="mod-attributes"></div>
+</nav>
+
+<!-- ════════════ HERO ════════════ -->
+<section class="hero">
+  <div class="hero-eyebrow">MODULE SERIES · WEB FUNDAMENTALS</div>
+  <h1>
+    Introduction to<br>
+    <span class="line2">HTML</span>
+  </h1>
+  <p>Master the language of the web. Learn how browsers understand structure, tags, and elements — from scratch, interactively.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">Modules</div></div>
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">Sandboxes</div></div>
+    <div class="stat"><div class="stat-num">14</div><div class="stat-label">Questions</div></div>
+  </div>
+  <a href="#mod-intro" class="btn-primary">Start Learning →</a>
+  <div class="scroll-hint">
+    <div class="scroll-arrow">↓</div>
+    scroll to explore
+  </div>
+</section>
+
+<!-- ════════════ MAIN CONTENT ════════════ -->
+<main>
+
+<!-- ─────────────────────────────────────
+  MODULE 1 — WHAT IS HTML?
+───────────────────────────────────── -->
+<section class="module" id="mod-intro">
+  <div style="position:relative">
+    <div class="section-number">01</div>
+    <div class="module-tag">MODULE 01</div>
+    <h2 class="module-title">What is <span class="accent">HTML</span>?</h2>
+    <p class="module-desc">HTML is the skeleton of every webpage. Before any design, before any logic — there is HTML. Let's understand what it actually is.</p>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-card-icon">🧱</div>
+      <h4>HyperText</h4>
+      <p>Text that links to other text — the original superpower of the web.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-icon">📐</div>
+      <h4>Markup</h4>
+      <p>Special codes that annotate content, telling browsers what things <em>are</em>.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-icon">🌐</div>
+      <h4>Language</h4>
+      <p>A standardized set of rules browsers understand worldwide.</p>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <strong>Key Insight</strong>
+      HTML is <em>not</em> a programming language — it has no logic or conditions. It is a <strong>markup language</strong>: it describes the structure and meaning of content.
+    </div>
+  </div>
+
+  <p style="color:var(--muted); font-size:.95rem;">HTML was invented by <strong style="color:var(--text)">Tim Berners-Lee</strong> in 1991 and has evolved into <strong style="color:var(--orange)">HTML5</strong>, the standard in use today. Every website, from Google to Netflix, is built on HTML as its foundation.</p>
+
+  <div class="divider"></div>
+
+  <!-- SANDBOX 1 -->
+  <div class="sandbox-wrap">
+    <div class="sandbox-header">
+      <div class="sandbox-label">LIVE SANDBOX — ROLE OF HTML</div>
+      <span style="font-size:.75rem; color:var(--muted)">Try it!</span>
+    </div>
+    <div class="sandbox-body">
+      <p style="font-size:.88rem; color:var(--muted); margin-bottom:1rem;">See how the <em>same content</em> looks with and without HTML structure. Toggle to explore the difference.</p>
+      <div class="control-row" style="margin-bottom:1rem;">
+        <button class="ctrl-btn" id="noHtmlBtn" onclick="toggleHtmlRole('none')">Plain Text</button>
+        <button class="ctrl-btn active" id="withHtmlBtn" onclick="toggleHtmlRole('html')">With HTML</button>
+      </div>
+      <div class="visual-sandbox">
+        <div id="htmlRoleOutput" style="background:#fff; border-radius:8px; padding:1rem; color:#111; font-family:Georgia,serif; min-height:140px; transition:all .3s;">
+          <h2 style="margin-bottom:.5rem;">My First Webpage</h2>
+          <p>Welcome to the web! This is a paragraph with <strong>bold</strong> and <em>italic</em> text.</p>
+          <ul style="margin-top:.5rem; padding-left:1.2rem;">
+            <li>HTML gives structure</li>
+            <li>CSS adds style</li>
+            <li>JS adds behavior</li>
+          </ul>
         </div>
-    </nav>
+      </div>
+    </div>
+  </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1> Responsive Web Design</h1>
-            <p class="hero-subtitle">The complete guide to building websites that adapt beautifully to all devices and screen sizes </p>
-            <div class="hero-buttons">
-                <button class="btn-primary" onclick="document.getElementById('section1').scrollIntoView({behavior: 'smooth'})">Start Learning Now</button>
-                <button class="btn-secondary" onclick="document.getElementById('section2').scrollIntoView({behavior: 'smooth'})">Explore More</button>
-            </div>
+  <!-- QUIZ 1 -->
+  <div class="quiz-wrap">
+    <div class="quiz-header">
+      <div class="quiz-icon">🧠</div>
+      <div><div class="quiz-title">Knowledge Check</div><div class="quiz-sub">Module 01 — 2 Questions</div></div>
+    </div>
+
+    <div class="question-block" id="q1">
+      <div class="question-num">Q1</div>
+      <div class="question-text">What does the "M" in HTML stand for?</div>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'q1',false)"><span class="option-letter">A</span> Machine</div>
+        <div class="option" onclick="checkAnswer(this,'q1',true)"><span class="option-letter">B</span> Markup</div>
+        <div class="option" onclick="checkAnswer(this,'q1',false)"><span class="option-letter">C</span> Management</div>
+        <div class="option" onclick="checkAnswer(this,'q1',false)"><span class="option-letter">D</span> Module</div>
+      </div>
+      <div class="feedback-msg" id="q1-feedback"></div>
+    </div>
+
+    <div class="question-block" id="q2">
+      <div class="question-num">Q2</div>
+      <div class="question-text">HTML is classified as a ___.</div>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'q2',false)"><span class="option-letter">A</span> Programming language</div>
+        <div class="option" onclick="checkAnswer(this,'q2',false)"><span class="option-letter">B</span> Database query language</div>
+        <div class="option" onclick="checkAnswer(this,'q2',true)"><span class="option-letter">C</span> Markup language</div>
+        <div class="option" onclick="checkAnswer(this,'q2',false)"><span class="option-letter">D</span> Scripting language</div>
+      </div>
+      <div class="feedback-msg" id="q2-feedback"></div>
+    </div>
+
+    <button class="quiz-reset" id="reset-q1q2" onclick="resetQuiz(['q1','q2'],'reset-q1q2')">↺ Try Again</button>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────
+  MODULE 2 — HTML DOCUMENT STRUCTURE
+───────────────────────────────────── -->
+<section class="module" id="mod-structure">
+  <div style="position:relative">
+    <div class="section-number">02</div>
+    <div class="module-tag">MODULE 02</div>
+    <h2 class="module-title">HTML Document <span class="accent">Structure</span></h2>
+    <p class="module-desc">Every valid HTML file follows a strict boilerplate. Understanding this skeleton is step one for every web developer.</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-block-header">
+      <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+      <div class="code-lang">index.html</div>
+    </div>
+    <pre><span class="com">&lt;!-- 1. The DOCTYPE Declaration --&gt;</span>
+<span class="tag">&lt;!DOCTYPE html&gt;</span>
+
+<span class="com">&lt;!-- 2. The root HTML element --&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="val">"en"</span><span class="tag">&gt;</span>
+
+  <span class="com">&lt;!-- 3. The HEAD (metadata, invisible) --&gt;</span>
+  <span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="val">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span><span class="txt">My Webpage</span><span class="tag">&lt;/title&gt;</span>
+  <span class="tag">&lt;/head&gt;</span>
+
+  <span class="com">&lt;!-- 4. The BODY (visible content) --&gt;</span>
+  <span class="tag">&lt;body&gt;</span>
+    <span class="tag">&lt;h1&gt;</span><span class="txt">Hello, World!</span><span class="tag">&lt;/h1&gt;</span>
+  <span class="tag">&lt;/body&gt;</span>
+
+<span class="tag">&lt;/html&gt;</span></pre>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-card-icon">📣</div>
+      <h4><code style="color:var(--cyan);font-family:var(--mono)">&lt;!DOCTYPE html&gt;</code></h4>
+      <p>Tells the browser to use the modern HTML5 standard. Always the very first line.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-icon">🌍</div>
+      <h4><code style="color:var(--cyan);font-family:var(--mono)">&lt;html&gt;</code></h4>
+      <p>The root element. Every other element lives inside it. Use <code>lang</code> for accessibility.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-icon">🧠</div>
+      <h4><code style="color:var(--cyan);font-family:var(--mono)">&lt;head&gt;</code></h4>
+      <p>Metadata — title, character set, linked files. Nothing in <code>&lt;head&gt;</code> is visible to users.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-icon">👁️</div>
+      <h4><code style="color:var(--cyan);font-family:var(--mono)">&lt;body&gt;</code></h4>
+      <p>Everything the user sees. All your content — text, images, links — lives here.</p>
+    </div>
+  </div>
+
+  <!-- DOM Tree Visualizer -->
+  <div class="callout tip">
+    <div class="callout-icon">🌳</div>
+    <div class="callout-body">
+      <strong>The DOM Tree</strong>
+      HTML creates a <strong>Document Object Model (DOM)</strong> — a tree of nested elements. Browsers read this tree to render your page.
+    </div>
+  </div>
+
+  <div class="tree-display">
+    <div class="tree-node"><span class="tree-tag">document</span></div>
+    <div class="tree-indent">
+      <div class="tree-node"><span class="tree-branch">└─ </span><span class="tree-tag">&lt;html&gt;</span></div>
+      <div class="tree-indent">
+        <div class="tree-node"><span class="tree-branch">├─ </span><span class="tree-tag">&lt;head&gt;</span></div>
+        <div class="tree-indent">
+          <div class="tree-node"><span class="tree-branch">│  ├─ </span><span class="tree-tag">&lt;meta&gt;</span> <span class="tree-attr">charset="UTF-8"</span></div>
+          <div class="tree-node"><span class="tree-branch">│  └─ </span><span class="tree-tag">&lt;title&gt;</span> <span class="tree-text">"My Webpage"</span></div>
         </div>
-    </section>
-
-    <!-- Section 1: Basics -->
-    <section class="section" id="section1">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-number">Lesson 1</div>
-                <h2>The Basics</h2>
-                <p class="section-subtitle">Learn the fundamental principles of responsive design</p>
-            </div>
-
-            <!-- Fluid Grids -->
-            <div class="card">
-                <h3>🔲 Fluid Grids - Flexible Layouts</h3>
-                <p class="card-desc">Use relative units (%) instead of fixed pixels (px) to create flexible and scalable layouts</p>
-                
-                <div class="code-editor-wrapper">
-                    <div class="editor-header">
-                        <div class="editor-dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="editor-filename">style.css</span>
-                    </div>
-                    <textarea spellcheck="false">.container {
-  width: 100%;
-  max-width: 1200px;
-  padding: 0 5%;
-  margin: 0 auto;
-}
-
-.column {
-  width: 50%;
-  float: left;
-  padding: 10px;
-}</textarea>
-                </div>
-
-                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">Device Preview:</h4>
-                <div class="devices-grid">
-                    <div class="device-wrapper">
-                        <div class="device mobile">
-                            <div class="device-screen">
-                                <div class="demo-content">
-                                    <div class="demo-col col-1">📦 50%</div>
-                                    <div class="demo-col col-2">📦 50%</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">📱 Mobile<br>(220px)</div>
-                    </div>
-                    <div class="device-wrapper">
-                        <div class="device tablet">
-                            <div class="device-screen">
-                                <div class="demo-content">
-                                    <div class="demo-col col-1" style="width: 48%; display: inline-block; margin-right: 2%;">📦 50%</div>
-                                    <div class="demo-col col-2" style="width: 48%; display: inline-block;">📦 50%</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">📱 Tablet<br>(380px)</div>
-                    </div>
-                    <div class="device-wrapper">
-                        <div class="device desktop">
-                            <div class="device-screen">
-                                <div class="demo-content">
-                                    <div class="demo-col col-1" style="width: 48%; display: inline-block; margin-right: 2%;">📦 50%</div>
-                                    <div class="demo-col col-2" style="width: 48%; display: inline-block;">📦 50%</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">💻 Desktop<br>(550px)</div>
-                    </div>
-                </div>
-
-                <div class="tip-box">
-                    <strong>💡 Pro Tip:</strong> Use percentages (%) for widths and padding instead of fixed pixels to make your design scalable across all devices
-                </div>
-            </div>
-
-            <!-- Flexible Images -->
-            <div class="card">
-                <h3>🖼️ Flexible Images - Responsive Media</h3>
-                <p class="card-desc">Make images automatically adapt to their container size without overflow or distortion</p>
-                
-                <div class="code-editor-wrapper">
-                    <div class="editor-header">
-                        <div class="editor-dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="editor-filename">style.css</span>
-                    </div>
-                    <textarea spellcheck="false">img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-.img-container {
-  width: 100%;
-}</textarea>
-                </div>
-
-                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">Device Preview:</h4>
-                <div class="devices-grid">
-                    <div class="device-wrapper">
-                        <div class="device mobile">
-                            <div class="device-screen">
-                                <div class="demo-content">
-                                    <div style="width: 100%; padding-top: 75%; background: linear-gradient(135deg, rgba(0, 102, 204, 0.3), rgba(0, 102, 204, 0.1)); border-radius: 8px; position: relative;">
-                                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem;">📷</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">📱 100% width</div>
-                    </div>
-                    <div class="device-wrapper">
-                        <div class="device tablet">
-                            <div class="device-screen">
-                                <div class="demo-content">
-                                    <div style="width: 100%; padding-top: 75%; background: linear-gradient(135deg, rgba(0, 102, 204, 0.3), rgba(0, 102, 204, 0.1)); border-radius: 8px; position: relative;">
-                                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem;">📷</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">📱 100% width</div>
-                    </div>
-                    <div class="device-wrapper">
-                        <div class="device desktop">
-                            <div class="device-screen">
-                                <div class="demo-content">
-                                    <div style="width: 100%; padding-top: 75%; background: linear-gradient(135deg, rgba(0, 102, 204, 0.3), rgba(0, 102, 204, 0.1)); border-radius: 8px; position: relative;">
-                                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem;">📷</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">💻 100% width</div>
-                    </div>
-                </div>
-
-                <div class="tip-box">
-                    <strong>💡 Pro Tip:</strong> Use <code style="color: var(--accent);">max-width: 100%</code> and <code style="color: var(--accent);">height: auto</code> for all images to ensure compatibility across all devices
-                </div>
-            </div>
-
-            <!-- Quiz 1 -->
-            <div class="quiz-box">
-                <h3 class="quiz-title">🧠 Test Yourself - Basics</h3>
-
-                <div class="quiz-question">
-                    <div class="quiz-q">1️⃣ What's the main difference between Fluid and Fixed Grid?</div>
-                    <div class="quiz-options">
-                        <button class="quiz-option" data-answer="1">Fluid uses %, Fixed uses px</button>
-                        <button class="quiz-option" data-answer="0">There's no real difference</button>
-                        <button class="quiz-option" data-answer="0">Fixed is better than Fluid</button>
-                    </div>
-                    <div class="quiz-feedback"></div>
-                </div>
-
-                <div class="quiz-question">
-                    <div class="quiz-q">2️⃣ How do you make images responsive?</div>
-                    <div class="quiz-options">
-                        <button class="quiz-option" data-answer="1">max-width: 100% and height: auto</button>
-                        <button class="quiz-option" data-answer="0">width: 100% and height: 100%</button>
-                        <button class="quiz-option" data-answer="0">No additional CSS needed</button>
-                    </div>
-                    <div class="quiz-feedback"></div>
-                </div>
-
-                <button class="btn-check" onclick="checkSection(1)">Check Answers ✓</button>
-                <div class="quiz-score" id="score-1" style="display:none;"></div>
-            </div>
+        <div class="tree-node"><span class="tree-branch">└─ </span><span class="tree-tag">&lt;body&gt;</span></div>
+        <div class="tree-indent">
+          <div class="tree-node"><span class="tree-branch">   └─ </span><span class="tree-tag">&lt;h1&gt;</span> <span class="tree-text">"Hello, World!"</span></div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
 
-    <!-- Section 2: Media Queries -->
-    <section class="section" id="section2">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-number">Lesson 2</div>
-                <h2>Media Queries</h2>
-                <p class="section-subtitle">Apply different styles based on device characteristics and screen size</p>
-            </div>
+  <div class="divider"></div>
 
-            <!-- Viewport Width -->
-            <div class="card">
-                <h3>📏 Media Queries - Screen Width</h3>
-                <p class="card-desc">Automatically change styles when the screen reaches a specific width using min-width and max-width</p>
-                
-                <div class="code-editor-wrapper">
-                    <div class="editor-header">
-                        <div class="editor-dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="editor-filename">style.css</span>
-                    </div>
-                    <textarea spellcheck="false">.box {
-  padding: 20px;
-  background: lightyellow;
-  border-radius: 8px;
-}
-
-@media (min-width: 600px) {
-  .box {
-    background: lightblue;
-  }
-}
-
-@media (min-width: 900px) {
-  .box {
-    background: lightgreen;
-  }
-}</textarea>
-                </div>
-
-                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">Device Preview:</h4>
-                <div class="devices-grid">
-                    <div class="device-wrapper">
-                        <div class="device mobile">
-                            <div class="device-screen">
-                                <div class="demo-content" style="padding: 20px; text-align: center;">
-                                    <div style="padding: 20px; background: lightyellow; border-radius: 8px; color: #000; font-weight: 700;">
-                                        📱 Mobile<br><span style="font-size: 0.8rem;">Yellow</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">≤ 600px</div>
-                    </div>
-                    <div class="device-wrapper">
-                        <div class="device tablet">
-                            <div class="device-screen">
-                                <div class="demo-content" style="padding: 20px; text-align: center;">
-                                    <div style="padding: 20px; background: lightblue; border-radius: 8px; color: #000; font-weight: 700;">
-                                        📱 Tablet<br><span style="font-size: 0.8rem;">Blue</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">600-900px</div>
-                    </div>
-                    <div class="device-wrapper">
-                        <div class="device desktop">
-                            <div class="device-screen">
-                                <div class="demo-content" style="padding: 20px; text-align: center;">
-                                    <div style="padding: 20px; background: lightgreen; border-radius: 8px; color: #000; font-weight: 700;">
-                                        💻 Desktop<br><span style="font-size: 0.8rem;">Green</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">≥ 900px</div>
-                    </div>
-                </div>
-
-                <div class="tip-box">
-                    <strong>💡 Pro Tip:</strong> Use <code style="color: var(--accent);">min-width</code> with Mobile First approach to start from the smallest size and expand progressively
-                </div>
-            </div>
-
-            <!-- Orientation -->
-            <div class="card">
-                <h3>🔄 Orientation - Device Orientation</h3>
-                <p class="card-desc">Apply different styles when the device is in Portrait (vertical) or Landscape (horizontal) mode</p>
-                
-                <div class="code-editor-wrapper">
-                    <div class="editor-header">
-                        <div class="editor-dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="editor-filename">style.css</span>
-                    </div>
-                    <textarea spellcheck="false">.content {
-  background: lightyellow;
-  padding: 20px;
-}
-
-@media (orientation: landscape) {
-  .content {
-    background: lightgreen;
-  }
-}</textarea>
-                </div>
-
-                <div class="tip-box" style="margin-top: 24px;">
-                    <strong>💡 Pro Tip:</strong> Use orientation media query especially for smartphones to improve user experience in different orientations
-                </div>
-            </div>
-
-            <!-- Hover Support -->
-            <div class="card">
-                <h3>🖱️ Hover - Hover-capable Devices</h3>
-                <p class="card-desc">Apply hover effects only on devices that support them (mainly desktop devices)</p>
-                
-                <div class="code-editor-wrapper">
-                    <div class="editor-header">
-                        <div class="editor-dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="editor-filename">style.css</span>
-                    </div>
-                    <textarea spellcheck="false">button {
-  padding: 10px 20px;
-  background: lightgray;
-  cursor: pointer;
-  border-radius: 6px;
-}
-
-@media (hover: hover) {
-  button:hover {
-    background: yellow;
-    transform: scale(1.05);
-  }
-}</textarea>
-                </div>
-
-                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">Try the Preview:</h4>
-                <div style="text-align: center;">
-                    <button style="padding: 14px 28px; background: linear-gradient(135deg, rgba(255, 193, 7, 0.3), rgba(255, 193, 7, 0.1)); color: var(--text); border: 2px solid var(--warning); cursor: pointer; transition: all 0.3s; font-weight: 700; border-radius: 8px;" onmouseover="this.style.background='rgba(255, 193, 7, 0.5)'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='rgba(255, 193, 7, 0.3)'; this.style.transform='scale(1)'">
-                        🖱️ Try hovering here (Desktop only)
-                    </button>
-                </div>
-
-                <div class="tip-box" style="margin-top: 24px;">
-                    <strong>💡 Pro Tip:</strong> Use <code style="color: var(--accent);">(hover: hover)</code> media query to avoid issues on touch devices
-                </div>
-            </div>
-
-            <!-- Logical Operators -->
-            <div class="card">
-                <h3>🔗 Logical Operators - AND</h3>
-                <p class="card-desc">Combine multiple conditions in a single media query using AND for more precise control</p>
-                
-                <div class="code-editor-wrapper">
-                    <div class="editor-header">
-                        <div class="editor-dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="editor-filename">style.css</span>
-                    </div>
-                    <textarea spellcheck="false">.item {
-  background: lightyellow;
-  padding: 16px;
-}
-
-@media (min-width: 768px) and (orientation: landscape) {
-  .item {
-    background: lightcoral;
-    padding: 24px;
-  }
-}</textarea>
-                </div>
-
-                <div class="tip-box" style="margin-top: 24px;">
-                    <strong>💡 Pro Tip:</strong> Use <code style="color: var(--accent);">and</code> to combine multiple conditions for more specialized styling
-                </div>
-            </div>
-
-            <!-- Quiz 2 -->
-            <div class="quiz-box">
-                <h3 class="quiz-title">🧠 Test Yourself - Media Queries</h3>
-
-                <div class="quiz-question">
-                    <div class="quiz-q">1️⃣ How do you write a correct min-width media query?</div>
-                    <div class="quiz-options">
-                        <button class="quiz-option" data-answer="1">@media (min-width: 768px) { ... }</button>
-                        <button class="quiz-option" data-answer="0">@media min-width: 768px { ... }</button>
-                        <button class="quiz-option" data-answer="0">@media if (min-width: 768px)</button>
-                    </div>
-                    <div class="quiz-feedback"></div>
-                </div>
-
-                <div class="quiz-question">
-                    <div class="quiz-q">2️⃣ How do you check for Landscape Orientation?</div>
-                    <div class="quiz-options">
-                        <button class="quiz-option" data-answer="1">@media (orientation: landscape)</button>
-                        <button class="quiz-option" data-answer="0">@media landscape-mode</button>
-                        <button class="quiz-option" data-answer="0">@media horizontal</button>
-                    </div>
-                    <div class="quiz-feedback"></div>
-                </div>
-
-                <button class="btn-check" onclick="checkSection(2)">Check Answers ✓</button>
-                <div class="quiz-score" id="score-2" style="display:none;"></div>
-            </div>
+  <!-- SANDBOX 2: Live Code Editor -->
+  <div class="sandbox-wrap">
+    <div class="sandbox-header">
+      <div class="sandbox-label">LIVE SANDBOX — EDIT THE BOILERPLATE</div>
+    </div>
+    <div class="sandbox-body">
+      <p style="font-size:.88rem; color:var(--muted); margin-bottom:1rem;">Edit the HTML on the left and see it rendered live on the right.</p>
+      <div class="editor-preview">
+        <div class="editor-pane">
+          <div class="pane-label">✏ EDITOR</div>
+          <textarea class="code-editor" id="sandbox2Editor" spellcheck="false" oninput="updatePreview('sandbox2Editor','sandbox2Preview')">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt;My Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello, World!&lt;/h1&gt;
+  &lt;p&gt;Edit me to see changes.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
         </div>
-    </section>
-
-    <!-- Section 3: Breakpoints -->
-    <section class="section" id="section3">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-number">Lesson 3</div>
-                <h2>Breakpoints</h2>
-                <p class="section-subtitle">Standard breakpoints for different screen sizes</p>
-            </div>
-
-            <!-- Breakpoints Card -->
-            <div class="card">
-                <h3>📊 Standard Breakpoints</h3>
-                <p class="card-desc">Use specific breakpoints instead of trying to cover every possible screen size</p>
-                
-                <div class="code-editor-wrapper">
-                    <div class="editor-header">
-                        <div class="editor-dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="editor-filename">style.css</span>
-                    </div>
-                    <textarea spellcheck="false">/* Mobile First */
-.container {
-  font-size: 14px;
-  padding: 10px;
-}
-
-/* Tablet: 641px - 1024px */
-@media (min-width: 641px) {
-  .container {
-    font-size: 16px;
-    padding: 20px;
-  }
-}
-
-/* Desktop: 1025px+ */
-@media (min-width: 1025px) {
-  .container {
-    font-size: 18px;
-    padding: 30px;
-  }
-}</textarea>
-                </div>
-
-                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">Device Preview:</h4>
-                <div class="devices-grid">
-                    <div class="device-wrapper">
-                        <div class="device mobile">
-                            <div class="device-screen">
-                                <div style="padding: 10px;">
-                                    <div style="background: linear-gradient(135deg, rgba(255,71,87,0.3), rgba(255,71,87,0.1)); padding: 15px; border-radius: 8px; text-align: center; font-weight: 700; border: 2px solid rgba(255,71,87,0.5);">
-                                        <p style="font-size: 11px;">📱 Mobile</p>
-                                        <p style="font-size: 8px; margin-top: 5px; color: var(--text-muted);">14px font</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">≤ 640px</div>
-                    </div>
-                    <div class="device-wrapper">
-                        <div class="device tablet">
-                            <div class="device-screen">
-                                <div style="padding: 20px;">
-                                    <div style="background: linear-gradient(135deg, rgba(255,193,7,0.3), rgba(255,193,7,0.1)); padding: 15px; border-radius: 8px; text-align: center; font-weight: 700; border: 2px solid rgba(255,193,7,0.5);">
-                                        <p style="font-size: 12px;">📱 Tablet</p>
-                                        <p style="font-size: 9px; margin-top: 5px; color: var(--text-muted);">16px font</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">641-1024px</div>
-                    </div>
-                    <div class="device-wrapper">
-                        <div class="device desktop">
-                            <div class="device-screen">
-                                <div style="padding: 30px;">
-                                    <div style="background: linear-gradient(135deg, rgba(0,208,132,0.3), rgba(0,208,132,0.1)); padding: 15px; border-radius: 8px; text-align: center; font-weight: 700; border: 2px solid rgba(0,208,132,0.5);">
-                                        <p style="font-size: 13px;">💻 Desktop</p>
-                                        <p style="font-size: 9px; margin-top: 5px; color: var(--text-muted);">18px font</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">1025px+</div>
-                    </div>
-                </div>
-
-                <div class="tip-box">
-                    <strong>💡 Recommended Standards:</strong><br>
-                    📱 <strong>Mobile (Smartphones):</strong> Up to 640px<br>
-                    📱 <strong>Tablet:</strong> 641px to 1024px<br>
-                    💻 <strong>Desktop:</strong> 1025px and above
-                </div>
-            </div>
-
-            <!-- Grid Layout -->
-            <div class="card">
-                <h3>🔲 Grid Layout - Responsive Columns</h3>
-                <p class="card-desc">Automatically change the number of columns from 1 to 3 based on screen size</p>
-                
-                <div class="code-editor-wrapper">
-                    <div class="editor-header">
-                        <div class="editor-dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="editor-filename">style.css</span>
-                    </div>
-                    <textarea spellcheck="false">.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 15px;
-}
-
-@media (min-width: 641px) {
-  .grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (min-width: 1025px) {
-  .grid {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}</textarea>
-                </div>
-
-                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">Device Preview:</h4>
-                <div class="devices-grid">
-                    <div class="device-wrapper">
-                        <div class="device mobile">
-                            <div class="device-screen">
-                                <div style="display: grid; grid-template-columns: 1fr; gap: 8px; padding: 10px;">
-                                    <div class="demo-col col-1">📦 1</div>
-                                    <div class="demo-col col-2">📦 2</div>
-                                    <div class="demo-col col-3">📦 3</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">1 Column</div>
-                    </div>
-                    <div class="device-wrapper">
-                        <div class="device tablet">
-                            <div class="device-screen">
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px;">
-                                    <div class="demo-col col-1">📦 1</div>
-                                    <div class="demo-col col-2">📦 2</div>
-                                    <div class="demo-col col-3" style="grid-column: 1/-1;">📦 3</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">2 Columns</div>
-                    </div>
-                    <div class="device-wrapper">
-                        <div class="device desktop">
-                            <div class="device-screen">
-                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 10px;">
-                                    <div class="demo-col col-1">📦 1</div>
-                                    <div class="demo-col col-2">📦 2</div>
-                                    <div class="demo-col col-3">📦 3</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">3 Columns</div>
-                    </div>
-                </div>
-
-                <div class="tip-box">
-                    <strong>💡 Pro Tip:</strong> Use CSS Grid instead of Float for complex and responsive layouts
-                </div>
-            </div>
-
-            <!-- Quiz 3 -->
-            <div class="quiz-box">
-                <h3 class="quiz-title">🧠 Test Yourself - Breakpoints</h3>
-
-                <div class="quiz-question">
-                    <div class="quiz-q">1️⃣ What's the breakpoint for Tablet devices?</div>
-                    <div class="quiz-options">
-                        <button class="quiz-option" data-answer="0">Up to 640px</button>
-                        <button class="quiz-option" data-answer="1">641px to 1024px</button>
-                        <button class="quiz-option" data-answer="0">1025px and above</button>
-                    </div>
-                    <div class="quiz-feedback"></div>
-                </div>
-
-                <div class="quiz-question">
-                    <div class="quiz-q">2️⃣ Should you cover every possible screen size?</div>
-                    <div class="quiz-options">
-                        <button class="quiz-option" data-answer="0">Yes, cover all sizes</button>
-                        <button class="quiz-option" data-answer="1">No, use major breakpoints only</button>
-                    </div>
-                    <div class="quiz-feedback"></div>
-                </div>
-
-                <button class="btn-check" onclick="checkSection(3)">Check Answers ✓</button>
-                <div class="quiz-score" id="score-3" style="display:none;"></div>
-            </div>
+        <div class="preview-pane">
+          <div class="pane-label">👁 PREVIEW</div>
+          <iframe class="preview-frame" id="sandbox2Preview"></iframe>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
 
-    <!-- Section 4: Mobile First -->
-    <section class="section" id="section4">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-number">Lesson 4</div>
-                <h2>Mobile First Approach</h2>
-                <p class="section-subtitle">Start with mobile design then progressively enhance for larger screens</p>
-            </div>
+  <!-- QUIZ 2 -->
+  <div class="quiz-wrap">
+    <div class="quiz-header">
+      <div class="quiz-icon">🧠</div>
+      <div><div class="quiz-title">Knowledge Check</div><div class="quiz-sub">Module 02 — 2 Questions</div></div>
+    </div>
 
-            <!-- Mobile First Card -->
-            <div class="card">
-                <h3>📱 Mobile First Philosophy</h3>
-                <p class="card-desc">Design for mobile first with simple base styles, then add enhancements progressively for larger devices</p>
-                
-                <div class="code-editor-wrapper">
-                    <div class="editor-header">
-                        <div class="editor-dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <span class="editor-filename">style.css</span>
-                    </div>
-                    <textarea spellcheck="false">/* Base: Mobile design */
-.container {
-  width: 100%;
-  padding: 10px;
-  background: lightblue;
+    <div class="question-block" id="q3">
+      <div class="question-num">Q1</div>
+      <div class="question-text">Which section of an HTML document contains visible content for users?</div>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'q3',false)"><span class="option-letter">A</span> &lt;head&gt;</div>
+        <div class="option" onclick="checkAnswer(this,'q3',true)"><span class="option-letter">B</span> &lt;body&gt;</div>
+        <div class="option" onclick="checkAnswer(this,'q3',false)"><span class="option-letter">C</span> &lt;html&gt;</div>
+        <div class="option" onclick="checkAnswer(this,'q3',false)"><span class="option-letter">D</span> &lt;meta&gt;</div>
+      </div>
+      <div class="feedback-msg" id="q3-feedback"></div>
+    </div>
+
+    <div class="question-block" id="q4">
+      <div class="question-num">Q2</div>
+      <div class="question-text">What is the purpose of <code style="font-family:var(--mono); color:var(--cyan)">&lt;!DOCTYPE html&gt;</code>?</div>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'q4',false)"><span class="option-letter">A</span> It creates the page title</div>
+        <div class="option" onclick="checkAnswer(this,'q4',false)"><span class="option-letter">B</span> It links CSS stylesheets</div>
+        <div class="option" onclick="checkAnswer(this,'q4',true)"><span class="option-letter">C</span> It tells the browser to use HTML5 standard</div>
+        <div class="option" onclick="checkAnswer(this,'q4',false)"><span class="option-letter">D</span> It defines the document language</div>
+      </div>
+      <div class="feedback-msg" id="q4-feedback"></div>
+    </div>
+
+    <button class="quiz-reset" id="reset-q3q4" onclick="resetQuiz(['q3','q4'],'reset-q3q4')">↺ Try Again</button>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────
+  MODULE 3 — TAGS & ELEMENTS
+───────────────────────────────────── -->
+<section class="module" id="mod-tags">
+  <div style="position:relative">
+    <div class="section-number">03</div>
+    <div class="module-tag">MODULE 03</div>
+    <h2 class="module-title">Tags <span class="accent">&amp;</span> Elements</h2>
+    <p class="module-desc">Tags are the syntax. Elements are what tags create. Understanding this distinction is fundamental.</p>
+  </div>
+
+  <!-- Anatomy Diagram -->
+  <div class="glass" style="margin-bottom:1.5rem;">
+    <p style="font-size:.82rem; color:var(--muted); margin-bottom:1rem; text-align:center; font-family:var(--mono); letter-spacing:.05em;">ANATOMY OF AN HTML ELEMENT</p>
+    <div class="tag-anatomy" id="tagAnatomy">
+      <div class="tag-part">
+        <div class="tag-text bracket">&lt;</div>
+        <div class="tag-connector"></div>
+        <div class="tag-label">angle bracket</div>
+      </div>
+      <div class="tag-part">
+        <div class="tag-text tagname">p</div>
+        <div class="tag-connector"></div>
+        <div class="tag-label">tag name</div>
+      </div>
+      <div class="tag-part">
+        <div class="tag-text bracket">&gt;</div>
+        <div class="tag-connector"></div>
+        <div class="tag-label">angle bracket</div>
+      </div>
+      <div class="tag-part" style="margin: 0 .5rem">
+        <div class="tag-text content">Hello!</div>
+        <div class="tag-connector"></div>
+        <div class="tag-label">content</div>
+      </div>
+      <div class="tag-part">
+        <div class="tag-text bracket">&lt;</div>
+        <div class="tag-connector"></div>
+        <div class="tag-label"></div>
+      </div>
+      <div class="tag-part">
+        <div class="tag-text slash">/</div>
+        <div class="tag-connector"></div>
+        <div class="tag-label">closing slash</div>
+      </div>
+      <div class="tag-part">
+        <div class="tag-text tagname">p</div>
+        <div class="tag-connector"></div>
+        <div class="tag-label">tag name</div>
+      </div>
+      <div class="tag-part">
+        <div class="tag-text bracket">&gt;</div>
+        <div class="tag-connector"></div>
+        <div class="tag-label"></div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:2rem; justify-content:center; margin-top:.5rem; flex-wrap:wrap;">
+      <div style="text-align:center;">
+        <div style="font-family:var(--mono); font-size:.78rem; color:var(--cyan); margin-bottom:.25rem;">Opening Tag</div>
+        <div style="font-family:var(--mono); font-size:1rem; color:#a5b4fc;">&lt;p&gt;</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:var(--mono); font-size:.78rem; color:var(--green); margin-bottom:.25rem;">Content</div>
+        <div style="font-family:var(--mono); font-size:1rem; color:#a5b4fc;">Hello!</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:var(--mono); font-size:.78rem; color:#f472b6; margin-bottom:.25rem;">Closing Tag</div>
+        <div style="font-family:var(--mono); font-size:1rem; color:#a5b4fc;">&lt;/p&gt;</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:var(--mono); font-size:.78rem; color:var(--orange); margin-bottom:.25rem;">Full Element</div>
+        <div style="font-family:var(--mono); font-size:1rem; color:#a5b4fc;">&lt;p&gt;Hello!&lt;/p&gt;</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-icon">⚡</div>
+    <div class="callout-body">
+      <strong>Self-Closing Tags</strong>
+      Some elements have no content and don't need a closing tag. These are called <strong>void elements</strong>: <code style="font-family:var(--mono); color:var(--cyan)">&lt;br&gt;</code>, <code style="font-family:var(--mono); color:var(--cyan)">&lt;img&gt;</code>, <code style="font-family:var(--mono); color:var(--cyan)">&lt;input&gt;</code>, <code style="font-family:var(--mono); color:var(--cyan)">&lt;meta&gt;</code>, <code style="font-family:var(--mono); color:var(--cyan)">&lt;link&gt;</code>
+    </div>
+  </div>
+
+  <p style="color:var(--muted); font-size:.95rem;">Elements can also be <strong style="color:var(--text)">nested</strong> — placed inside other elements. The outer element is the <span class="hl">parent</span>, the inner ones are <span class="hl-c">children</span>. This nesting creates the DOM tree.</p>
+
+  <div class="code-block" style="margin:1.25rem 0;">
+    <div class="code-block-header">
+      <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+      <div class="code-lang">Nested Elements</div>
+    </div>
+    <pre><span class="com">&lt;!-- Nesting: p is PARENT, strong is CHILD --&gt;</span>
+<span class="tag">&lt;p&gt;</span>
+  <span class="txt">This is </span><span class="tag">&lt;strong&gt;</span><span class="txt">very important</span><span class="tag">&lt;/strong&gt;</span><span class="txt"> text.</span>
+<span class="tag">&lt;/p&gt;</span>
+
+<span class="com">&lt;!-- ✅ Correct — properly closed --&gt;</span>
+<span class="tag">&lt;em&gt;&lt;strong&gt;</span><span class="txt">Bold &amp; Italic</span><span class="tag">&lt;/strong&gt;&lt;/em&gt;</span>
+
+<span class="com">&lt;!-- ❌ Wrong — tags overlap (invalid HTML) --&gt;</span>
+<span class="tag">&lt;em&gt;&lt;strong&gt;</span><span class="txt">Bad!</span><span class="tag">&lt;/em&gt;&lt;/strong&gt;</span></pre>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SANDBOX 3: Tag Builder -->
+  <div class="sandbox-wrap">
+    <div class="sandbox-header">
+      <div class="sandbox-label">SANDBOX — TAG BUILDER</div>
+    </div>
+    <div class="sandbox-body">
+      <p style="font-size:.88rem; color:var(--muted); margin-bottom:1rem;">Click a tag type to see its structure and example output.</p>
+      <div class="control-row" style="margin-bottom:1rem;">
+        <button class="ctrl-btn active" onclick="showTagExample('p', this)">p</button>
+        <button class="ctrl-btn" onclick="showTagExample('h1', this)">h1</button>
+        <button class="ctrl-btn" onclick="showTagExample('strong', this)">strong</button>
+        <button class="ctrl-btn" onclick="showTagExample('br', this)">br</button>
+        <button class="ctrl-btn" onclick="showTagExample('em', this)">em</button>
+        <button class="ctrl-btn" onclick="showTagExample('div', this)">div</button>
+      </div>
+      <div id="tagExampleCode" class="output-display"></div>
+      <div style="margin-top:.75rem; background:#fff; border-radius:8px; padding:.75rem 1rem; min-height:48px;" id="tagExampleRender"></div>
+    </div>
+  </div>
+
+  <!-- QUIZ 3 -->
+  <div class="quiz-wrap">
+    <div class="quiz-header">
+      <div class="quiz-icon">🧠</div>
+      <div><div class="quiz-title">Knowledge Check</div><div class="quiz-sub">Module 03 — 2 Questions</div></div>
+    </div>
+
+    <div class="question-block" id="q5">
+      <div class="question-num">Q1</div>
+      <div class="question-text">What makes an element "self-closing" (void)?</div>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'q5',false)"><span class="option-letter">A</span> It uses a special closing attribute</div>
+        <div class="option" onclick="checkAnswer(this,'q5',true)"><span class="option-letter">B</span> It cannot have content, so no closing tag is needed</div>
+        <div class="option" onclick="checkAnswer(this,'q5',false)"><span class="option-letter">C</span> It always has a <code>/</code> at the start</div>
+        <div class="option" onclick="checkAnswer(this,'q5',false)"><span class="option-letter">D</span> It's a newer HTML5 invention</div>
+      </div>
+      <div class="feedback-msg" id="q5-feedback"></div>
+    </div>
+
+    <div class="question-block" id="q6">
+      <div class="question-num">Q2</div>
+      <div class="question-text">Which of the following shows <strong>correctly nested</strong> elements?</div>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'q6',false)"><span class="option-letter">A</span> <code style="font-family:var(--mono)">&lt;em&gt;&lt;strong&gt;text&lt;/em&gt;&lt;/strong&gt;</code></div>
+        <div class="option" onclick="checkAnswer(this,'q6',true)"><span class="option-letter">B</span> <code style="font-family:var(--mono)">&lt;em&gt;&lt;strong&gt;text&lt;/strong&gt;&lt;/em&gt;</code></div>
+        <div class="option" onclick="checkAnswer(this,'q6',false)"><span class="option-letter">C</span> <code style="font-family:var(--mono)">&lt;strong&gt;text&lt;/em&gt;&lt;/strong&gt;</code></div>
+        <div class="option" onclick="checkAnswer(this,'q6',false)"><span class="option-letter">D</span> <code style="font-family:var(--mono)">&lt;/em&gt;&lt;strong&gt;text&lt;/strong&gt;&lt;em&gt;</code></div>
+      </div>
+      <div class="feedback-msg" id="q6-feedback"></div>
+    </div>
+
+    <button class="quiz-reset" id="reset-q5q6" onclick="resetQuiz(['q5','q6'],'reset-q5q6')">↺ Try Again</button>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────
+  MODULE 4 — TEXT ELEMENTS
+───────────────────────────────────── -->
+<section class="module" id="mod-text">
+  <div style="position:relative">
+    <div class="section-number">04</div>
+    <div class="module-tag">MODULE 04</div>
+    <h2 class="module-title">Common <span class="accent">Text</span> Elements</h2>
+    <p class="module-desc">Text is the backbone of web content. HTML gives you a rich set of semantic elements to structure, emphasize, and organize it.</p>
+  </div>
+
+  <!-- Interactive Element Explorer -->
+  <p style="font-size:.88rem; color:var(--muted); margin-bottom:1rem;">Click any element below to learn about it:</p>
+
+  <div class="element-grid" id="elementGrid">
+    <div class="element-chip active" onclick="showElement('h1')"><code>&lt;h1&gt;</code><span>Heading 1</span></div>
+    <div class="element-chip" onclick="showElement('h2')"><code>&lt;h2&gt;</code><span>Heading 2</span></div>
+    <div class="element-chip" onclick="showElement('h3')"><code>&lt;h3&gt;</code><span>Heading 3</span></div>
+    <div class="element-chip" onclick="showElement('p')"><code>&lt;p&gt;</code><span>Paragraph</span></div>
+    <div class="element-chip" onclick="showElement('strong')"><code>&lt;strong&gt;</code><span>Bold</span></div>
+    <div class="element-chip" onclick="showElement('em')"><code>&lt;em&gt;</code><span>Italic</span></div>
+    <div class="element-chip" onclick="showElement('span')"><code>&lt;span&gt;</code><span>Inline</span></div>
+    <div class="element-chip" onclick="showElement('br')"><code>&lt;br&gt;</code><span>Line Break</span></div>
+    <div class="element-chip" onclick="showElement('hr')"><code>&lt;hr&gt;</code><span>Divider</span></div>
+    <div class="element-chip" onclick="showElement('blockquote')"><code>&lt;blockquote&gt;</code><span>Quote</span></div>
+  </div>
+
+  <div class="element-detail show" id="elementDetail">
+    <h4 id="el-name">&lt;h1&gt;</h4>
+    <p id="el-desc">The top-level heading. There should be only one &lt;h1&gt; per page. Critical for SEO and accessibility screen readers.</p>
+    <div class="example" id="el-example">&lt;h1&gt;Welcome to My Website&lt;/h1&gt;</div>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-body">
+      <strong>Semantic vs Visual</strong>
+      Use tags for their <em>meaning</em>, not appearance. <code style="font-family:var(--mono); color:var(--cyan)">&lt;strong&gt;</code> means "important content" — it happens to look bold. <code style="font-family:var(--mono); color:var(--cyan)">&lt;em&gt;</code> means "emphasized" — it appears italic. Never choose tags just for how they look!
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SANDBOX 4: Heading visualizer -->
+  <div class="sandbox-wrap">
+    <div class="sandbox-header">
+      <div class="sandbox-label">SANDBOX — HEADING HIERARCHY</div>
+    </div>
+    <div class="sandbox-body">
+      <p style="font-size:.88rem; color:var(--muted); margin-bottom:1rem;">Use the editor to build a page structure using headings and paragraphs.</p>
+      <div class="editor-preview">
+        <div class="editor-pane">
+          <div class="pane-label">✏ EDITOR</div>
+          <textarea class="code-editor" id="sandbox4Editor" spellcheck="false" oninput="updatePreview('sandbox4Editor','sandbox4Preview')">&lt;h1&gt;My Article Title&lt;/h1&gt;
+&lt;p&gt;An intro paragraph that &lt;strong&gt;summarizes&lt;/strong&gt; the topic.&lt;/p&gt;
+
+&lt;h2&gt;First Section&lt;/h2&gt;
+&lt;p&gt;Body text with &lt;em&gt;emphasis&lt;/em&gt; on key ideas.&lt;/p&gt;
+
+&lt;h3&gt;A Sub-topic&lt;/h3&gt;
+&lt;p&gt;More &lt;strong&gt;detail&lt;/strong&gt; here.&lt;/p&gt;
+
+&lt;hr&gt;
+&lt;blockquote&gt;
+  "The web is for everyone." — Tim Berners-Lee
+&lt;/blockquote&gt;</textarea>
+        </div>
+        <div class="preview-pane">
+          <div class="pane-label">👁 PREVIEW</div>
+          <iframe class="preview-frame" id="sandbox4Preview"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ 4 -->
+  <div class="quiz-wrap">
+    <div class="quiz-header">
+      <div class="quiz-icon">🧠</div>
+      <div><div class="quiz-title">Knowledge Check</div><div class="quiz-sub">Module 04 — 2 Questions</div></div>
+    </div>
+
+    <div class="question-block" id="q7">
+      <div class="question-num">Q1</div>
+      <div class="question-text">What is the semantic difference between <code style="font-family:var(--mono);color:var(--cyan)">&lt;strong&gt;</code> and just making text visually bold with CSS?</div>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'q7',false)"><span class="option-letter">A</span> There is no difference</div>
+        <div class="option" onclick="checkAnswer(this,'q7',true)"><span class="option-letter">B</span> &lt;strong&gt; conveys importance/meaning for screen readers and SEO</div>
+        <div class="option" onclick="checkAnswer(this,'q7',false)"><span class="option-letter">C</span> &lt;strong&gt; is only for headlines</div>
+        <div class="option" onclick="checkAnswer(this,'q7',false)"><span class="option-letter">D</span> CSS bold is more compatible</div>
+      </div>
+      <div class="feedback-msg" id="q7-feedback"></div>
+    </div>
+
+    <div class="question-block" id="q8">
+      <div class="question-num">Q2</div>
+      <div class="question-text">How many <code style="font-family:var(--mono);color:var(--cyan)">&lt;h1&gt;</code> elements should a well-structured page ideally have?</div>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'q8',false)"><span class="option-letter">A</span> As many as needed</div>
+        <div class="option" onclick="checkAnswer(this,'q8',false)"><span class="option-letter">B</span> Zero — always use &lt;h2&gt; first</div>
+        <div class="option" onclick="checkAnswer(this,'q8',true)"><span class="option-letter">C</span> Exactly one — the main page title</div>
+        <div class="option" onclick="checkAnswer(this,'q8',false)"><span class="option-letter">D</span> Two — one in the head, one in the body</div>
+      </div>
+      <div class="feedback-msg" id="q8-feedback"></div>
+    </div>
+
+    <button class="quiz-reset" id="reset-q7q8" onclick="resetQuiz(['q7','q8'],'reset-q7q8')">↺ Try Again</button>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────
+  MODULE 5 — LISTS
+───────────────────────────────────── -->
+<section class="module" id="mod-lists">
+  <div style="position:relative">
+    <div class="section-number">05</div>
+    <div class="module-tag">MODULE 05</div>
+    <h2 class="module-title">HTML <span class="accent">Lists</span></h2>
+    <p class="module-desc">Lists are everywhere on the web — navigation menus, bullet points, steps in a recipe. HTML provides three types.</p>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-card-icon">🔵</div>
+      <h4><code style="color:var(--cyan);font-family:var(--mono)">&lt;ul&gt;</code> Unordered</h4>
+      <p>A bulleted list. Use when order doesn't matter — a list of features, ingredients, etc.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-icon">🔢</div>
+      <h4><code style="color:var(--cyan);font-family:var(--mono)">&lt;ol&gt;</code> Ordered</h4>
+      <p>A numbered list. Use when sequence matters — steps, rankings, instructions.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-icon">📖</div>
+      <h4><code style="color:var(--cyan);font-family:var(--mono)">&lt;dl&gt;</code> Description</h4>
+      <p>A list of term/definition pairs. Ideal for glossaries, metadata, or FAQs.</p>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-block-header">
+      <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+      <div class="code-lang">All Three List Types</div>
+    </div>
+    <pre><span class="com">&lt;!-- Unordered list --&gt;</span>
+<span class="tag">&lt;ul&gt;</span>
+  <span class="tag">&lt;li&gt;</span><span class="txt">HTML</span><span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span><span class="txt">CSS</span><span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span><span class="txt">JavaScript</span><span class="tag">&lt;/li&gt;</span>
+<span class="tag">&lt;/ul&gt;</span>
+
+<span class="com">&lt;!-- Ordered list --&gt;</span>
+<span class="tag">&lt;ol&gt;</span>
+  <span class="tag">&lt;li&gt;</span><span class="txt">Open editor</span><span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span><span class="txt">Write HTML</span><span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span><span class="txt">Save and preview</span><span class="tag">&lt;/li&gt;</span>
+<span class="tag">&lt;/ol&gt;</span>
+
+<span class="com">&lt;!-- Description list --&gt;</span>
+<span class="tag">&lt;dl&gt;</span>
+  <span class="tag">&lt;dt&gt;</span><span class="txt">HTML</span><span class="tag">&lt;/dt&gt;</span>
+  <span class="tag">&lt;dd&gt;</span><span class="txt">HyperText Markup Language</span><span class="tag">&lt;/dd&gt;</span>
+<span class="tag">&lt;/dl&gt;</span></pre>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SANDBOX 5 -->
+  <div class="sandbox-wrap">
+    <div class="sandbox-header">
+      <div class="sandbox-label">SANDBOX — LIST BUILDER</div>
+    </div>
+    <div class="sandbox-body">
+      <p style="font-size:.88rem; color:var(--muted); margin-bottom:1rem;">Toggle between list types and add items dynamically.</p>
+      <div class="control-row" style="margin-bottom:1rem;">
+        <button class="ctrl-btn active" id="ulBtn" onclick="switchList('ul')">Unordered (ul)</button>
+        <button class="ctrl-btn" id="olBtn" onclick="switchList('ol')">Ordered (ol)</button>
+      </div>
+      <div class="control-row" style="margin-bottom:1rem;">
+        <input type="text" id="listItemInput" class="attr-input" style="max-width:240px;" placeholder="Type an item..." onkeydown="if(event.key==='Enter') addListItem()">
+        <button class="ctrl-btn" onclick="addListItem()">+ Add Item</button>
+        <button class="ctrl-btn" onclick="clearList()">Clear</button>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+        <div>
+          <div class="pane-label" style="margin-bottom:.4rem;">GENERATED HTML</div>
+          <div class="output-display" id="listHtmlOutput" style="min-height:100px; white-space:pre;"></div>
+        </div>
+        <div>
+          <div class="pane-label" style="margin-bottom:.4rem;">PREVIEW</div>
+          <div style="background:#fff; border-radius:10px; padding:1rem; min-height:100px; color:#111; font-size:.9rem;" id="listPreview"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ 5 -->
+  <div class="quiz-wrap">
+    <div class="quiz-header">
+      <div class="quiz-icon">🧠</div>
+      <div><div class="quiz-title">Knowledge Check</div><div class="quiz-sub">Module 05 — 2 Questions</div></div>
+    </div>
+
+    <div class="question-block" id="q9">
+      <div class="question-num">Q1</div>
+      <div class="question-text">You're writing a recipe with steps that must be followed in order. Which list type should you use?</div>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'q9',false)"><span class="option-letter">A</span> &lt;ul&gt; Unordered list</div>
+        <div class="option" onclick="checkAnswer(this,'q9',true)"><span class="option-letter">B</span> &lt;ol&gt; Ordered list</div>
+        <div class="option" onclick="checkAnswer(this,'q9',false)"><span class="option-letter">C</span> &lt;dl&gt; Description list</div>
+        <div class="option" onclick="checkAnswer(this,'q9',false)"><span class="option-letter">D</span> &lt;p&gt; Paragraphs</div>
+      </div>
+      <div class="feedback-msg" id="q9-feedback"></div>
+    </div>
+
+    <div class="question-block" id="q10">
+      <div class="question-num">Q2</div>
+      <div class="question-text">What element wraps each individual item in a list?</div>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'q10',false)"><span class="option-letter">A</span> &lt;item&gt;</div>
+        <div class="option" onclick="checkAnswer(this,'q10',false)"><span class="option-letter">B</span> &lt;list&gt;</div>
+        <div class="option" onclick="checkAnswer(this,'q10',true)"><span class="option-letter">C</span> &lt;li&gt;</div>
+        <div class="option" onclick="checkAnswer(this,'q10',false)"><span class="option-letter">D</span> &lt;dt&gt;</div>
+      </div>
+      <div class="feedback-msg" id="q10-feedback"></div>
+    </div>
+
+    <button class="quiz-reset" id="reset-q9q10" onclick="resetQuiz(['q9','q10'],'reset-q9q10')">↺ Try Again</button>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────
+  MODULE 6 — LINKS & IMAGES
+───────────────────────────────────── -->
+<section class="module" id="mod-links">
+  <div style="position:relative">
+    <div class="section-number">06</div>
+    <div class="module-tag">MODULE 06</div>
+    <h2 class="module-title">Links <span class="accent">&amp;</span> Images</h2>
+    <p class="module-desc">Links connect the web. Images bring it to life. These two elements make up the majority of web content.</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-block-header">
+      <div class="code-dots"><div class="code-dot red"></div><div class="code-dot yellow"></div><div class="code-dot green"></div></div>
+      <div class="code-lang">Links &amp; Images</div>
+    </div>
+    <pre><span class="com">&lt;!-- Anchor tag: creates a hyperlink --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://example.com"</span><span class="tag">&gt;</span>
+  <span class="txt">Click to visit Example</span>
+<span class="tag">&lt;/a&gt;</span>
+
+<span class="com">&lt;!-- Open in a new tab --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://example.com"</span> <span class="attr">target</span>=<span class="val">"_blank"</span><span class="tag">&gt;</span>
+  <span class="txt">Open in New Tab</span>
+<span class="tag">&lt;/a&gt;</span>
+
+<span class="com">&lt;!-- Image: a void element --&gt;</span>
+<span class="tag">&lt;img</span>
+  <span class="attr">src</span>=<span class="val">"photo.jpg"</span>
+  <span class="attr">alt</span>=<span class="val">"A beautiful sunset"</span>
+  <span class="attr">width</span>=<span class="val">"400"</span>
+<span class="tag">&gt;</span>
+
+<span class="com">&lt;!-- Linked image --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://example.com"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="val">"logo.png"</span> <span class="attr">alt</span>=<span class="val">"Logo"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/a&gt;</span></pre>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-card-icon">🔗</div>
+      <h4><code style="color:var(--cyan);font-family:var(--mono)">href</code> Attribute</h4>
+      <p>Stands for Hypertext REFerence. Holds the URL or path the link navigates to.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-icon">🖼️</div>
+      <h4><code style="color:var(--cyan);font-family:var(--mono)">src</code> Attribute</h4>
+      <p>The image source — a URL or file path. Without it, nothing displays.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-icon">♿</div>
+      <h4><code style="color:var(--cyan);font-family:var(--mono)">alt</code> Text</h4>
+      <p>Alternative description for screen readers and when the image fails to load. Always include it!</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-icon">🪟</div>
+      <h4><code style="color:var(--cyan);font-family:var(--mono)">target="_blank"</code></h4>
+      <p>Opens the link in a new browser tab. Useful for external links so users don't leave your site.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SANDBOX 6: Link + Image Builder -->
+  <div class="sandbox-wrap">
+    <div class="sandbox-header">
+      <div class="sandbox-label">SANDBOX — LIVE EDITOR</div>
+    </div>
+    <div class="sandbox-body">
+      <div class="editor-preview">
+        <div class="editor-pane">
+          <div class="pane-label">✏ EDITOR</div>
+          <textarea class="code-editor" id="sandbox6Editor" spellcheck="false" oninput="updatePreview('sandbox6Editor','sandbox6Preview')">&lt;h2&gt;Links &amp; Images Demo&lt;/h2&gt;
+
+&lt;p&gt;Visit 
+  &lt;a href="https://developer.mozilla.org" target="_blank"&gt;
+    MDN Web Docs
+  &lt;/a&gt;
+  for HTML reference.
+&lt;/p&gt;
+
+&lt;img 
+  src="https://picsum.photos/300/150?random=1"
+  alt="A random placeholder image"
+  style="border-radius:8px; margin-top:1rem;"
+&gt;</textarea>
+        </div>
+        <div class="preview-pane">
+          <div class="pane-label">👁 PREVIEW</div>
+          <iframe class="preview-frame" id="sandbox6Preview"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ 6 -->
+  <div class="quiz-wrap">
+    <div class="quiz-header">
+      <div class="quiz-icon">🧠</div>
+      <div><div class="quiz-title">Knowledge Check</div><div class="quiz-sub">Module 06 — 2 Questions</div></div>
+    </div>
+
+    <div class="question-block" id="q11">
+      <div class="question-num">Q1</div>
+      <div class="question-text">What does the <code style="font-family:var(--mono);color:var(--cyan)">alt</code> attribute on an image do?</div>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'q11',false)"><span class="option-letter">A</span> Sets the image size</div>
+        <div class="option" onclick="checkAnswer(this,'q11',false)"><span class="option-letter">B</span> Adds a caption below the image</div>
+        <div class="option" onclick="checkAnswer(this,'q11',true)"><span class="option-letter">C</span> Provides text description for accessibility and fallback</div>
+        <div class="option" onclick="checkAnswer(this,'q11',false)"><span class="option-letter">D</span> Links the image to another page</div>
+      </div>
+      <div class="feedback-msg" id="q11-feedback"></div>
+    </div>
+
+    <div class="question-block" id="q12">
+      <div class="question-num">Q2</div>
+      <div class="question-text">Which attribute makes a link open in a new browser tab?</div>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'q12',false)"><span class="option-letter">A</span> <code style="font-family:var(--mono)">href="_new"</code></div>
+        <div class="option" onclick="checkAnswer(this,'q12',true)"><span class="option-letter">B</span> <code style="font-family:var(--mono)">target="_blank"</code></div>
+        <div class="option" onclick="checkAnswer(this,'q12',false)"><span class="option-letter">C</span> <code style="font-family:var(--mono)">open="tab"</code></div>
+        <div class="option" onclick="checkAnswer(this,'q12',false)"><span class="option-letter">D</span> <code style="font-family:var(--mono)">link="newtab"</code></div>
+      </div>
+      <div class="feedback-msg" id="q12-feedback"></div>
+    </div>
+
+    <button class="quiz-reset" id="reset-q11q12" onclick="resetQuiz(['q11','q12'],'reset-q11q12')">↺ Try Again</button>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────
+  MODULE 7 — ATTRIBUTES
+───────────────────────────────────── -->
+<section class="module" id="mod-attributes">
+  <div style="position:relative">
+    <div class="section-number">07</div>
+    <div class="module-tag">MODULE 07</div>
+    <h2 class="module-title">HTML <span class="accent">Attributes</span></h2>
+    <p class="module-desc">Attributes are extra information added to elements. They modify behavior, link resources, and give elements identity.</p>
+  </div>
+
+  <div class="glass" style="margin-bottom:1.5rem;">
+    <p style="font-size:.82rem; color:var(--muted); text-align:center; font-family:var(--mono); letter-spacing:.05em; margin-bottom:1rem;">ATTRIBUTE SYNTAX</p>
+    <div style="display:flex; justify-content:center; align-items:center; gap:.3rem; flex-wrap:wrap; row-gap:.5rem;">
+      <div style="font-family:var(--mono); font-size:1.1rem; color:var(--cyan); background:rgba(34,211,238,0.08); padding:.4rem .6rem; border-radius:6px;">&lt;a</div>
+      <div style="font-family:var(--mono); font-size:1.1rem; color:var(--orange); background:rgba(249,115,22,0.08); padding:.4rem .6rem; border-radius:6px;">href</div>
+      <div style="font-family:var(--mono); font-size:1.1rem; color:var(--muted); padding:.4rem 0;">=</div>
+      <div style="font-family:var(--mono); font-size:1.1rem; color:var(--green); background:rgba(74,222,128,0.08); padding:.4rem .6rem; border-radius:6px;">"https://..."</div>
+      <div style="font-family:var(--mono); font-size:1.1rem; color:var(--cyan); background:rgba(34,211,238,0.08); padding:.4rem .6rem; border-radius:6px;">&gt;</div>
+    </div>
+    <div style="display:flex; justify-content:center; gap:2rem; margin-top:.75rem; flex-wrap:wrap;">
+      <div style="text-align:center; font-size:.75rem; color:var(--muted);">Element tag</div>
+      <div style="text-align:center; font-size:.75rem; color:var(--orange);">Attribute name</div>
+      <div style="text-align:center; font-size:.75rem; color:var(--muted);">Operator</div>
+      <div style="text-align:center; font-size:.75rem; color:var(--green);">Attribute value</div>
+    </div>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-card-icon">🪪</div>
+      <h4><code style="color:var(--orange);font-family:var(--mono)">id</code></h4>
+      <p>A unique identifier for one element. Like a person's ID number — no duplicates.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-icon">🏷️</div>
+      <h4><code style="color:var(--orange);font-family:var(--mono)">class</code></h4>
+      <p>A reusable label you can apply to multiple elements. Primarily used to target CSS styles.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-icon">🎨</div>
+      <h4><code style="color:var(--orange);font-family:var(--mono)">style</code></h4>
+      <p>Inline CSS. Quick but not ideal for large projects. Good for learning and prototyping.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-icon">💬</div>
+      <h4><code style="color:var(--orange);font-family:var(--mono)">title</code></h4>
+      <p>Adds a tooltip shown on hover. Useful for extra information or icon labels.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SANDBOX 7: Attribute Builder -->
+  <div class="sandbox-wrap">
+    <div class="sandbox-header">
+      <div class="sandbox-label">SANDBOX — ATTRIBUTE BUILDER</div>
+    </div>
+    <div class="sandbox-body">
+      <p style="font-size:.88rem; color:var(--muted); margin-bottom:1.25rem;">Build an HTML element with attributes interactively. Watch the code update in real-time.</p>
+      <div class="attr-builder">
+        <div class="attr-row">
+          <label>Tag</label>
+          <select class="attr-input" id="attrTag" onchange="buildAttr()" style="cursor:pointer;">
+            <option value="a">a (link)</option>
+            <option value="p">p (paragraph)</option>
+            <option value="div">div</option>
+            <option value="button">button</option>
+            <option value="img">img</option>
+          </select>
+        </div>
+        <div class="attr-row">
+          <label>id</label>
+          <input class="attr-input" id="attrId" placeholder="e.g. main-title" oninput="buildAttr()">
+        </div>
+        <div class="attr-row">
+          <label>class</label>
+          <input class="attr-input" id="attrClass" placeholder="e.g. btn primary" oninput="buildAttr()">
+        </div>
+        <div class="attr-row">
+          <label>Content</label>
+          <input class="attr-input" id="attrContent" placeholder="e.g. Click Me!" oninput="buildAttr()" value="Hello World">
+        </div>
+        <div class="attr-row">
+          <label>style</label>
+          <input class="attr-input" id="attrStyle" placeholder="e.g. color: red;" oninput="buildAttr()">
+        </div>
+        <div class="pane-label" style="margin-bottom:.4rem;">GENERATED HTML</div>
+        <div class="attr-output" id="attrOutput"></div>
+        <div style="margin-top:.75rem;">
+          <div class="pane-label" style="margin-bottom:.4rem;">PREVIEW</div>
+          <div style="background:#fff; border-radius:10px; padding:1rem; min-height:50px; color:#111;" id="attrPreview"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ 7 -->
+  <div class="quiz-wrap">
+    <div class="quiz-header">
+      <div class="quiz-icon">🧠</div>
+      <div><div class="quiz-title">Knowledge Check</div><div class="quiz-sub">Module 07 — 2 Questions</div></div>
+    </div>
+
+    <div class="question-block" id="q13">
+      <div class="question-num">Q1</div>
+      <div class="question-text">What is the key difference between <code style="font-family:var(--mono);color:var(--orange)">id</code> and <code style="font-family:var(--mono);color:var(--orange)">class</code>?</div>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'q13',false)"><span class="option-letter">A</span> id is for CSS, class is for JavaScript</div>
+        <div class="option" onclick="checkAnswer(this,'q13',true)"><span class="option-letter">B</span> id must be unique per page; class can be reused on multiple elements</div>
+        <div class="option" onclick="checkAnswer(this,'q13',false)"><span class="option-letter">C</span> They are identical — just different names</div>
+        <div class="option" onclick="checkAnswer(this,'q13',false)"><span class="option-letter">D</span> class is only for div elements</div>
+      </div>
+      <div class="feedback-msg" id="q13-feedback"></div>
+    </div>
+
+    <div class="question-block" id="q14">
+      <div class="question-num">Q2</div>
+      <div class="question-text">Which is the correct syntax for an HTML attribute?</div>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'q14',false)"><span class="option-letter">A</span> <code style="font-family:var(--mono)">class:"main-btn"</code></div>
+        <div class="option" onclick="checkAnswer(this,'q14',false)"><span class="option-letter">B</span> <code style="font-family:var(--mono)">[class]="main-btn"</code></div>
+        <div class="option" onclick="checkAnswer(this,'q14',true)"><span class="option-letter">C</span> <code style="font-family:var(--mono)">class="main-btn"</code></div>
+        <div class="option" onclick="checkAnswer(this,'q14',false)"><span class="option-letter">D</span> <code style="font-family:var(--mono)">class(main-btn)</code></div>
+      </div>
+      <div class="feedback-msg" id="q14-feedback"></div>
+    </div>
+
+    <button class="quiz-reset" id="reset-q13q14" onclick="resetQuiz(['q13','q14'],'reset-q13q14')">↺ Try Again</button>
+  </div>
+
+  <!-- COMPLETION -->
+  <div style="text-align:center; padding:4rem 1rem 2rem; position:relative;">
+    <div style="font-size:3rem; margin-bottom:1rem;">🎉</div>
+    <h2 style="font-size:2rem; font-weight:800; margin-bottom:.75rem;">Masterclass Complete!</h2>
+    <p style="color:var(--muted); max-width:480px; margin:0 auto 2rem;">You've covered the foundations of HTML — from structure and tags to elements, lists, links, and attributes. The web is yours to build.</p>
+    <div style="display:inline-flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+      <a href="#mod-intro" class="btn-primary">↑ Review from Start</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Built as an Interactive Masterclass · <strong>Introduction to HTML</strong>
+</footer>
+
+<!-- ════════════ SCRIPTS ════════════ -->
+<script>
+/* ══════════════════════════════════════════
+   SCROLL & PROGRESS
+══════════════════════════════════════════ */
+const modules = document.querySelectorAll('.module');
+const navDots  = document.querySelectorAll('.nav-dot');
+const progressFill = document.getElementById('progressFill');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.08 });
+
+modules.forEach(m => observer.observe(m));
+
+// Progress bar + nav dots
+window.addEventListener('scroll', () => {
+  const scrollTop    = window.scrollY;
+  const docHeight    = document.body.scrollHeight - window.innerHeight;
+  const pct          = Math.min(100, (scrollTop / docHeight) * 100);
+  progressFill.style.width = pct + '%';
+
+  navDots.forEach(dot => {
+    const target = document.getElementById(dot.dataset.target);
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.6 && rect.bottom > 0) {
+      dot.classList.add('active');
+    } else {
+      dot.classList.remove('active');
+    }
+  });
+});
+
+navDots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const target = document.getElementById(dot.dataset.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+/* ══════════════════════════════════════════
+   LIVE PREVIEW IFRAME
+══════════════════════════════════════════ */
+function updatePreview(editorId, previewId) {
+  const editor  = document.getElementById(editorId);
+  const preview = document.getElementById(previewId);
+  if (!editor || !preview) return;
+  const doc = preview.contentDocument || preview.contentWindow.document;
+  doc.open();
+  doc.write(`<style>
+    body { font-family: Georgia, serif; padding: .75rem; font-size: 14px; line-height:1.6; }
+    img  { max-width: 100%; border-radius:4px; }
+    a    { color: #2563eb; }
+    blockquote { border-left:3px solid #ccc; margin:0; padding-left:1rem; color:#666; font-style:italic; }
+  </style>` + editor.value);
+  doc.close();
 }
 
-/* Add enhancements for Tablet */
-@media (min-width: 768px) {
-  .container {
-    width: 750px;
-    margin: 0 auto;
-    padding: 20px;
+// Init all sandbox previews
+window.addEventListener('load', () => {
+  ['sandbox2','sandbox4','sandbox6'].forEach(id => {
+    updatePreview(id + 'Editor', id + 'Preview');
+  });
+  buildAttr();
+  showTagExample('p', document.querySelector('.ctrl-btn.active'));
+  showElement('h1');
+  initList();
+});
+
+/* ══════════════════════════════════════════
+   MODULE 1: HTML ROLE TOGGLE
+══════════════════════════════════════════ */
+function toggleHtmlRole(mode) {
+  const out    = document.getElementById('htmlRoleOutput');
+  const noBtn  = document.getElementById('noHtmlBtn');
+  const yesBtn = document.getElementById('withHtmlBtn');
+
+  if (mode === 'none') {
+    out.innerHTML = `My First Webpage\nWelcome to the web! This is a paragraph with bold and italic text.\nHTML gives structure\nCSS adds style\nJS adds behavior`;
+    out.style.fontFamily    = 'monospace';
+    out.style.whiteSpace    = 'pre';
+    out.style.fontSize      = '13px';
+    noBtn.classList.add('active');
+    yesBtn.classList.remove('active');
+  } else {
+    out.innerHTML = `<h2 style="margin-bottom:.5rem;">My First Webpage</h2><p>Welcome to the web! This is a paragraph with <strong>bold</strong> and <em>italic</em> text.</p><ul style="margin-top:.5rem;padding-left:1.2rem;"><li>HTML gives structure</li><li>CSS adds style</li><li>JS adds behavior</li></ul>`;
+    out.style.fontFamily    = 'Georgia, serif';
+    out.style.whiteSpace    = 'normal';
+    out.style.fontSize      = '14px';
+    yesBtn.classList.add('active');
+    noBtn.classList.remove('active');
   }
 }
 
-/* More enhancements for Desktop */
-@media (min-width: 1024px) {
-  .container {
-    width: 960px;
-    padding: 30px;
+/* ══════════════════════════════════════════
+   MODULE 3: TAG EXAMPLES
+══════════════════════════════════════════ */
+const tagExamples = {
+  p:      { html: '&lt;p&gt;This is a paragraph. It holds regular text content.&lt;/p&gt;', render: '<p style="font-family:Georgia;font-size:14px;color:#111">This is a paragraph. It holds regular text content.</p>' },
+  h1:     { html: '&lt;h1&gt;Big Page Title&lt;/h1&gt;', render: '<h1 style="font-family:Georgia;font-size:22px;color:#111;margin:0">Big Page Title</h1>' },
+  strong: { html: '&lt;strong&gt;Important text&lt;/strong&gt;', render: '<strong style="font-family:Georgia;font-size:14px;color:#111">Important text</strong>' },
+  br:     { html: 'Line one&lt;br&gt;Line two&lt;br&gt;Line three', render: '<span style="font-family:Georgia;font-size:14px;color:#111">Line one<br>Line two<br>Line three</span>' },
+  em:     { html: '&lt;em&gt;Emphasized / italic text&lt;/em&gt;', render: '<em style="font-family:Georgia;font-size:14px;color:#111">Emphasized / italic text</em>' },
+  div:    { html: '&lt;div&gt;\n  &lt;p&gt;I am inside a div.&lt;/p&gt;\n&lt;/div&gt;', render: '<div style="border:1px dashed #aaa;padding:8px;font-family:Georgia;font-size:14px;color:#111"><p style="margin:0">I am inside a div.</p></div>' },
+};
+
+function showTagExample(tag, btn) {
+  document.querySelectorAll('.sandbox-wrap:nth-of-type(1) .ctrl-btn').forEach(b => b.classList.remove('active'));
+  // target btn
+  if (btn) btn.classList.add('active');
+  const ex = tagExamples[tag];
+  if (!ex) return;
+  document.getElementById('tagExampleCode').innerHTML   = ex.html;
+  document.getElementById('tagExampleRender').innerHTML = ex.render;
+}
+
+// Fix btn ref in sandbox 3
+document.querySelectorAll('#mod-tags .ctrl-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('#mod-tags .ctrl-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+/* ══════════════════════════════════════════
+   MODULE 4: ELEMENT EXPLORER
+══════════════════════════════════════════ */
+const elementData = {
+  h1:         { name: '&lt;h1&gt; — Heading 1', desc: 'The most important heading on the page. Use it for the main title. One per page is the convention for good SEO and accessibility.', example: '&lt;h1&gt;Welcome to My Website&lt;/h1&gt;' },
+  h2:         { name: '&lt;h2&gt; — Heading 2', desc: 'Secondary headings for major sections. Think of them as chapter titles within your page content.', example: '&lt;h2&gt;About Me&lt;/h2&gt;' },
+  h3:         { name: '&lt;h3&gt; — Heading 3', desc: 'Sub-section headings. Nested under h2 to create a clear content hierarchy.', example: '&lt;h3&gt;My Hobbies&lt;/h3&gt;' },
+  p:          { name: '&lt;p&gt; — Paragraph', desc: 'The default block for body text. Browsers add space above and below each paragraph automatically.', example: '&lt;p&gt;This is a paragraph of text.&lt;/p&gt;' },
+  strong:     { name: '&lt;strong&gt; — Strong Importance', desc: 'Marks text as critically important. Rendered bold by default. Screen readers may add verbal emphasis.', example: '&lt;strong&gt;Warning: do not delete.&lt;/strong&gt;' },
+  em:         { name: '&lt;em&gt; — Emphasis', desc: 'Adds stress emphasis to text, like vocal inflection in speech. Rendered italic by default.', example: '&lt;em&gt;Do NOT press that button.&lt;/em&gt;' },
+  span:       { name: '&lt;span&gt; — Inline Container', desc: 'A generic inline element with no semantic meaning. Used purely to apply CSS or JavaScript hooks to a portion of text.', example: '&lt;p&gt;My name is &lt;span class="highlight"&gt;Yehia&lt;/span&gt;.&lt;/p&gt;' },
+  br:         { name: '&lt;br&gt; — Line Break', desc: 'A void element that forces a line break within inline content. Use sparingly — prefer CSS margins for spacing.', example: '&lt;p&gt;Line one&lt;br&gt;Line two&lt;/p&gt;' },
+  hr:         { name: '&lt;hr&gt; — Horizontal Rule', desc: 'A void element that creates a thematic break — a divider between sections of content.', example: '&lt;p&gt;Section 1&lt;/p&gt;\n&lt;hr&gt;\n&lt;p&gt;Section 2&lt;/p&gt;' },
+  blockquote: { name: '&lt;blockquote&gt; — Block Quote', desc: 'Represents content quoted from an external source. Browsers typically indent it. Use the cite attribute to credit the source.', example: '&lt;blockquote cite="https://source.com"&gt;\n  "The web is for everyone."\n&lt;/blockquote&gt;' },
+};
+
+function showElement(key) {
+  const data   = elementData[key];
+  const detail = document.getElementById('elementDetail');
+  if (!data || !detail) return;
+
+  document.querySelectorAll('.element-chip').forEach(c => c.classList.remove('active'));
+  const chip = document.querySelector(`.element-chip[onclick="showElement('${key}')"]`);
+  if (chip) chip.classList.add('active');
+
+  document.getElementById('el-name').innerHTML    = data.name;
+  document.getElementById('el-desc').textContent  = data.desc;
+  document.getElementById('el-example').textContent = data.example.replace(/&lt;/g,'<').replace(/&gt;/g,'>');
+
+  detail.classList.add('show');
+}
+
+/* ══════════════════════════════════════════
+   MODULE 5: LIST BUILDER
+══════════════════════════════════════════ */
+let currentListType = 'ul';
+let listItems = [];
+
+function initList() {
+  listItems = ['HTML is awesome', 'Tags are building blocks'];
+  renderList();
+}
+
+function switchList(type) {
+  currentListType = type;
+  document.getElementById('ulBtn').classList.toggle('active', type === 'ul');
+  document.getElementById('olBtn').classList.toggle('active', type === 'ol');
+  renderList();
+}
+
+function addListItem() {
+  const input = document.getElementById('listItemInput');
+  const val   = input.value.trim();
+  if (val) { listItems.push(val); input.value = ''; renderList(); }
+}
+
+function clearList() { listItems = []; renderList(); }
+
+function renderList() {
+  const tag  = currentListType;
+  const items = listItems.map(i => `  <li>${i}</li>`).join('\n');
+  const html  = items ? `<${tag}>\n${items}\n</${tag}>` : `<${tag}>\n  <!-- no items yet -->\n</${tag}>`;
+
+  document.getElementById('listHtmlOutput').innerHTML = escHtml(html);
+  document.getElementById('listPreview').innerHTML = items
+    ? `<${tag}>${listItems.map(i=>`<li>${i}</li>`).join('')}</${tag}>`
+    : '<span style="color:#aaa;font-size:13px">Add items above…</span>';
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ══════════════════════════════════════════
+   MODULE 7: ATTRIBUTE BUILDER
+══════════════════════════════════════════ */
+function buildAttr() {
+  const tag     = document.getElementById('attrTag').value;
+  const id      = document.getElementById('attrId').value.trim();
+  const cls     = document.getElementById('attrClass').value.trim();
+  const content = document.getElementById('attrContent').value;
+  const style   = document.getElementById('attrStyle').value.trim();
+
+  let attrs = '';
+  if (id)    attrs += ` id="${id}"`;
+  if (cls)   attrs += ` class="${cls}"`;
+  if (style) attrs += ` style="${style}"`;
+
+  const isVoid = tag === 'img';
+  let code, preview;
+
+  if (isVoid) {
+    code    = `&lt;${tag}${escHtml(attrs)} src="photo.jpg" alt="${content}"&gt;`;
+    preview = `<img src="https://picsum.photos/80/40?random=3" alt="${content}" ${style ? `style="${style}"` : ''}>`;
+  } else {
+    code    = `&lt;${tag}${escHtml(attrs)}&gt;${escHtml(content)}&lt;/${tag}&gt;`;
+    preview = `<${tag} ${id?`id="${id}"`:''}  ${cls?`class="${cls}"`:''}  ${style?`style="${style}"`:''}>${content}</${tag}>`;
   }
-}</textarea>
-                </div>
 
-                <h4 style="color: var(--accent); margin: 24px 0 16px; font-weight: 700;">Device Preview:</h4>
-                <div class="devices-grid">
-                    <div class="device-wrapper">
-                        <div class="device mobile">
-                            <div class="device-screen">
-                                <div style="background: linear-gradient(135deg, rgba(0,102,204,0.3), rgba(0,102,204,0.1)); padding: 10px; margin: 10px; border-radius: 8px; text-align: center; border: 2px solid rgba(0,102,204,0.5);">
-                                    <p style="font-weight: 700;">100%</p>
-                                    <p style="font-size: 9px; margin-top: 5px; color: var(--text-muted);">Padding: 10px</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">📱 Mobile</div>
-                    </div>
-                    <div class="device-wrapper">
-                        <div class="device tablet">
-                            <div class="device-screen">
-                                <div style="background: linear-gradient(135deg, rgba(0,102,204,0.3), rgba(0,102,204,0.1)); width: 75%; margin: 20px auto; padding: 20px; border-radius: 8px; text-align: center; border: 2px solid rgba(0,102,204,0.5);">
-                                    <p style="font-weight: 700;">750px</p>
-                                    <p style="font-size: 9px; margin-top: 5px; color: var(--text-muted);">Padding: 20px</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">📱 Tablet</div>
-                    </div>
-                    <div class="device-wrapper">
-                        <div class="device desktop">
-                            <div class="device-screen">
-                                <div style="background: linear-gradient(135deg, rgba(0,102,204,0.3), rgba(0,102,204,0.1)); width: 60%; margin: 30px auto; padding: 30px; border-radius: 8px; text-align: center; border: 2px solid rgba(0,102,204,0.5);">
-                                    <p style="font-weight: 700;">960px</p>
-                                    <p style="font-size: 9px; margin-top: 5px; color: var(--text-muted);">Padding: 30px</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device-label">💻 Desktop</div>
-                    </div>
-                </div>
+  document.getElementById('attrOutput').innerHTML  = code;
+  document.getElementById('attrPreview').innerHTML = preview;
+}
 
-                <div class="tip-box">
-                    <strong>💡 Benefits of Mobile First:</strong><br>
-                    ✅ Better mobile user experience<br>
-                    ✅ Cleaner and more maintainable code<br>
-                    ✅ Better performance (less CSS on mobile)<br>
-                    ✅ Logical and clear development approach
-                </div>
-            </div>
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
 
-            <!-- Best Practices -->
-            <div class="card">
-                <h3>🎯 Best Practices</h3>
-                <p class="card-desc">Professional tips and techniques for building responsive websites correctly</p>
-                
-                <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                    <div style="padding: 16px; background: rgba(0, 102, 204, 0.1); border-radius: 8px; border-left: 4px solid var(--primary-light);">
-                        <strong style="color: var(--primary-light);">✅ Use Viewport Meta Tag</strong>
-                        <p style="font-size: 0.9rem; margin-top: 8px; color: var(--text-muted);"><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></p>
-                    </div>
-                    <div style="padding: 16px; background: rgba(0, 208, 132, 0.1); border-radius: 8px; border-left: 4px solid var(--accent);">
-                        <strong style="color: var(--accent);">✅ Start Mobile First</strong>
-                        <p style="font-size: 0.9rem; margin-top: 8px; color: var(--text-muted);">Start with smallest size then add media queries</p>
-                    </div>
-                    <div style="padding: 16px; background: rgba(255, 71, 87, 0.1); border-radius: 8px; border-left: 4px solid var(--danger);">
-                        <strong style="color: var(--danger);">✅ Avoid Fixed Width</strong>
-                        <p style="font-size: 0.9rem; margin-top: 8px; color: var(--text-muted);">Use % and max-width instead of fixed px</p>
-                    </div>
-                    <div style="padding: 16px; background: rgba(255, 193, 7, 0.1); border-radius: 8px; border-left: 4px solid var(--warning);">
-                        <strong style="color: var(--warning);">✅ Test on Real Devices</strong>
-                        <p style="font-size: 0.9rem; margin-top: 8px; color: var(--text-muted);">Don't rely only on browser DevTools</p>
-                    </div>
-                </div>
-            </div>
+/* ══════════════════════════════════════════
+   QUIZ ENGINE
+══════════════════════════════════════════ */
+const answeredQuestions = {};
 
-            <!-- Quiz 4 -->
-            <div class="quiz-box">
-                <h3 class="quiz-title">🧠 Test Yourself - Mobile First</h3>
+function checkAnswer(optionEl, questionId, isCorrect) {
+  if (answeredQuestions[questionId]) return;
+  answeredQuestions[questionId] = true;
 
-                <div class="quiz-question">
-                    <div class="quiz-q">1️⃣ What is the Mobile First philosophy?</div>
-                    <div class="quiz-options">
-                        <button class="quiz-option" data-answer="1">Start with mobile design then expand</button>
-                        <button class="quiz-option" data-answer="0">Start with desktop design</button>
-                        <button class="quiz-option" data-answer="0">Design all devices together</button>
-                    </div>
-                    <div class="quiz-feedback"></div>
-                </div>
+  const allOptions = optionEl.closest('.options').querySelectorAll('.option');
+  allOptions.forEach(o => { o.classList.add('disabled'); o.style.pointerEvents = 'none'; });
 
-                <div class="quiz-question">
-                    <div class="quiz-q">2️⃣ Which media queries do we use in Mobile First?</div>
-                    <div class="quiz-options">
-                        <button class="quiz-option" data-answer="1">min-width for progressive enhancement</button>
-                        <button class="quiz-option" data-answer="0">max-width only</button>
-                        <button class="quiz-option" data-answer="0">Both equally</button>
-                    </div>
-                    <div class="quiz-feedback"></div>
-                </div>
+  const feedback = document.getElementById(questionId + '-feedback');
 
-                <button class="btn-check" onclick="checkSection(4)">Check Answers ✓</button>
-                <div class="quiz-score" id="score-4" style="display:none;"></div>
-            </div>
-        </div>
-    </section>
+  if (isCorrect) {
+    optionEl.classList.add('correct');
+    feedback.textContent  = '✓ Correct! Well done.';
+    feedback.className    = 'feedback-msg show correct';
+  } else {
+    optionEl.classList.add('wrong');
+    feedback.textContent  = '✗ Not quite. Review the module above and try again.';
+    feedback.className    = 'feedback-msg show wrong';
+    // Highlight correct answer
+    allOptions.forEach(o => {
+      if (o.querySelector('.option-letter') && o !== optionEl) {
+        // We can't easily know which is correct without storing it, so skip auto-highlight
+      }
+    });
+  }
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p style="font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 8px;">🎨 Responsive Web Design Pro</p>
-            <p>A comprehensive guide to help you master responsive web design</p>
-            <div class="footer-links">
-                <a href="#section1" class="footer-link">Basics</a>
-                <a href="#section2" class="footer-link">Media Queries</a>
-                <a href="#section3" class="footer-link">Breakpoints</a>
-                <a href="#section4" class="footer-link">Mobile First</a>
-            </div>
-        </div>
-    </footer>
+  // Show reset for this quiz block
+  const block   = optionEl.closest('.quiz-wrap');
+  const resetId = block.querySelector('.quiz-reset').id;
+  const allDone = [...block.querySelectorAll('.question-block')].every(qb => answeredQuestions[qb.id]);
+  if (allDone) document.getElementById(resetId).classList.add('show');
+}
 
-    <script src="script.js"></script>
+function resetQuiz(questionIds, resetBtnId) {
+  questionIds.forEach(qid => {
+    delete answeredQuestions[qid];
+    const block    = document.getElementById(qid);
+    const options  = block.querySelectorAll('.option');
+    const feedback = document.getElementById(qid + '-feedback');
+    options.forEach(o => {
+      o.classList.remove('correct','wrong','disabled');
+      o.style.pointerEvents = '';
+    });
+    feedback.className = 'feedback-msg';
+  });
+  document.getElementById(resetBtnId).classList.remove('show');
+}
+
+// Init all previews after DOM ready
+setTimeout(() => {
+  updatePreview('sandbox2Editor','sandbox2Preview');
+  updatePreview('sandbox4Editor','sandbox4Preview');
+  updatePreview('sandbox6Editor','sandbox6Preview');
+  buildAttr();
+  showTagExample('p', null);
+  showElement('h1');
+  initList();
+}, 200);
+</script>
 </body>
 </html>
