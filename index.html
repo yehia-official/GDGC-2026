@@ -884,6 +884,122 @@ footer strong { color: var(--accent); }
   .attr-input { font-size: .78rem; min-width: 0; }
   .mobile-module-nav { display: block; }
 }
+/* ══════════════════════════════════════════════
+   TASKS SECTION
+══════════════════════════════════════════════ */
+.task-wrap {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:16px; margin-bottom:1.5rem; overflow:hidden;
+  box-shadow:0 8px 30px rgba(0,0,0,.2);
+}
+.task-wrap.locked { opacity:.55; pointer-events:none; filter:blur(.3px); }
+@keyframes unlockPop {
+  0%   { opacity:.55; transform:scale(.99); filter:blur(.3px); }
+  60%  { opacity:1;   transform:scale(1.015); filter:none; }
+  100% { opacity:1;   transform:scale(1); filter:none; }
+}
+.task-wrap.unlocking { animation:unlockPop .55s ease forwards; pointer-events:auto; }
+.task-header-bar {
+  display:flex; align-items:center; gap:1rem;
+  padding:1.25rem 1.5rem; cursor:pointer; user-select:none; transition:background .2s;
+}
+.task-header-bar:hover { background:rgba(255,255,255,.02); }
+.task-num-badge {
+  width:46px; height:46px; flex-shrink:0; border-radius:12px;
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:.75rem; font-weight:700;
+  color:var(--tc,var(--primary-light)); letter-spacing:.04em;
+}
+.task-covers { font-family:var(--mono); font-size:.65rem; color:var(--text-muted); letter-spacing:.08em; text-transform:uppercase; margin-bottom:.2rem; }
+.task-name   { font-size:1.05rem; font-weight:800; letter-spacing:-.02em; }
+.task-lock-icon { font-size:1.1rem; margin-left:auto; }
+.task-chevron { font-size:.8rem; color:var(--text-muted); transition:transform .3s; flex-shrink:0; }
+.task-wrap.open .task-chevron { transform:rotate(180deg); }
+.task-body-wrap { padding:0 1.5rem 1.5rem; }
+.task-scenario {
+  background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07);
+  border-left:3px solid var(--primary-light); border-radius:10px;
+  padding:1rem 1.2rem; margin-bottom:1.25rem; font-size:.88rem; color:var(--text-muted); line-height:1.7;
+}
+.task-scenario strong { display:block; margin-bottom:.3rem; font-size:.75rem; text-transform:uppercase; letter-spacing:.07em; color:var(--primary-light); }
+.task-reqs-label {
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--text-muted); margin-bottom:.6rem; display:flex; align-items:center; gap:.5rem;
+}
+.task-reqs-label::after { content:""; flex:1; height:1px; background:var(--border); }
+.task-reqs { list-style:none; display:flex; flex-direction:column; gap:.4rem; margin-bottom:1.25rem; padding:0; }
+.task-reqs li {
+  display:flex; align-items:flex-start; gap:.6rem;
+  background:var(--bg-alt); border:1px solid var(--border); border-radius:8px;
+  padding:.6rem .9rem; font-size:.83rem; color:var(--text-muted); line-height:1.55;
+}
+.task-reqs li::before { content:"\2192"; color:var(--primary-light); font-family:var(--mono); font-size:.8rem; flex-shrink:0; margin-top:.1rem; }
+.task-reqs li code { font-family:var(--mono); font-size:.78rem; background:rgba(0,208,132,.1); color:var(--accent-light); padding:.05rem .3rem; border-radius:3px; }
+.task-editor-wrap { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:.75rem; }
+.task-editor-col, .task-preview-col { display:flex; flex-direction:column; }
+.task-pane-label { font-family:var(--mono); font-size:.68rem; color:var(--text-muted); letter-spacing:.06em; margin-bottom:.4rem; }
+.task-editor {
+  flex:1; width:100%; min-height:280px; background:#07090f;
+  border:1px solid var(--border); border-radius:10px; color:var(--accent-light);
+  font-family:var(--mono); font-size:.78rem; line-height:1.75;
+  padding:.9rem; resize:vertical; outline:none; transition:border-color .2s;
+}
+.task-editor:focus { border-color:rgba(0,128,255,.4); box-shadow:0 0 0 3px rgba(0,128,255,.08); }
+.task-preview-frame { flex:1; min-height:280px; width:100%; background:#fff; border:1px solid var(--border); border-radius:10px; }
+.task-run-btn {
+  margin-top:.6rem; padding:.65rem 1.4rem;
+  background:linear-gradient(135deg,var(--primary-light),var(--accent));
+  color:#000; font-weight:800; font-size:.9rem; border:none; border-radius:9px;
+  cursor:pointer; transition:all .25s; width:100%; font-family:var(--sans);
+  box-shadow:0 4px 20px rgba(0,208,132,.2);
+}
+.task-run-btn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,208,132,.35); }
+.task-run-btn:active { transform:translateY(0); }
+.task-results { background:var(--bg-alt); border:1px solid var(--border); border-radius:12px; padding:1rem 1.1rem; margin-bottom:.75rem; }
+.tr-header { display:flex; align-items:center; margin-bottom:.6rem; }
+.tr-title { font-family:var(--mono); font-size:.7rem; letter-spacing:.08em; color:var(--text-muted); text-transform:uppercase; }
+.tr-score { font-size:.95rem; font-weight:800; margin-left:auto; }
+.tr-score.all-pass { color:var(--success); }
+.tr-score.partial  { color:var(--warning); }
+.tr-score.no-pass  { color:var(--danger); }
+.tr-item { display:flex; align-items:flex-start; gap:.6rem; padding:.5rem .7rem; border-radius:8px; font-size:.81rem; margin-bottom:.3rem; line-height:1.5; }
+.tr-item.pass { background:rgba(0,208,132,.09); border:1px solid rgba(0,208,132,.25); color:var(--text); }
+.tr-item.fail { background:rgba(255,71,87,.09);  border:1px solid rgba(255,71,87,.2);  color:var(--text-muted); }
+.tr-icon { flex-shrink:0; }
+.tr-item code { font-family:var(--mono); font-size:.76rem; background:rgba(255,255,255,.07); padding:.05rem .3rem; border-radius:3px; color:var(--accent-light); }
+.task-checklist-wrap { background:var(--bg-alt); border:1px solid var(--border); border-radius:12px; padding:1rem 1.1rem; margin-top:.5rem; }
+.task-cl-label { font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); margin-bottom:.65rem; }
+.task-cl-items { display:flex; flex-direction:column; gap:.4rem; margin-bottom:.75rem; }
+.tci {
+  display:flex; align-items:flex-start; gap:.65rem; padding:.6rem .85rem;
+  border-radius:9px; border:1px solid var(--border); background:rgba(255,255,255,.02);
+  font-size:.83rem; color:var(--text-muted); cursor:pointer; transition:all .2s; user-select:none; line-height:1.5;
+}
+.tci:hover { border-color:rgba(0,208,132,.3); }
+.tci.checked { background:rgba(0,208,132,.08); border-color:rgba(0,208,132,.3); color:var(--text); }
+.tci-box {
+  width:20px; height:20px; flex-shrink:0; border-radius:5px; border:2px solid var(--border);
+  display:flex; align-items:center; justify-content:center; font-size:.72rem; color:#fff; font-weight:700;
+  transition:all .2s; margin-top:.15rem;
+}
+.tci.checked .tci-box { background:var(--success); border-color:var(--success); }
+.tci.checked .tci-box::after { content:"\2713"; }
+.task-unlock-msg {
+  text-align:center; padding:.75rem 1rem; background:rgba(0,208,132,.1);
+  border:1px solid rgba(0,208,132,.3); border-radius:9px;
+  font-size:.88rem; font-weight:700; color:var(--success); animation:fadeIn .4s ease;
+}
+@media (max-width:640px) {
+  .task-editor-wrap { grid-template-columns:1fr; }
+  .task-header-bar { padding:1rem; gap:.75rem; }
+  .task-body-wrap  { padding:0 1rem 1rem; }
+  .task-name       { font-size:.95rem; }
+  .task-num-badge  { width:40px; height:40px; }
+  .task-editor     { min-height:200px; font-size:.74rem; }
+  .task-preview-frame { min-height:200px; }
+}
+
 </style>
 </head>
 <body>
@@ -2708,17 +2824,287 @@ footer strong { color: var(--accent); }
     <button class="quiz-reset" id="reset-q33q34" onclick="resetQuiz(['q33','q34'],'reset-q33q34')">↺ Try Again</button>
   </div>
 
+
   <!-- FINAL COMPLETION -->
   <div style="text-align:center;padding:4rem 1rem 3rem;">
     <div style="font-size:3.5rem;margin-bottom:1rem;">🏆</div>
-    <h2 style="justify-content:center;margin-bottom:.75rem;background:linear-gradient(135deg,var(--primary-light),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">HTML Masterclass Complete!</h2>
-    <p style="color:var(--text-muted);max-width:580px;margin:0 auto 2rem;font-size:.92rem;">You've mastered all <strong style="color:var(--text)">17 modules</strong> — tags, structure, forms, semantic HTML, tables, multimedia, entities, meta tags, accessibility, validation, global attributes, and responsive images. Time to add CSS! 🎨</p>
-    <a href="#mod-intro" class="btn-start">↑ Review from Start</a>
+    <h2 style="justify-content:center;margin-bottom:.75rem;background:linear-gradient(135deg,var(--primary-light),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Modules Complete!</h2>
+    <p style="color:var(--text-muted);max-width:580px;margin:0 auto 2rem;font-size:.92rem;">You've covered all 17 modules. Now it's time to prove you understand — not just memorize. 👇</p>
+    <a href="#tasks-section" class="btn-start">Go to Tasks →</a>
   </div>
 </section>
 
 </div>
 </main>
+
+<!-- ════════════════════════════════════════════
+     TASKS SECTION
+════════════════════════════════════════════ -->
+<section id="tasks-section" style="position:relative;z-index:1;background:var(--bg);padding:3rem 0 6rem;">
+<div style="max-width:920px;margin:0 auto;padding:0 1.25rem;">
+
+  <!-- Tasks Header -->
+  <div style="text-align:center;margin-bottom:3rem;">
+    <div style="display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.72rem;color:var(--accent);background:rgba(0,208,132,.08);border:1px solid rgba(0,208,132,.25);border-radius:99px;padding:.35rem 1rem;margin-bottom:1.25rem;letter-spacing:.08em;">
+      <span style="width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;"></span>
+      PRACTICAL TASKS
+    </div>
+    <h2 style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-.03em;margin-bottom:.75rem;display:block;">
+      Prove You <span style="background:linear-gradient(135deg,var(--primary-light),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Understand</span>
+    </h2>
+    <p style="color:var(--text-muted);max-width:540px;margin:0 auto;font-size:.95rem;">Write your code in the editor. Hit Run. The checker will tell you exactly what you got right and what's missing — no guessing.</p>
+  </div>
+
+  <!-- ══════════════════════════
+       TASK 1
+  ══════════════════════════ -->
+  <div class="task-wrap" id="tw1">
+    <div class="task-header-bar" data-task="1">
+      <div style="display:flex;align-items:center;gap:1rem;flex:1;min-width:0;">
+        <div class="task-num-badge" style="--tc:#0080ff;">01</div>
+        <div>
+          <div class="task-covers">MODULES 01–05</div>
+          <div class="task-name">Personal Bio Page</div>
+        </div>
+      </div>
+      <div class="task-lock-icon" id="lock1">🔒</div>
+      <div class="task-chevron">▼</div>
+    </div>
+
+    <div class="task-body-wrap" id="tb1">
+      <div class="task-scenario">
+        <strong>🎬 Scenario</strong>
+        You're applying for a junior developer internship. Build a bio page about yourself using only HTML — no CSS. They want to see if you understand structure and semantics.
+      </div>
+
+      <div class="task-reqs-label">Requirements</div>
+      <ul class="task-reqs">
+        <li>A proper HTML boilerplate with a meaningful <code>&lt;title&gt;</code></li>
+        <li>Clear heading hierarchy — your name as <code>&lt;h1&gt;</code>, logical sub-headings for each section</li>
+        <li>A paragraph with text emphasis used where it <em>genuinely</em> makes sense</li>
+        <li>Two lists: skills as <code>&lt;ul&gt;</code>, a goal as <code>&lt;ol&gt;</code> with steps in order</li>
+        <li>A favorite quote using <code>&lt;blockquote&gt;</code> with a credit inside <code>&lt;cite&gt;</code></li>
+        <li>A <code>&lt;hr&gt;</code> divider between sections</li>
+      </ul>
+
+      <!-- Editor + Preview -->
+      <div class="task-editor-wrap">
+        <div class="task-editor-col">
+          <div class="task-pane-label">✏ YOUR CODE</div>
+          <textarea class="task-editor" id="te1" placeholder="Write your HTML here..." spellcheck="false" oninput="liveTaskPreview('te1','tp1')"></textarea>
+          <button class="task-run-btn" onclick="runTaskCheck(1)">▶ Run &amp; Check</button>
+        </div>
+        <div class="task-preview-col">
+          <div class="task-pane-label">👁 PREVIEW</div>
+          <iframe class="task-preview-frame" id="tp1"></iframe>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="task-results" id="tr1" style="display:none;"></div>
+
+      <!-- Checklist — unlocks after all pass -->
+      <div class="task-checklist-wrap" id="tcl1" style="display:none;">
+        <div class="task-cl-label">Self-check — confirm your understanding</div>
+        <div class="task-cl-items" id="tci1">
+          <div class="tci" onclick="tickCheck(this,1)"><div class="tci-box"></div>I know why I used &lt;ul&gt; for skills and &lt;ol&gt; for steps</div>
+          <div class="tci" onclick="tickCheck(this,1)"><div class="tci-box"></div>I used &lt;strong&gt; / &lt;em&gt; for meaning, not just appearance</div>
+          <div class="tci" onclick="tickCheck(this,1)"><div class="tci-box"></div>There is exactly one &lt;h1&gt; on the page</div>
+          <div class="tci" onclick="tickCheck(this,1)"><div class="tci-box"></div>The quote uses &lt;blockquote&gt; — not just italic text</div>
+        </div>
+        <div class="task-unlock-msg" id="tum1" style="display:none;">
+          🎉 Task 1 Complete! Task 2 is now unlocked.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════
+       TASK 2
+  ══════════════════════════ -->
+  <div class="task-wrap locked" id="tw2">
+    <div class="task-header-bar" data-task="2">
+      <div style="display:flex;align-items:center;gap:1rem;flex:1;min-width:0;">
+        <div class="task-num-badge" style="--tc:#a855f7;">02</div>
+        <div>
+          <div class="task-covers">MODULES 06–10</div>
+          <div class="task-name">Product Comparison Page</div>
+        </div>
+      </div>
+      <div class="task-lock-icon" id="lock2">🔒</div>
+      <div class="task-chevron">▼</div>
+    </div>
+
+    <div class="task-body-wrap" id="tb2" style="display:none;">
+      <div class="task-scenario">
+        <strong>🎬 Scenario</strong>
+        A friend's online store needs a comparison page for 3 headphone models. Build a semantic HTML page with a comparison table, product images, and a contact form.
+      </div>
+
+      <div class="task-reqs-label">Requirements</div>
+      <ul class="task-reqs">
+        <li>Semantic structure: <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code></li>
+        <li>A comparison <code>&lt;table&gt;</code> with <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, at least 3 products and 3 attribute columns using <code>&lt;th&gt;</code> for headers</li>
+        <li>At least one <code>&lt;img&gt;</code> with meaningful <code>alt</code> text (not "image" or empty)</li>
+        <li>At least one <code>&lt;a&gt;</code> link with <code>target="_blank"</code></li>
+        <li>A contact <code>&lt;form&gt;</code> with: <code>&lt;input type="text"&gt;</code>, <code>&lt;input type="email"&gt;</code>, <code>&lt;select&gt;</code> dropdown, <code>&lt;textarea&gt;</code>, and a <code>&lt;button type="submit"&gt;</code></li>
+        <li>Every form field must have a <code>&lt;label&gt;</code> linked via <code>for</code> + <code>id</code></li>
+      </ul>
+
+      <div class="task-editor-wrap">
+        <div class="task-editor-col">
+          <div class="task-pane-label">✏ YOUR CODE</div>
+          <textarea class="task-editor" id="te2" placeholder="Write your HTML here..." spellcheck="false" oninput="liveTaskPreview('te2','tp2')"></textarea>
+          <button class="task-run-btn" onclick="runTaskCheck(2)">▶ Run &amp; Check</button>
+        </div>
+        <div class="task-preview-col">
+          <div class="task-pane-label">👁 PREVIEW</div>
+          <iframe class="task-preview-frame" id="tp2"></iframe>
+        </div>
+      </div>
+
+      <div class="task-results" id="tr2" style="display:none;"></div>
+
+      <div class="task-checklist-wrap" id="tcl2" style="display:none;">
+        <div class="task-cl-label">Self-check — confirm your understanding</div>
+        <div class="task-cl-items" id="tci2">
+          <div class="tci" onclick="tickCheck(this,2)"><div class="tci-box"></div>I can explain why each semantic element (header/nav/main/footer) is the right choice</div>
+          <div class="tci" onclick="tickCheck(this,2)"><div class="tci-box"></div>I know the difference between &lt;th&gt; and &lt;td&gt;</div>
+          <div class="tci" onclick="tickCheck(this,2)"><div class="tci-box"></div>My alt text describes the image — it would still make sense if the image didn't load</div>
+          <div class="tci" onclick="tickCheck(this,2)"><div class="tci-box"></div>Every label is linked to its input via matching for="" and id=""</div>
+        </div>
+        <div class="task-unlock-msg" id="tum2" style="display:none;">
+          🎉 Task 2 Complete! Task 3 is now unlocked.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════
+       TASK 3
+  ══════════════════════════ -->
+  <div class="task-wrap locked" id="tw3">
+    <div class="task-header-bar" data-task="3">
+      <div style="display:flex;align-items:center;gap:1rem;flex:1;min-width:0;">
+        <div class="task-num-badge" style="--tc:#f97316;">03</div>
+        <div>
+          <div class="task-covers">MODULES 11–15</div>
+          <div class="task-name">News Article Page</div>
+        </div>
+      </div>
+      <div class="task-lock-icon" id="lock3">🔒</div>
+      <div class="task-chevron">▼</div>
+    </div>
+
+    <div class="task-body-wrap" id="tb3" style="display:none;">
+      <div class="task-scenario">
+        <strong>🎬 Scenario</strong>
+        Build an article page for a tech news site. It must look good when shared on social media, load fast, and be accessible. All validation must be HTML-only — no JavaScript.
+      </div>
+
+      <div class="task-reqs-label">Requirements</div>
+      <ul class="task-reqs">
+        <li>Complete <code>&lt;head&gt;</code> with: <code>charset</code>, <code>viewport</code>, <code>description</code> meta, and at least 3 Open Graph <code>og:</code> tags</li>
+        <li>Article wrapped in <code>&lt;article&gt;</code> with a publication date inside <code>&lt;time datetime="..."&gt;</code></li>
+        <li>An embedded <code>&lt;iframe&gt;</code> (YouTube or similar) with a <code>title</code> attribute and <code>loading="lazy"</code></li>
+        <li>At least 2 HTML entities used correctly in the text (e.g., <code>&amp;copy;</code>, <code>&amp;mdash;</code>, <code>&amp;trade;</code>)</li>
+        <li>An image with <code>loading="lazy"</code> and meaningful <code>alt</code> text</li>
+        <li>A newsletter form with <code>type="email"</code> input, <code>required</code> on all fields, and <code>minlength</code> on the name field</li>
+      </ul>
+
+      <div class="task-editor-wrap">
+        <div class="task-editor-col">
+          <div class="task-pane-label">✏ YOUR CODE</div>
+          <textarea class="task-editor" id="te3" placeholder="Write your HTML here..." spellcheck="false" oninput="liveTaskPreview('te3','tp3')"></textarea>
+          <button class="task-run-btn" onclick="runTaskCheck(3)">▶ Run &amp; Check</button>
+        </div>
+        <div class="task-preview-col">
+          <div class="task-pane-label">👁 PREVIEW</div>
+          <iframe class="task-preview-frame" id="tp3"></iframe>
+        </div>
+      </div>
+
+      <div class="task-results" id="tr3" style="display:none;"></div>
+
+      <div class="task-checklist-wrap" id="tcl3" style="display:none;">
+        <div class="task-cl-label">Self-check — confirm your understanding</div>
+        <div class="task-cl-items" id="tci3">
+          <div class="tci" onclick="tickCheck(this,3)"><div class="tci-box"></div>I know why &lt;article&gt; is the right element — not just &lt;div&gt; or &lt;section&gt;</div>
+          <div class="tci" onclick="tickCheck(this,3)"><div class="tci-box"></div>My og: tags have real content — not placeholder text</div>
+          <div class="tci" onclick="tickCheck(this,3)"><div class="tci-box"></div>I used entities because the characters genuinely belong there — not randomly</div>
+          <div class="tci" onclick="tickCheck(this,3)"><div class="tci-box"></div>The form validates without any JavaScript — just HTML attributes</div>
+        </div>
+        <div class="task-unlock-msg" id="tum3" style="display:none;">
+          🎉 Task 3 Complete! Final task is now unlocked.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════
+       TASK 4 — CAPSTONE
+  ══════════════════════════ -->
+  <div class="task-wrap locked" id="tw4">
+    <div class="task-header-bar" data-task="4">
+      <div style="display:flex;align-items:center;gap:1rem;flex:1;min-width:0;">
+        <div class="task-num-badge" style="--tc:#ec4899;">04</div>
+        <div>
+          <div class="task-covers">MODULES 16–17 + CAPSTONE</div>
+          <div class="task-name">Photography Portfolio — Full Site</div>
+        </div>
+      </div>
+      <div class="task-lock-icon" id="lock4">🔒</div>
+      <div class="task-chevron" style="color:#ec4899;">▼</div>
+    </div>
+
+    <div class="task-body-wrap" id="tb4" style="display:none;">
+      <div class="task-scenario">
+        <strong>🎬 Scenario</strong>
+        Build the complete HTML structure for a freelance photographer's portfolio. No CSS yet — just clean, production-ready HTML covering everything from all 17 modules.
+      </div>
+
+      <div class="task-reqs-label">Requirements</div>
+      <ul class="task-reqs">
+        <li>Full <code>&lt;head&gt;</code>: charset, viewport, description, author, at least 4 <code>og:</code> tags, twitter:card, and <code>&lt;link rel="canonical"&gt;</code></li>
+        <li>Semantic layout: <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code> with 3 <code>&lt;section&gt;</code>s (About/Portfolio/Contact), <code>&lt;footer&gt;</code> with <code>&amp;copy;</code> entity</li>
+        <li>At least 2 images using <code>&lt;picture&gt;</code> with a <code>&lt;source&gt;</code> and fallback <code>&lt;img&gt;</code>, both with <code>loading="lazy"</code> and descriptive <code>alt</code></li>
+        <li>At least 2 <code>data-*</code> attributes on portfolio images storing category and year</li>
+        <li>Full accessible contact form inside <code>&lt;fieldset&gt;</code>: name (<code>required</code>, <code>minlength</code>), email (<code>required</code>), <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code> (<code>required</code>), checkbox — all with linked <code>&lt;label&gt;</code>s</li>
+        <li>At least one <code>aria-label</code> on a button, and <code>lang</code> attribute on the <code>&lt;html&gt;</code> tag</li>
+      </ul>
+
+      <div class="task-editor-wrap">
+        <div class="task-editor-col">
+          <div class="task-pane-label">✏ YOUR CODE</div>
+          <textarea class="task-editor" id="te4" placeholder="Write your HTML here..." spellcheck="false" oninput="liveTaskPreview('te4','tp4')"></textarea>
+          <button class="task-run-btn" style="background:linear-gradient(135deg,#ec4899,#f97316);" onclick="runTaskCheck(4)">▶ Run &amp; Check</button>
+        </div>
+        <div class="task-preview-col">
+          <div class="task-pane-label">👁 PREVIEW</div>
+          <iframe class="task-preview-frame" id="tp4"></iframe>
+        </div>
+      </div>
+
+      <div class="task-results" id="tr4" style="display:none;"></div>
+
+      <div class="task-checklist-wrap" id="tcl4" style="display:none;">
+        <div class="task-cl-label">Final Self-check</div>
+        <div class="task-cl-items" id="tci4">
+          <div class="tci" onclick="tickCheck(this,4)"><div class="tci-box"></div>Reading my headings out loud makes a logical outline of the site</div>
+          <div class="tci" onclick="tickCheck(this,4)"><div class="tci-box"></div>I can navigate the entire form using only the Tab key</div>
+          <div class="tci" onclick="tickCheck(this,4)"><div class="tci-box"></div>I can open DevTools and see data-category / data-year on my images</div>
+          <div class="tci" onclick="tickCheck(this,4)"><div class="tci-box"></div>The form catches empty fields and bad emails without any JavaScript</div>
+          <div class="tci" onclick="tickCheck(this,4)"><div class="tci-box"></div>I wrote every line myself — no copy-paste from the course</div>
+        </div>
+        <div class="task-unlock-msg" id="tum4" style="background:linear-gradient(135deg,rgba(236,72,153,.12),rgba(249,115,22,.12));border-color:rgba(236,72,153,.4);display:none;">
+          🏆 All Tasks Complete! You've mastered HTML. Time for CSS! 🎨
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
 
 <footer>
   <p>Built as an Interactive Masterclass · <strong>Introduction to HTML</strong></p>
@@ -3191,6 +3577,222 @@ setTimeout(() => {
 }, 250);
 
 window.addEventListener('scroll', updateMobileNav, { passive: true });
+
+/* ════════════════════════════════════════════
+   TASKS ENGINE
+════════════════════════════════════════════ */
+
+/* ── Live preview ── */
+function liveTaskPreview(edId, pvId) {
+  const ed = document.getElementById(edId);
+  const pv = document.getElementById(pvId);
+  if (!ed || !pv) return;
+  const doc = pv.contentDocument || pv.contentWindow.document;
+  doc.open();
+  doc.write('<style>body{font-family:Georgia,serif;padding:.75rem;font-size:14px;line-height:1.6;}img{max-width:100%;}a{color:#0066cc;}table{border-collapse:collapse;width:100%;}th,td{border:1px solid #ddd;padding:6px;}th{background:#0066cc;color:#fff;}</style>' + ed.value);
+  doc.close();
+}
+
+/* ── Task toggle ── */
+function initTaskToggles() {
+  document.querySelectorAll('.task-header-bar').forEach(bar => {
+    bar.addEventListener('click', function() {
+      const taskN = this.dataset.task;
+      const wrap  = document.getElementById('tw' + taskN);
+      if (wrap.classList.contains('locked')) return;
+      const body  = document.getElementById('tb' + taskN);
+      const isOpen = wrap.classList.toggle('open');
+      body.style.display = isOpen ? 'block' : 'none';
+    });
+  });
+}
+
+/* ── CHECKER RULES ── */
+const taskRules = {
+  1: [
+    { id:'doctype',   label:'Has <code>&lt;!DOCTYPE html&gt;</code> declaration',         test: h => /<!doctype\s+html/i.test(h) },
+    { id:'title',     label:'Has a non-empty <code>&lt;title&gt;</code> tag',              test: h => /<title>[^<]{3,}<\/title>/i.test(h) },
+    { id:'h1',        label:'Has exactly one <code>&lt;h1&gt;</code>',                     test: h => (h.match(/<h1[\s>]/gi)||[]).length === 1 },
+    { id:'h2plus',    label:'Has at least one <code>&lt;h2&gt;</code> or lower heading',   test: h => /<h[2-6][\s>]/i.test(h) },
+    { id:'para',      label:'Has at least one <code>&lt;p&gt;</code> with real text',      test: h => /<p[^>]*>[^<]{10,}/i.test(h) },
+    { id:'strong_em', label:'Uses <code>&lt;strong&gt;</code> or <code>&lt;em&gt;</code>', test: h => /<strong|<em/i.test(h) },
+    { id:'ul',        label:'Has an unordered list <code>&lt;ul&gt;</code>',               test: h => /<ul[\s>]/i.test(h) },
+    { id:'ol',        label:'Has an ordered list <code>&lt;ol&gt;</code>',                 test: h => /<ol[\s>]/i.test(h) },
+    { id:'li',        label:'List items use <code>&lt;li&gt;</code>',                      test: h => /<li[\s>]/i.test(h) },
+    { id:'blockquote',label:'Quote uses <code>&lt;blockquote&gt;</code>',                  test: h => /<blockquote/i.test(h) },
+    { id:'hr',        label:'Has a <code>&lt;hr&gt;</code> divider',                       test: h => /<hr[\s\/?>]/i.test(h) },
+    { id:'head_body', label:'Has both <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code>', test: h => /<head[\s>]/i.test(h) && /<body[\s>]/i.test(h) },
+  ],
+  2: [
+    { id:'header',  label:'Has <code>&lt;header&gt;</code> element',                       test: h => /<header[\s>]/i.test(h) },
+    { id:'nav',     label:'Has <code>&lt;nav&gt;</code> element',                           test: h => /<nav[\s>]/i.test(h) },
+    { id:'main',    label:'Has <code>&lt;main&gt;</code> element',                          test: h => /<main[\s>]/i.test(h) },
+    { id:'footer',  label:'Has <code>&lt;footer&gt;</code> element',                        test: h => /<footer[\s>]/i.test(h) },
+    { id:'table',   label:'Has a <code>&lt;table&gt;</code>',                               test: h => /<table[\s>]/i.test(h) },
+    { id:'thead',   label:'Table has <code>&lt;thead&gt;</code> and <code>&lt;tbody&gt;</code>', test: h => /<thead[\s>]/i.test(h) && /<tbody[\s>]/i.test(h) },
+    { id:'th',      label:'Uses <code>&lt;th&gt;</code> for header cells',                  test: h => /<th[\s>]/i.test(h) },
+    { id:'img_alt', label:'Image has a non-empty <code>alt</code> attribute',               test: h => /<img[^>]+alt=["'][^"']{3,}["']/i.test(h) },
+    { id:'a_blank', label:'Has a link with <code>target="_blank"</code>',                   test: h => /<a[^>]+target=["']_blank["']/i.test(h) },
+    { id:'form',    label:'Has a <code>&lt;form&gt;</code>',                                test: h => /<form[\s>]/i.test(h) },
+    { id:'select',  label:'Form has a <code>&lt;select&gt;</code> dropdown',                test: h => /<select[\s>]/i.test(h) },
+    { id:'textarea',label:'Form has a <code>&lt;textarea&gt;</code>',                       test: h => /<textarea[\s>]/i.test(h) },
+    { id:'labels',  label:'Has <code>&lt;label&gt;</code> elements with <code>for</code> attribute', test: h => /<label[^>]+for=/i.test(h) },
+    { id:'submit',  label:'Form has a <code>&lt;button type="submit"&gt;</code>',           test: h => /<button[^>]+type=["']submit["']/i.test(h) },
+  ],
+  3: [
+    { id:'charset', label:'Has <code>&lt;meta charset&gt;</code>',                          test: h => /<meta[^>]+charset/i.test(h) },
+    { id:'viewport',label:'Has viewport <code>&lt;meta&gt;</code> tag',                     test: h => /<meta[^>]+viewport/i.test(h) },
+    { id:'desc',    label:'Has <code>meta name="description"</code>',                       test: h => /<meta[^>]+name=["']description["']/i.test(h) },
+    { id:'og',      label:'Has at least 3 Open Graph <code>og:</code> meta tags',           test: h => (h.match(/property=["']og:/gi)||[]).length >= 3 },
+    { id:'article', label:'Content wrapped in <code>&lt;article&gt;</code>',                test: h => /<article[\s>]/i.test(h) },
+    { id:'time',    label:'Uses <code>&lt;time&gt;</code> with <code>datetime</code> attribute', test: h => /<time[^>]+datetime/i.test(h) },
+    { id:'iframe',  label:'Has an <code>&lt;iframe&gt;</code>',                             test: h => /<iframe[\s>]/i.test(h) },
+    { id:'iframe_title', label:'iframe has a <code>title</code> attribute',                 test: h => /<iframe[^>]+title=/i.test(h) },
+    { id:'lazy_iframe',  label:'iframe has <code>loading="lazy"</code>',                    test: h => /<iframe[^>]+loading=["']lazy["']/i.test(h) },
+    { id:'entities',label:'Uses at least 2 HTML entities (<code>&amp;</code>...;)',         test: h => (h.match(/&[a-z]+;/gi)||[]).length >= 2 },
+    { id:'lazy_img',label:'Image has <code>loading="lazy"</code>',                         test: h => /<img[^>]+loading=["']lazy["']/i.test(h) },
+    { id:'required',label:'Form inputs have <code>required</code> attribute',               test: h => /required/i.test(h) },
+    { id:'minlength',label:'Name field has <code>minlength</code> attribute',               test: h => /minlength/i.test(h) },
+    { id:'email_type',label:'Email input uses <code>type="email"</code>',                   test: h => /<input[^>]+type=["']email["']/i.test(h) },
+  ],
+  4: [
+    { id:'canonical',label:'Has <code>&lt;link rel="canonical"&gt;</code>',                 test: h => /<link[^>]+canonical/i.test(h) },
+    { id:'og4',      label:'Has at least 4 Open Graph <code>og:</code> tags',               test: h => (h.match(/property=["']og:/gi)||[]).length >= 4 },
+    { id:'twitter',  label:'Has <code>twitter:card</code> meta tag',                        test: h => /twitter:card/i.test(h) },
+    { id:'lang',     label:'<code>&lt;html&gt;</code> has <code>lang</code> attribute',     test: h => /<html[^>]+lang=/i.test(h) },
+    { id:'sections', label:'Has at least 3 <code>&lt;section&gt;</code> elements',          test: h => (h.match(/<section[\s>]/gi)||[]).length >= 3 },
+    { id:'footer_copy', label:'Footer contains <code>&amp;copy;</code> entity',             test: h => /<footer[\s\S]*?&copy;[\s\S]*?<\/footer>/i.test(h) },
+    { id:'picture',  label:'Uses <code>&lt;picture&gt;</code> with <code>&lt;source&gt;</code> and <code>&lt;img&gt;</code>', test: h => /<picture[\s\S]*?<source[\s\S]*?<img[\s\S]*?<\/picture>/i.test(h) },
+    { id:'lazy2',    label:'At least 2 images with <code>loading="lazy"</code>',            test: h => (h.match(/loading=["']lazy["']/gi)||[]).length >= 2 },
+    { id:'data_attr',label:'Has <code>data-</code> attributes on images',                   test: h => /<img[^>]+data-/i.test(h) },
+    { id:'fieldset', label:'Form uses <code>&lt;fieldset&gt;</code>',                       test: h => /<fieldset[\s>]/i.test(h) },
+    { id:'checkbox', label:'Form has a checkbox input',                                      test: h => /<input[^>]+type=["']checkbox["']/i.test(h) },
+    { id:'aria',     label:'At least one element has <code>aria-label</code>',              test: h => /aria-label/i.test(h) },
+    { id:'full_form',label:'Form has name, email, select, textarea, and submit button',     test: h => /<input[^>]+type=["']text["']/i.test(h) && /<input[^>]+type=["']email["']/i.test(h) && /<select/i.test(h) && /<textarea/i.test(h) && /<button[^>]+type=["']submit["']/i.test(h) },
+  ]
+};
+
+/* ── RUN CHECKER ── */
+function runTaskCheck(n) {
+  const code    = document.getElementById('te' + n).value.trim();
+  const resBox  = document.getElementById('tr' + n);
+  const clWrap  = document.getElementById('tcl' + n);
+
+  if (!code) {
+    resBox.style.display = 'block';
+    resBox.innerHTML = '<div class="tr-header"><span class="tr-title">RESULTS</span><span class="tr-score no-pass">Write some code first!</span></div>';
+    return;
+  }
+
+  const rules  = taskRules[n];
+  const passed = rules.filter(r => r.test(code));
+  const failed = rules.filter(r => !r.test(code));
+  const total  = rules.length;
+  const nPass  = passed.length;
+  const allOk  = nPass === total;
+
+  // Score class
+  const scoreClass = allOk ? 'all-pass' : nPass > total * 0.6 ? 'partial' : 'no-pass';
+  const scoreEmoji = allOk ? '🎉' : nPass > total * 0.6 ? '⚡' : '🔴';
+
+  let html = `<div class="tr-header">
+    <span class="tr-title">RESULTS</span>
+    <span class="tr-score ${scoreClass}">${scoreEmoji} ${nPass}/${total} passed</span>
+  </div>`;
+
+  // Show failures first (more useful)
+  failed.forEach(r => {
+    html += `<div class="tr-item fail"><span class="tr-icon">✗</span><span>${r.label}</span></div>`;
+  });
+  passed.forEach(r => {
+    html += `<div class="tr-item pass"><span class="tr-icon">✓</span><span>${r.label}</span></div>`;
+  });
+
+  resBox.innerHTML = html;
+  resBox.style.display = 'block';
+  resBox.scrollIntoView({ behavior:'smooth', block:'nearest' });
+
+  // Unlock checklist only when ALL pass
+  if (allOk) {
+    clWrap.style.display = 'block';
+    clWrap.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  } else {
+    clWrap.style.display = 'none';
+  }
+}
+
+/* ── CHECKLIST TICKING ── */
+const taskCheckState = { 1:{}, 2:{}, 3:{}, 4:{} };
+
+function tickCheck(el, taskN) {
+  el.classList.toggle('checked');
+  const container = document.getElementById('tci' + taskN);
+  const items   = container.querySelectorAll('.tci');
+  const allDone = [...items].every(i => i.classList.contains('checked'));
+  const unlockMsg = document.getElementById('tum' + taskN);
+  unlockMsg.style.display = allDone ? 'block' : 'none';
+
+  // Unlock next task when all checks done
+  if (allDone) {
+    const next = taskN + 1;
+    const nextWrap = document.getElementById('tw' + next);
+    if (nextWrap && nextWrap.classList.contains('locked')) {
+      nextWrap.classList.remove('locked');
+      nextWrap.classList.add('unlocking');
+      const lock = document.getElementById('lock' + next);
+      if (lock) lock.textContent = '🔓';
+      setTimeout(() => nextWrap.classList.remove('unlocking'), 600);
+      // Auto-open next task
+      setTimeout(() => {
+        const nextBody = document.getElementById('tb' + next);
+        if (nextBody) {
+          nextWrap.classList.add('open');
+          nextBody.style.display = 'block';
+          nextWrap.scrollIntoView({ behavior:'smooth', block:'start' });
+        }
+      }, 700);
+    }
+    // Save progress
+    try { localStorage.setItem('task_done_' + taskN, '1'); } catch(e) {}
+  }
+}
+
+/* ── LOAD SAVED TASK PROGRESS ── */
+function loadTaskProgress() {
+  for (let n = 1; n <= 4; n++) {
+    try {
+      const done = localStorage.getItem('task_done_' + n);
+      if (done) {
+        const wrap = document.getElementById('tw' + n);
+        const next = document.getElementById('tw' + (n+1));
+        const lock = document.getElementById('lock' + n);
+        if (wrap) { wrap.classList.remove('locked'); wrap.classList.add('open'); }
+        if (lock)  lock.textContent = '✅';
+        // unlock body
+        const body = document.getElementById('tb' + n);
+        if (body) body.style.display = 'block';
+        // unlock next
+        if (next) { next.classList.remove('locked'); const nl = document.getElementById('lock' + (n+1)); if(nl) nl.textContent = '🔓'; }
+      }
+    } catch(e) {}
+  }
+}
+
+/* ── INIT TASKS ── */
+function initTasks() {
+  initTaskToggles();
+  loadTaskProgress();
+  // Task 1 is always open and unlocked
+  const tw1 = document.getElementById('tw1');
+  const tb1 = document.getElementById('tb1');
+  const l1  = document.getElementById('lock1');
+  if (tw1) { tw1.classList.remove('locked'); tw1.classList.add('open'); }
+  if (tb1) tb1.style.display = 'block';
+  if (l1)  l1.textContent = '📝';
+}
+
+setTimeout(initTasks, 300);
+
 </script>
 </body>
 </html>
