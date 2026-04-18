@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HTML Tasks — Real-World Challenges</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary:       #0066cc;
+  --primary-light: #0080ff;
+  --accent:        #00d084;
+  --accent-light:  #33e0a0;
+  --bg:            #08101f;
+  --bg-card:       #0f1a30;
+  --bg-alt:        #0d1628;
+  --text:          #e8e8e8;
+  --text-muted:    #8b92a8;
+  --border:        #1a2a45;
+  --danger:        #ff4757;
+  --warning:       #ffc107;
+  --success:       #00d084;
+
+  /* Task colors */
+  --t1: #0080ff;
+  --t2: #a855f7;
+  --t3: #f97316;
+  --t4: #ec4899;
+
+  --mono: 'Fira Code', monospace;
+  --sans: 'Poppins', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: linear-gradient(135deg, var(--bg) 0%, #0a0f1f 50%, var(--bg-alt) 100%);
+  color: var(--text);
+  line-height: 1.8;
+  font-size: 16px;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,102,204,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,102,204,0.025) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none; z-index: 0;
+}
+
+/* ── PROGRESS BAR ── */
+.progress-bar {
+  position: fixed; top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-light), var(--accent));
+  width: 0%; z-index: 9999;
+  box-shadow: 0 0 20px rgba(0,208,132,.5);
+  transition: width .2s ease;
+}
+
+/* ── HEADER ── */
+header {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 80px 1.5rem 60px;
+  background:
+    radial-gradient(circle at 15% 40%, rgba(0,102,204,.12) 0%, transparent 50%),
+    radial-gradient(circle at 85% 60%, rgba(168,85,247,.1) 0%, transparent 50%);
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,208,132,.06) 0%, transparent 70%);
+  border-radius: 50%;
+  top: -200px; right: -200px;
+}
+
+.back-link {
+  display: inline-flex; align-items: center; gap: .5rem;
+  color: var(--text-muted); text-decoration: none;
+  font-size: .82rem; font-weight: 600;
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+  padding: .4rem .9rem; border-radius: 8px;
+  margin-bottom: 2.5rem;
+  transition: all .2s;
+  position: relative; z-index: 2;
+}
+.back-link:hover { color: var(--accent); border-color: var(--accent); }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--mono); font-size: .72rem;
+  color: var(--accent);
+  background: rgba(0,208,132,.08);
+  border: 1px solid rgba(0,208,132,.25);
+  border-radius: 99px; padding: .35rem 1rem;
+  margin-bottom: 1.5rem; letter-spacing: .08em;
+  position: relative; z-index: 2;
+}
+.eyebrow::before {
+  content: ''; width: 6px; height: 6px;
+  background: var(--accent); border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(0,208,132,.4); }
+  50%      { box-shadow: 0 0 0 6px rgba(0,208,132,0); }
+}
+
+header h1 {
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  font-weight: 900; letter-spacing: -.04em;
+  line-height: 1.05; margin-bottom: 1rem;
+  position: relative; z-index: 2;
+}
+.grad { background: linear-gradient(135deg, var(--primary-light), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+header p {
+  color: var(--text-muted); max-width: 600px;
+  margin: 0 auto 2.5rem; font-size: 1rem;
+  position: relative; z-index: 2;
+}
+
+/* Philosophy strip */
+.philosophy {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;
+  max-width: 760px; margin: 0 auto 1rem;
+  position: relative; z-index: 2;
+}
+.phil-chip {
+  display: flex; align-items: center; gap: .5rem;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 10px; padding: .6rem 1rem; font-size: .82rem;
+  color: var(--text-muted);
+}
+.phil-chip strong { color: var(--text); }
+.phil-chip .icon { font-size: 1.1rem; }
+
+/* ── MAIN ── */
+main {
+  position: relative; z-index: 1;
+  max-width: 860px; margin: 0 auto;
+  padding: 2rem 1.25rem 6rem;
+}
+
+/* ── TASK CARD ── */
+.task-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,.25);
+  opacity: 0; transform: translateY(30px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.task-card.visible { opacity: 1; transform: translateY(0); }
+
+/* Colored top bar per task */
+.task-card[data-task="1"] { --tc: var(--t1); }
+.task-card[data-task="2"] { --tc: var(--t2); }
+.task-card[data-task="3"] { --tc: var(--t3); }
+.task-card[data-task="4"] { --tc: var(--t4); }
+
+.task-card::before {
+  content: '';
+  display: block; height: 4px;
+  background: linear-gradient(90deg, var(--tc), transparent);
+}
+
+/* Task header */
+.task-header {
+  padding: 1.5rem 1.75rem 1.25rem;
+  display: flex; align-items: flex-start; gap: 1.25rem;
+  cursor: pointer;
+  user-select: none;
+}
+.task-badge {
+  width: 52px; height: 52px; flex-shrink: 0;
+  border-radius: 14px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: .6rem;
+  color: var(--tc); letter-spacing: .06em;
+  font-weight: 700; line-height: 1.3;
+}
+.task-badge span { font-size: 1.3rem; line-height: 1; }
+
+.task-header-text { flex: 1; }
+.task-modules {
+  font-family: var(--mono); font-size: .68rem;
+  color: var(--tc); letter-spacing: .06em;
+  margin-bottom: .3rem;
+}
+.task-title {
+  font-size: 1.25rem; font-weight: 800;
+  letter-spacing: -.02em; line-height: 1.2;
+  margin-bottom: .35rem;
+}
+.task-subtitle {
+  font-size: .85rem; color: var(--text-muted); line-height: 1.5;
+}
+
+.task-toggle {
+  width: 32px; height: 32px; flex-shrink: 0;
+  border-radius: 8px; border: 1px solid var(--border);
+  background: var(--bg-alt); color: var(--text-muted);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; transition: all .3s; align-self: center;
+}
+.task-card.open .task-toggle { transform: rotate(180deg); color: var(--tc); border-color: var(--tc); }
+
+/* Task body */
+.task-body {
+  display: none; padding: 0 1.75rem 1.75rem;
+}
+.task-card.open .task-body { display: block; }
+
+/* Difficulty + time strip */
+.task-meta {
+  display: flex; flex-wrap: wrap; gap: .75rem;
+  margin-bottom: 1.5rem;
+}
+.meta-chip {
+  display: flex; align-items: center; gap: .4rem;
+  font-size: .78rem; color: var(--text-muted);
+  background: var(--bg-alt); border: 1px solid var(--border);
+  border-radius: 99px; padding: .3rem .8rem;
+}
+.meta-chip .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+}
+
+/* Scenario box */
+.scenario {
+  background: linear-gradient(135deg, rgba(255,255,255,.03), transparent);
+  border: 1px solid rgba(255,255,255,.07);
+  border-left: 3px solid var(--tc);
+  border-radius: 10px; padding: 1.1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  font-size: .9rem; color: var(--text-muted);
+  line-height: 1.75;
+}
+.scenario strong { color: var(--text); display: block; margin-bottom: .35rem; font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; color: var(--tc); }
+
+/* Section label */
+.section-label {
+  font-family: var(--mono); font-size: .68rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: .6rem;
+  margin-top: 1.5rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.section-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: var(--border);
+}
+
+/* Requirements list */
+.req-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; margin-bottom: .5rem; }
+.req-item {
+  display: flex; align-items: flex-start; gap: .75rem;
+  background: var(--bg-alt); border: 1px solid var(--border);
+  border-radius: 10px; padding: .75rem 1rem;
+  font-size: .88rem; color: var(--text-muted);
+  line-height: 1.55;
+}
+.req-num {
+  width: 22px; height: 22px; flex-shrink: 0;
+  border-radius: 6px;
+  background: rgba(255,255,255,.06);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: .68rem;
+  font-weight: 700; color: var(--tc); margin-top: .1rem;
+}
+.req-item code {
+  font-family: var(--mono); font-size: .82rem;
+  background: rgba(0,208,132,.1); color: var(--accent-light);
+  padding: .05rem .35rem; border-radius: 4px;
+}
+
+/* Checklist */
+.checklist { display: flex; flex-direction: column; gap: .45rem; }
+.check-item {
+  display: flex; align-items: center; gap: .75rem;
+  padding: .6rem .9rem;
+  border-radius: 9px; border: 1px solid var(--border);
+  background: rgba(255,255,255,.02);
+  font-size: .85rem; cursor: pointer;
+  transition: all .2s; user-select: none;
+  color: var(--text-muted);
+}
+.check-item:hover { border-color: rgba(0,208,132,.3); }
+.check-item.checked { background: rgba(0,208,132,.08); border-color: rgba(0,208,132,.3); color: var(--text); }
+.check-item.checked .cb-box { background: var(--success); border-color: var(--success); }
+.check-item.checked .cb-box::after { content: '✓'; }
+.cb-box {
+  width: 20px; height: 20px; flex-shrink: 0;
+  border-radius: 5px; border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; color: #fff; font-weight: 700;
+  transition: all .2s;
+}
+
+/* Forbidden list */
+.forbidden-list { display: flex; flex-direction: column; gap: .4rem; }
+.forbidden-item {
+  display: flex; align-items: flex-start; gap: .7rem;
+  padding: .6rem .9rem;
+  border-radius: 9px;
+  background: rgba(255,71,87,.05);
+  border: 1px solid rgba(255,71,87,.2);
+  font-size: .84rem; color: var(--text-muted); line-height: 1.5;
+}
+.forbidden-item::before { content: '🚫'; flex-shrink: 0; font-size: .9rem; }
+
+/* Hints accordion */
+.hints-wrap { margin-top: .25rem; }
+.hints-toggle {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .82rem; color: var(--warning);
+  cursor: pointer; border: none; background: none;
+  padding: .5rem 0; font-family: var(--sans); font-weight: 600;
+}
+.hints-toggle .arrow { transition: transform .3s; }
+.hints-wrap.open .hints-toggle .arrow { transform: rotate(90deg); }
+.hints-body { display: none; margin-top: .5rem; }
+.hints-wrap.open .hints-body { display: block; }
+.hint-item {
+  display: flex; align-items: flex-start; gap: .7rem;
+  padding: .6rem .9rem; border-radius: 9px;
+  background: rgba(255,193,7,.06);
+  border: 1px solid rgba(255,193,7,.2);
+  font-size: .84rem; color: var(--text-muted);
+  margin-bottom: .4rem; line-height: 1.5;
+}
+.hint-item::before { content: '💡'; flex-shrink: 0; font-size: .85rem; }
+.hint-item code {
+  font-family: var(--mono); font-size: .8rem;
+  background: rgba(255,193,7,.1); color: var(--warning);
+  padding: .05rem .35rem; border-radius: 4px;
+}
+
+/* Progress tracker per task */
+.task-progress {
+  margin-top: 1.25rem;
+  padding: 1rem 1.1rem;
+  background: var(--bg-alt); border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.tp-label {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: .78rem; color: var(--text-muted);
+  margin-bottom: .6rem; font-family: var(--mono);
+}
+.tp-label span { color: var(--tc); font-weight: 700; }
+.tp-bar {
+  height: 6px; background: var(--border); border-radius: 99px; overflow: hidden;
+}
+.tp-fill {
+  height: 100%; border-radius: 99px;
+  background: linear-gradient(90deg, var(--tc), var(--accent));
+  transition: width .4s ease;
+}
+
+/* ── FINAL NOTE ── */
+.final-note {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 2rem;
+  text-align: center; margin-top: 1rem;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .6s .2s ease, transform .6s .2s ease;
+}
+.final-note.visible { opacity: 1; transform: translateY(0); }
+.final-note h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: .75rem; }
+.final-note p  { color: var(--text-muted); font-size: .9rem; max-width: 520px; margin: 0 auto; }
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1;
+  text-align: center; padding: 2rem;
+  color: var(--text-muted); font-size: .82rem;
+  border-top: 1px solid var(--border);
+  background: var(--bg-card);
+}
+footer strong { color: var(--accent); }
+
+/* ── MOBILE ── */
+@media (max-width: 640px) {
+  header { padding: 60px 1.25rem 40px; }
+  header h1 { font-size: 2rem; }
+  .philosophy { gap: .6rem; }
+  .phil-chip { font-size: .76rem; padding: .5rem .8rem; }
+  .task-header { padding: 1.1rem; gap: 1rem; }
+  .task-badge { width: 44px; height: 44px; }
+  .task-body  { padding: 0 1.1rem 1.25rem; }
+  .task-title { font-size: 1.1rem; }
+  .req-item   { font-size: .84rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ════════ HEADER ════════ -->
+<header>
+  <a href="#" class="back-link" onclick="history.back();return false;">← Back to Masterclass</a>
+  <div class="eyebrow">HTML MASTERCLASS · PRACTICAL TASKS</div>
+  <h1>Real-World<br><span class="grad">HTML Tasks</span></h1>
+  <p>These aren't quizzes. They're actual mini-projects. Build something real, break things, figure it out — that's how you actually learn.</p>
+
+  <div class="philosophy">
+    <div class="phil-chip"><span class="icon">🧠</span><div><strong>Understand, don't memorize</strong><br>AI can write code. You need to know <em>why</em> it works.</div></div>
+    <div class="phil-chip"><span class="icon">🔨</span><div><strong>Build something real</strong><br>Every task has a real-world purpose behind it.</div></div>
+    <div class="phil-chip"><span class="icon">🚫</span><div><strong>No AI shortcuts</strong><br>Struggle a little. That's the learning happening.</div></div>
+  </div>
+</header>
+
+<!-- ════════ MAIN ════════ -->
+<main>
+
+<!-- ════════════════════════════════
+  TASK 1 — Modules 01–05
+════════════════════════════════ -->
+<article class="task-card" data-task="1" id="task1">
+  <div class="task-header" onclick="toggleTask('task1')">
+    <div class="task-badge"><span>📄</span>TASK<br>01</div>
+    <div class="task-header-text">
+      <div class="task-modules">COVERS MODULES 01 → 05</div>
+      <div class="task-title">Build Your Personal Bio Page</div>
+      <div class="task-subtitle">HTML basics · Structure · Tags · Text · Lists</div>
+    </div>
+    <div class="task-toggle">▼</div>
+  </div>
+
+  <div class="task-body">
+    <div class="task-meta">
+      <div class="meta-chip"><div class="dot" style="background:#4ade80"></div> Beginner</div>
+      <div class="meta-chip">⏱ 45–90 min</div>
+      <div class="meta-chip">📁 1 HTML file</div>
+    </div>
+
+    <div class="scenario">
+      <strong>🎬 The Scenario</strong>
+      You're applying for a junior developer internship. The company asks you to send a simple HTML-only bio page about yourself before the interview. No CSS, no JavaScript — just clean, well-structured HTML. They want to see if you understand how to structure content meaningfully.
+    </div>
+
+    <div class="section-label">What you need to build</div>
+    <ul class="req-list">
+      <li class="req-item"><div class="req-num">1</div>A proper HTML document with a meaningful <code>&lt;title&gt;</code> that shows in the browser tab.</li>
+      <li class="req-item"><div class="req-num">2</div>A clear heading hierarchy — your name as the main title, and logical sub-headings for each section of your life.</li>
+      <li class="req-item"><div class="req-num">3</div>A short paragraph introducing yourself. Use text emphasis where it genuinely makes sense — don't bold random words.</li>
+      <li class="req-item"><div class="req-num">4</div>Two lists: one for your skills (order doesn't matter), and one for a goal you want to achieve — written as steps in the right order.</li>
+      <li class="req-item"><div class="req-num">5</div>A "favorite quote" section that uses the correct semantic element for quotes, with a credit to whoever said it.</li>
+      <li class="req-item"><div class="req-num">6</div>A thematic divider between your intro and your skills sections.</li>
+    </ul>
+
+    <div class="section-label">Self-check — tick what you've done</div>
+    <div class="checklist" id="cl-task1">
+      <div class="check-item" onclick="toggleCheck(this,'task1')"><div class="cb-box"></div>My HTML file opens without errors in the browser</div>
+      <div class="check-item" onclick="toggleCheck(this,'task1')"><div class="cb-box"></div>There is exactly one &lt;h1&gt; on the page — my name</div>
+      <div class="check-item" onclick="toggleCheck(this,'task1')"><div class="cb-box"></div>I used &lt;strong&gt; or &lt;em&gt; because the content is actually important — not just for looks</div>
+      <div class="check-item" onclick="toggleCheck(this,'task1')"><div class="cb-box"></div>My skills list is &lt;ul&gt; and my steps list is &lt;ol&gt; — and I know why they're different</div>
+      <div class="check-item" onclick="toggleCheck(this,'task1')"><div class="cb-box"></div>The quote uses the right semantic HTML element, not just italic text</div>
+      <div class="check-item" onclick="toggleCheck(this,'task1')"><div class="cb-box"></div>If I view the page source, another developer can understand the structure without seeing it rendered</div>
+    </div>
+
+    <div class="section-label">Forbidden</div>
+    <div class="forbidden-list">
+      <div class="forbidden-item">Any CSS — not even <code>style=""</code> inline attributes. Raw HTML only.</div>
+      <div class="forbidden-item">Using heading tags just to make text bigger. If you write <code>&lt;h2&gt;</code>, that section must actually be a second-level section.</div>
+      <div class="forbidden-item">Using <code>&lt;br&gt;</code> to create spacing between sections. That's what block elements are for.</div>
+    </div>
+
+    <div class="section-label">Stuck? Expand hints</div>
+    <div class="hints-wrap" id="hints-task1">
+      <button class="hints-toggle" onclick="toggleHints('hints-task1')"><span class="arrow">▶</span> Show hints (try for 20 min first)</button>
+      <div class="hints-body">
+        <div class="hint-item">Think about which HTML element was literally designed for quotations. It's not <code>&lt;p&gt;</code> and it's not <code>&lt;em&gt;</code>.</div>
+        <div class="hint-item">The difference between <code>&lt;ul&gt;</code> and <code>&lt;ol&gt;</code> is about meaning, not appearance. Ask yourself: does the order of these items matter in real life?</div>
+        <div class="hint-item">A good heading hierarchy looks like a table of contents. Read your headings out loud in order — do they make sense as an outline?</div>
+        <div class="hint-item">The <code>&lt;title&gt;</code> tag goes inside <code>&lt;head&gt;</code> — it's what shows in the browser tab and in Google search results.</div>
+      </div>
+    </div>
+
+    <div class="task-progress">
+      <div class="tp-label"><span>TASK 01 PROGRESS</span><span id="prog-task1">0 / 6</span></div>
+      <div class="tp-bar"><div class="tp-fill" id="fill-task1" style="width:0%"></div></div>
+    </div>
+  </div>
+</article>
+
+<!-- ════════════════════════════════
+  TASK 2 — Modules 06–10
+════════════════════════════════ -->
+<article class="task-card" data-task="2" id="task2">
+  <div class="task-header" onclick="toggleTask('task2')">
+    <div class="task-badge"><span>🛒</span>TASK<br>02</div>
+    <div class="task-header-text">
+      <div class="task-modules">COVERS MODULES 06 → 10</div>
+      <div class="task-title">A Product Comparison Page</div>
+      <div class="task-subtitle">Links · Images · Attributes · Forms · Semantic HTML · Tables</div>
+    </div>
+    <div class="task-toggle">▼</div>
+  </div>
+
+  <div class="task-body">
+    <div class="task-meta">
+      <div class="meta-chip"><div class="dot" style="background:var(--warning)"></div> Intermediate</div>
+      <div class="meta-chip">⏱ 60–120 min</div>
+      <div class="meta-chip">📁 1 HTML file</div>
+    </div>
+
+    <div class="scenario">
+      <strong>🎬 The Scenario</strong>
+      A friend is starting a small online store selling 3 types of headphones. They asked you to build a simple comparison page that shows the products side by side, lets visitors contact them, and links to product pages. They have no budget yet — just a plain HTML page for now.
+    </div>
+
+    <div class="section-label">What you need to build</div>
+    <ul class="req-list">
+      <li class="req-item"><div class="req-num">1</div>Use proper semantic HTML for the page layout: the site logo/name in a <code>&lt;header&gt;</code>, navigation links in a <code>&lt;nav&gt;</code>, the product area inside <code>&lt;main&gt;</code>, and copyright info in a <code>&lt;footer&gt;</code>.</li>
+      <li class="req-item"><div class="req-num">2</div>A comparison table with at least 3 products and 4 attributes (e.g., price, battery life, color, rating). Make sure the table header row is semantically different from the data rows.</li>
+      <li class="req-item"><div class="req-num">3</div>Each product name in the table should link to an external page (any URL). One of them should open in a new tab, the others should not. Be intentional about which one and why.</li>
+      <li class="req-item"><div class="req-num">4</div>At least one product image with a meaningful alt text. If the image can't load, the alt text should still tell the user what they're missing.</li>
+      <li class="req-item"><div class="req-num">5</div>A contact form at the bottom with: name, email, a dropdown to select which product they're asking about, a message textarea, and a submit button. All fields should be properly labeled.</li>
+      <li class="req-item"><div class="req-num">6</div>Use the <code>id</code> attribute on the contact form section, and put a "Contact Us" link in the <code>&lt;nav&gt;</code> that jumps to it when clicked.</li>
+    </ul>
+
+    <div class="section-label">Self-check — tick what you've done</div>
+    <div class="checklist" id="cl-task2">
+      <div class="check-item" onclick="toggleCheck(this,'task2')"><div class="cb-box"></div>I can explain why each semantic element I used (header, nav, main, footer) is the right choice for that content</div>
+      <div class="check-item" onclick="toggleCheck(this,'task2')"><div class="cb-box"></div>My table has &lt;thead&gt; and &lt;tbody&gt; — and I know the difference between &lt;th&gt; and &lt;td&gt;</div>
+      <div class="check-item" onclick="toggleCheck(this,'task2')"><div class="cb-box"></div>Every &lt;label&gt; in my form is linked to its input with matching for="" and id=""</div>
+      <div class="check-item" onclick="toggleCheck(this,'task2')"><div class="cb-box"></div>My image alt text describes the image content — not just "image" or "photo"</div>
+      <div class="check-item" onclick="toggleCheck(this,'task2')"><div class="cb-box"></div>The nav "Contact Us" link actually jumps to the form when clicked</div>
+      <div class="check-item" onclick="toggleCheck(this,'task2')"><div class="cb-box"></div>I made a deliberate choice about which link opens in a new tab — and I can explain why</div>
+    </div>
+
+    <div class="section-label">Forbidden</div>
+    <div class="forbidden-list">
+      <div class="forbidden-item">Using <code>&lt;div&gt;</code> where a semantic element exists. If there's a semantic element that fits, use it.</div>
+      <div class="forbidden-item">Making every link <code>target="_blank"</code>. Only external links that would take the user away from the current context warrant a new tab.</div>
+      <div class="forbidden-item">Writing <code>alt="image"</code> or <code>alt="product photo"</code>. The alt text should work as a replacement for the image if it doesn't load.</div>
+    </div>
+
+    <div class="section-label">Stuck? Expand hints</div>
+    <div class="hints-wrap" id="hints-task2">
+      <button class="hints-toggle" onclick="toggleHints('hints-task2')"><span class="arrow">▶</span> Show hints (try for 20 min first)</button>
+      <div class="hints-body">
+        <div class="hint-item">An anchor link to a section on the same page looks like <code>href="#section-id"</code>, and the target element needs that <code>id</code> on it.</div>
+        <div class="hint-item">The <code>&lt;select&gt;</code> element creates a dropdown. Each option inside it needs a <code>value</code> attribute and visible text between the tags.</div>
+        <div class="hint-item">Think about when you use <code>target="_blank"</code> in real life. If you're linking to the store's own pages — you don't want to open a new tab. If you're linking to an external review site, a new tab makes sense.</div>
+        <div class="hint-item">A table header cell <code>&lt;th&gt;</code> is for labels (Product Name, Price, etc). A data cell <code>&lt;td&gt;</code> is for the actual data. Screen readers use this distinction to announce column names to blind users.</div>
+      </div>
+    </div>
+
+    <div class="task-progress">
+      <div class="tp-label"><span>TASK 02 PROGRESS</span><span id="prog-task2">0 / 6</span></div>
+      <div class="tp-bar"><div class="tp-fill" id="fill-task2" style="width:0%"></div></div>
+    </div>
+  </div>
+</article>
+
+<!-- ════════════════════════════════
+  TASK 3 — Modules 11–15
+════════════════════════════════ -->
+<article class="task-card" data-task="3" id="task3">
+  <div class="task-header" onclick="toggleTask('task3')">
+    <div class="task-badge"><span>📰</span>TASK<br>03</div>
+    <div class="task-header-text">
+      <div class="task-modules">COVERS MODULES 11 → 15</div>
+      <div class="task-title">A News Article Page</div>
+      <div class="task-subtitle">Multimedia · Entities · Meta Tags · Accessibility · Form Validation</div>
+    </div>
+    <div class="task-toggle">▼</div>
+  </div>
+
+  <div class="task-body">
+    <div class="task-meta">
+      <div class="meta-chip"><div class="dot" style="background:var(--t3)"></div> Intermediate+</div>
+      <div class="meta-chip">⏱ 75–120 min</div>
+      <div class="meta-chip">📁 1 HTML file</div>
+    </div>
+
+    <div class="scenario">
+      <strong>🎬 The Scenario</strong>
+      You're building an article page for a small tech news website. The article is about a fictional AI tool — you'll write the content yourself (keep it short, 2–3 paragraphs). The editor wants the page to look good when shared on WhatsApp and LinkedIn, load fast, and be accessible to readers who use screen readers.
+    </div>
+
+    <div class="section-label">What you need to build</div>
+    <ul class="req-list">
+      <li class="req-item"><div class="req-num">1</div>A complete <code>&lt;head&gt;</code> section with: page title, UTF-8 charset, viewport meta tag, a description meta tag (max 160 characters), and at least 3 Open Graph tags so the article looks good when shared on social media.</li>
+      <li class="req-item"><div class="req-num">2</div>The article content wrapped in the right semantic element — because it's self-contained content that could exist independently from this website. Include a publication date using the element designed for dates/times.</li>
+      <li class="req-item"><div class="req-num">3</div>An embedded YouTube video related to your topic (use any video). Make sure it has a <code>title</code> attribute describing the video for screen readers, and loads lazily.</li>
+      <li class="req-item"><div class="req-num">4</div>At least 2 HTML entities used correctly in the article text — for example, the copyright symbol, an em dash, a trademark symbol, or any special character that belongs in the content.</li>
+      <li class="req-item"><div class="req-num">5</div>A "newsletter signup" form at the end of the article. It needs: an email field that validates format, a name field that's required and has a minimum of 2 characters, and a submit button. All fields must be properly labeled.</li>
+      <li class="req-item"><div class="req-num">6</div>At least one image with proper accessibility: meaningful alt text, and the <code>loading="lazy"</code> attribute since it's below the fold.</li>
+    </ul>
+
+    <div class="section-label">Self-check — tick what you've done</div>
+    <div class="checklist" id="cl-task3">
+      <div class="check-item" onclick="toggleCheck(this,'task3')"><div class="cb-box"></div>If I share this page's URL on WhatsApp, it would show a proper preview (title, description, image) — not just a raw URL</div>
+      <div class="check-item" onclick="toggleCheck(this,'task3')"><div class="cb-box"></div>I used the right semantic element for the article and the publication date — and I know why</div>
+      <div class="check-item" onclick="toggleCheck(this,'task3')"><div class="cb-box"></div>The iframe has a title attribute that would make sense to a blind user who can't see the video</div>
+      <div class="check-item" onclick="toggleCheck(this,'task3')"><div class="cb-box"></div>My entities are used because the character genuinely belongs there — not just pasted in randomly</div>
+      <div class="check-item" onclick="toggleCheck(this,'task3')"><div class="cb-box"></div>If I try to submit the form with an invalid email or empty name, the browser shows a validation error without JavaScript</div>
+      <div class="check-item" onclick="toggleCheck(this,'task3')"><div class="cb-box"></div>My image would still be understandable to someone who can't see it, based on the alt text alone</div>
+    </div>
+
+    <div class="section-label">Forbidden</div>
+    <div class="forbidden-list">
+      <div class="forbidden-item">Skipping the Open Graph tags and hoping it "looks fine" when shared. Check it properly.</div>
+      <div class="forbidden-item">Using <code>&lt;b&gt;</code> or <code>&lt;i&gt;</code> — these are presentational. Use <code>&lt;strong&gt;</code> and <code>&lt;em&gt;</code> for meaning, or CSS for pure styling.</div>
+      <div class="forbidden-item">Writing <code>alt="image of article"</code> or leaving alt empty on a content image. If the image is content, describe it.</div>
+      <div class="forbidden-item">Adding JavaScript to handle form validation. All validation in this task must be HTML attributes only.</div>
+    </div>
+
+    <div class="section-label">Stuck? Expand hints</div>
+    <div class="hints-wrap" id="hints-task3">
+      <button class="hints-toggle" onclick="toggleHints('hints-task3')"><span class="arrow">▶</span> Show hints (try for 20 min first)</button>
+      <div class="hints-body">
+        <div class="hint-item">Open Graph tags use <code>property=""</code> not <code>name=""</code>. The ones you need: <code>og:title</code>, <code>og:description</code>, <code>og:image</code>.</div>
+        <div class="hint-item">The element designed for dates and times is <code>&lt;time&gt;</code>. It has a <code>datetime</code> attribute for the machine-readable format: <code>datetime="2025-01-15"</code>.</div>
+        <div class="hint-item">To embed a YouTube video, change the URL from <code>youtube.com/watch?v=ID</code> to <code>youtube.com/embed/ID</code> and put it in an <code>&lt;iframe&gt;</code>.</div>
+        <div class="hint-item">The em dash entity is <code>&amp;mdash;</code>. The copyright is <code>&amp;copy;</code>. Use them where they genuinely belong in the prose.</div>
+        <div class="hint-item">HTML form validation for minimum length is <code>minlength="2"</code>. For email format validation, just using <code>type="email"</code> is enough.</div>
+      </div>
+    </div>
+
+    <div class="task-progress">
+      <div class="tp-label"><span>TASK 03 PROGRESS</span><span id="prog-task3">0 / 6</span></div>
+      <div class="tp-bar"><div class="tp-fill" id="fill-task3" style="width:0%"></div></div>
+    </div>
+  </div>
+</article>
+
+<!-- ════════════════════════════════
+  TASK 4 — Modules 16–17 + Final
+════════════════════════════════ -->
+<article class="task-card" data-task="4" id="task4">
+  <div class="task-header" onclick="toggleTask('task4')">
+    <div class="task-badge"><span>🚀</span>TASK<br>04</div>
+    <div class="task-header-text">
+      <div class="task-modules">COVERS MODULES 16 → 17 + FULL CAPSTONE</div>
+      <div class="task-title">Build a Complete HTML Website</div>
+      <div class="task-subtitle">Global Attributes · Responsive Images · Everything</div>
+    </div>
+    <div class="task-toggle">▼</div>
+  </div>
+
+  <div class="task-body">
+    <div class="task-meta">
+      <div class="meta-chip"><div class="dot" style="background:var(--t4)"></div> Advanced</div>
+      <div class="meta-chip">⏱ 2–4 hours</div>
+      <div class="meta-chip">📁 1 HTML file</div>
+      <div class="meta-chip">🏆 Capstone</div>
+    </div>
+
+    <div class="scenario">
+      <strong>🎬 The Scenario</strong>
+      A friend who's a freelance photographer wants a simple online portfolio. They've never had a website. You're going to build the full HTML structure for their site — no CSS yet, just clean, complete, production-ready HTML that any developer could later add styles to. This is the real thing. Take your time.
+    </div>
+
+    <div class="section-label">What you need to build</div>
+    <ul class="req-list">
+      <li class="req-item"><div class="req-num">1</div><strong style="color:var(--text)">Complete head section:</strong> charset, viewport, page title, description, author, Open Graph tags (title, description, image, type), Twitter card, and a canonical link. Every tag must have real, meaningful content — not placeholder text.</li>
+      <li class="req-item"><div class="req-num">2</div><strong style="color:var(--text)">Semantic structure:</strong> A <code>&lt;header&gt;</code> with a site name and nav. A <code>&lt;main&gt;</code> containing at least 3 <code>&lt;section&gt;</code>s: About, Portfolio, and Contact. A <code>&lt;footer&gt;</code> with copyright (using the right entity) and social links.</li>
+      <li class="req-item"><div class="req-num">3</div><strong style="color:var(--text)">Portfolio gallery:</strong> At least 4 photos using responsive images — the <code>&lt;picture&gt;</code> element with at least a WebP source and a JPEG fallback. Every image must have <code>loading="lazy"</code>, <code>decoding="async"</code>, and a genuinely descriptive alt text.</li>
+      <li class="req-item"><div class="req-num">4</div><strong style="color:var(--text)">Global attributes:</strong> Use <code>data-*</code> attributes on the portfolio images to store the photo category and year. Add <code>lang</code> to any non-English text on the page. Use <code>contenteditable</code> on the "tagline" so the visitor can type their own version right on the page.</li>
+      <li class="req-item"><div class="req-num">5</div><strong style="color:var(--text)">Fully accessible contact form:</strong> Name (required, minlength 2), email (required, email type), project type dropdown, budget range with a <code>&lt;datalist&gt;</code> for suggestions, message (required), and a checkbox for newsletter consent. Every field must have a linked label. Group the personal info fields in a <code>&lt;fieldset&gt;</code>.</li>
+      <li class="req-item"><div class="req-num">6</div><strong style="color:var(--text)">Accessibility pass:</strong> Icon-only buttons must have <code>aria-label</code>. Decorative elements (if any) must have <code>aria-hidden="true"</code>. The page must have a logical heading hierarchy. The <code>&lt;html&gt;</code> tag must have the correct <code>lang</code> attribute.</li>
+    </ul>
+
+    <div class="section-label">Self-check — tick what you've done</div>
+    <div class="checklist" id="cl-task4">
+      <div class="check-item" onclick="toggleCheck(this,'task4')"><div class="cb-box"></div>I opened the page and read all headings out loud — they make a logical outline of the site</div>
+      <div class="check-item" onclick="toggleCheck(this,'task4')"><div class="cb-box"></div>I disabled images in my browser — the alt texts alone still tell the full story of the portfolio</div>
+      <div class="check-item" onclick="toggleCheck(this,'task4')"><div class="cb-box"></div>I tried navigating the form using only the keyboard (Tab key) — every field is reachable in logical order</div>
+      <div class="check-item" onclick="toggleCheck(this,'task4')"><div class="cb-box"></div>I tried sharing the page URL in a WhatsApp message — a proper card appeared with title, description, and image</div>
+      <div class="check-item" onclick="toggleCheck(this,'task4')"><div class="cb-box"></div>I can open browser DevTools, click any portfolio image, and see its data-category and data-year in the attributes panel</div>
+      <div class="check-item" onclick="toggleCheck(this,'task4')"><div class="cb-box"></div>I tried submitting the form empty and with a bad email — the browser caught both errors without any JavaScript</div>
+      <div class="check-item" onclick="toggleCheck(this,'task4')"><div class="cb-box"></div>I validated the HTML at validator.w3.org — zero errors (warnings are okay)</div>
+      <div class="check-item" onclick="toggleCheck(this,'task4')"><div class="cb-box"></div>I looked at the page source and I'm genuinely proud of how clean and readable the structure is</div>
+    </div>
+
+    <div class="section-label">Forbidden</div>
+    <div class="forbidden-list">
+      <div class="forbidden-item">Using <code>alt=""</code> on any portfolio photo. Every photo in a photography portfolio is content — it must be described.</div>
+      <div class="forbidden-item">Using <code>&lt;div&gt;</code> where a semantic element clearly fits. After 17 modules, you know better.</div>
+      <div class="forbidden-item">Faking the Open Graph tags with placeholder text. Write real content as if this were a real photographer's website.</div>
+      <div class="forbidden-item">Using JavaScript for any validation or interaction in this task. Everything must be native HTML.</div>
+      <div class="forbidden-item">Copy-pasting from the masterclass examples. You can reference them, but write every line yourself.</div>
+    </div>
+
+    <div class="section-label">Bonus challenges (optional)</div>
+    <ul class="req-list">
+      <li class="req-item"><div class="req-num">+</div>Add a <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> element for an FAQ section — research these yourself, they weren't in the course.</li>
+      <li class="req-item"><div class="req-num">+</div>Validate your page with the W3C HTML validator. Fix every error you find and understand why each one was flagged.</li>
+      <li class="req-item"><div class="req-num">+</div>Run the page through a free accessibility checker (like WAVE or axe DevTools) and fix every critical issue it finds.</li>
+    </ul>
+
+    <div class="section-label">Stuck? Expand hints</div>
+    <div class="hints-wrap" id="hints-task4">
+      <button class="hints-toggle" onclick="toggleHints('hints-task4')"><span class="arrow">▶</span> Show hints (try for 30 min first)</button>
+      <div class="hints-body">
+        <div class="hint-item">For <code>data-*</code> attributes: <code>data-category="landscape"</code> and <code>data-year="2024"</code> — then in JS (later) you access it via <code>element.dataset.category</code>.</div>
+        <div class="hint-item">The <code>&lt;datalist&gt;</code> element gives suggestions to an <code>&lt;input&gt;</code>. Give both the same <code>id</code>/<code>list</code> pair: <code>&lt;input list="budgets"&gt;</code> then <code>&lt;datalist id="budgets"&gt;</code>.</div>
+        <div class="hint-item">For <code>&lt;picture&gt;</code> with free images: use picsum.photos as your source. WebP and JPEG can point to the same URL — the important thing is that you're using the correct HTML structure.</div>
+        <div class="hint-item">To check Open Graph tags without publishing, paste your HTML into opengraph.xyz or use a browser extension like "Open Graph Preview".</div>
+        <div class="hint-item">The copyright entity is <code>&amp;copy;</code> — use it in your footer like: <code>&amp;copy; 2025 Photographer Name</code>.</div>
+      </div>
+    </div>
+
+    <div class="task-progress">
+      <div class="tp-label"><span>TASK 04 PROGRESS</span><span id="prog-task4">0 / 8</span></div>
+      <div class="tp-bar"><div class="tp-fill" id="fill-task4" style="width:0%"></div></div>
+    </div>
+  </div>
+</article>
+
+<!-- Final note -->
+<div class="final-note" id="finalNote">
+  <div style="font-size:2.5rem;margin-bottom:.75rem;">💬</div>
+  <h2>A Note on Using AI</h2>
+  <p style="margin-bottom:1rem;">
+    Yes, you can ask AI to explain something you don't understand. That's fine — it's like asking a teacher. But if you paste a task into an AI and copy the output, you've learned absolutely nothing. The struggle <em>is</em> the learning. Every bug you fix yourself sticks. Every bug AI fixes for you disappears.
+  </p>
+  <p>The goal isn't a working file. The goal is a working brain. 🧠</p>
+</div>
+
+</main>
+
+<footer>
+  <p>HTML Masterclass · <strong>Practical Tasks</strong> · Build. Break. Learn.</p>
+</footer>
+
+<script>
+/* ── SCROLL REVEAL ── */
+const reveals = document.querySelectorAll('.task-card, .final-note');
+const progressBar = document.getElementById('progressBar');
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.06 });
+reveals.forEach(el => obs.observe(el));
+
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  progressBar.style.width = Math.min(pct, 100) + '%';
+}, { passive: true });
+
+/* ── TASK TOGGLE ── */
+function toggleTask(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+
+/* ── HINTS TOGGLE ── */
+function toggleHints(id) {
+  const wrap = document.getElementById(id);
+  wrap.classList.toggle('open');
+}
+
+/* ── CHECKLIST ── */
+const taskChecks = { task1: 0, task2: 0, task3: 0, task4: 0 };
+const taskTotals = { task1: 6, task2: 6, task3: 6, task4: 8 };
+
+function toggleCheck(el, taskId) {
+  el.classList.toggle('checked');
+  // recount
+  const container = document.getElementById('cl-' + taskId);
+  const total   = container.querySelectorAll('.check-item').length;
+  const checked = container.querySelectorAll('.check-item.checked').length;
+  document.getElementById('prog-' + taskId).textContent = `${checked} / ${total}`;
+  document.getElementById('fill-' + taskId).style.width = `${(checked/total)*100}%`;
+  // save to localStorage
+  try {
+    const state = [...container.querySelectorAll('.check-item')].map(i => i.classList.contains('checked'));
+    localStorage.setItem('checks-' + taskId, JSON.stringify(state));
+  } catch(e) {}
+}
+
+/* ── PERSIST CHECKS ── */
+function loadChecks() {
+  ['task1','task2','task3','task4'].forEach(taskId => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('checks-' + taskId));
+      if (!saved) return;
+      const items = document.querySelectorAll(`#cl-${taskId} .check-item`);
+      items.forEach((item, i) => {
+        if (saved[i]) {
+          item.classList.add('checked');
+          item.querySelector('.cb-box').textContent = ''; // will show via CSS ::after
+        }
+      });
+      const total   = items.length;
+      const checked = document.querySelectorAll(`#cl-${taskId} .check-item.checked`).length;
+      document.getElementById('prog-' + taskId).textContent = `${checked} / ${total}`;
+      document.getElementById('fill-' + taskId).style.width = `${(checked/total)*100}%`;
+    } catch(e) {}
+  });
+}
+
+// Open first task by default
+document.getElementById('task1').classList.add('open');
+
+// Load saved state
+loadChecks();
+</script>
+</body>
+</html>
